@@ -1,26 +1,137 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-brand: #008068;
+  --color-brand-hover: #006B57;
+  --color-bg-main: #E8E8E8;
+  --color-surface-soft: #F8F8F0;
+  --color-surface-pure: #FFFFFF;
+  --color-text-primary: #000000;
+  --color-text-secondary: #484848;
+  --color-border-subtle: #D0D0D0;
+  --color-grid-line: rgba(0, 0, 0, 0.09);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand: #008068;
+  --color-brand-hover: #006B57;
+  --color-bg-main: #E8E8E8;
+  --color-surface-soft: #F8F8F0;
+  --color-surface-pure: #FFFFFF;
+  --color-text-primary: #000000;
+  --color-text-secondary: #484848;
+  --color-border-subtle: #D0D0D0;
+  --font-serif: var(--font-serif), "Bodoni MT", Didot, "Didot LT STD", Georgia, serif;
+  --font-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-figtree: var(--font-figtree), "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-heading), "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Global Continuous Architectural Grid */
+body {
+  background-color: #E8E8E8;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.12) 1px, transparent 1px);
+  background-size: 130px 130px;
+  background-position: center top;
+  color: #000000;
+  font-family: var(--font-sans), sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-size: 80px 80px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.bg-arch-grid {
+  background-color: #E8E8E8;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.12) 1px, transparent 1px);
+  background-size: 130px 130px;
+  background-position: center top;
 }
+
+@media (max-width: 768px) {
+  .bg-arch-grid {
+    background-size: 80px 80px;
+  }
+}
+
+.font-serif-display {
+  font-family: var(--font-serif), "Bodoni MT", Didot, Georgia, serif;
+}
+
+.font-sans-body {
+  font-family: var(--font-sans), sans-serif;
+}
+
+.font-grotesque {
+  font-family: var(--font-grotesque), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+.font-mono-hud {
+  font-family: var(--font-mono-hud), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.14em;
+}
+
+.font-serif-accent {
+  font-family: var(--font-serif), "Bodoni MT", Didot, Georgia, serif;
+  font-style: italic;
+}
+
+/* Ambient physical float animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+/* Utility to hide scrollbars while keeping scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Staggered fade and rise intro animations for LifeCare Hero */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-150 {
+  animation-delay: 150ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+
