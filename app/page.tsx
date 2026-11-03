@@ -1,36 +1,41 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import JourneyFlow from "@/components/journey/JourneyFlow";
+import CareArcFlow from "@/components/CareArcFlow";
+import ClinicalIntro from "@/components/ClinicalIntro";
+import TreatmentGallery from "@/components/TreatmentGallery";
 import SpecialismShowcase from "@/components/SpecialismShowcase";
 import FamilyCareAccordion from "@/components/FamilyCareAccordion";
+import ClinicalEditorialStory from "@/components/ClinicalEditorialStory";
 import SpecialtyDepartments from "@/components/SpecialtyDepartments";
 import HealthReadsSection from "@/components/HealthReadsSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import Footer from "@/components/Footer";
+import RecoveryConnectionSequence from "@/components/RecoveryConnectionSequence";
+import ClinicalJournalSection from "@/components/ClinicalJournalSection";
+import EditorialTestimonialsSection from "@/components/EditorialTestimonialsSection";
+import EditorialFooter from "@/components/EditorialFooter";
 
-const LifeCareHero = dynamic(() => import("@/components/hero/LifeCareHero"), {
-  ssr: false,
-});
-
-const CalmDrawingSection = dynamic(() => import("@/components/CalmDrawingSection"), {
-  ssr: false,
-});
+import FlowingHero from "@/components/hero/FlowingHero";
+import HealthcareMarquee from "@/components/HealthcareMarquee";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-arch-grid">
-      <main className="flex-1 flex flex-col">
-        <LifeCareHero />
-        <JourneyFlow />
-        <CalmDrawingSection />
+    <div className="min-h-screen w-full bg-arch-grid">
+      <main className="w-full relative">
+        <FlowingHero />
+        <HealthcareMarquee />
+        <CareArcFlow />
+        <ClinicalIntro />
+        <TreatmentGallery />
         <SpecialismShowcase />
         <FamilyCareAccordion />
+        <ClinicalEditorialStory />
         <SpecialtyDepartments />
         <HealthReadsSection />
-        <TestimonialsSection />
-        <Footer />
+        <RecoveryConnectionSequence />
+        <ClinicalJournalSection />
+        <EditorialTestimonialsSection />
+        <EditorialFooter />
       </main>
     </div>
   );
 }
+
