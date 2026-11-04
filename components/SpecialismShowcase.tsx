@@ -73,7 +73,7 @@ export default function SpecialismShowcase() {
               The art of<br />
               relationships.<br />
               The science of<br />
-              <span className="text-[#FF6B4A] font-normal">specialism.</span>
+              <span className="text-[#008068] font-normal">specialism.</span>
             </h2>
 
             <div className="mt-8 sm:mt-12 max-w-xl">
@@ -99,7 +99,7 @@ export default function SpecialismShowcase() {
                 {Array.from({ length: gridRows * gridCols }).map((_, i) => (
                   <span
                     key={i}
-                    className="text-[#FF6B4A] font-light text-xs sm:text-sm select-none"
+                    className="text-[#008068]/60 font-light text-xs sm:text-sm select-none"
                   >
                     +
                   </span>
@@ -147,10 +147,10 @@ export default function SpecialismShowcase() {
                 {/* Header Row: Title + Arrow link */}
                 <div>
                   <div className="flex items-baseline justify-between gap-2 pb-3">
-                    <h3 className="font-sans font-light text-xl sm:text-[22px] lg:text-2xl text-neutral-900 tracking-tight leading-snug group-hover:text-[#FF6B4A] transition-colors duration-200">
+                    <h3 className="font-sans font-light text-xl sm:text-[22px] lg:text-2xl text-neutral-900 tracking-tight leading-snug group-hover:text-[#008068] transition-colors duration-200">
                       {item.title}
                     </h3>
-                    <span className="font-sans text-sm sm:text-base text-neutral-500 group-hover:text-[#FF6B4A] group-hover:translate-x-1 transition-all duration-200 shrink-0">
+                    <span className="font-sans text-sm sm:text-base text-neutral-500 group-hover:text-[#008068] group-hover:translate-x-1 transition-all duration-200 shrink-0">
                       {item.linkText}
                     </span>
                   </div>

@@ -137,7 +137,7 @@ export default function RecoveryConnectionSequence() {
             ==================================================================== */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 px-4">
           <h2
-            className="font-sans font-black tracking-[-0.04em] text-[#FFA439] opacity-85 select-none leading-none text-center whitespace-nowrap"
+            className="font-sans font-light tracking-[-0.035em] text-[#008068] opacity-90 select-none leading-none text-center whitespace-nowrap"
             style={{
               fontSize: "clamp(56px, 11vw, 200px)",
               textShadow: "0 10px 40px rgba(0, 0, 0, 0.4)",

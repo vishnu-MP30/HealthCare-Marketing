@@ -23,10 +23,10 @@ export default function EditorialFooter() {
             <span className="font-mono text-xs uppercase tracking-widest text-white/50 mb-4 block">
               N° 00 — START HERE
             </span>
-            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-normal leading-[1.08] tracking-tight max-w-2xl">
+            <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] text-white leading-[1.04] tracking-[-0.035em] max-w-3xl">
               Feeling better starts with
               <br />
-              a proper conversation.
+              a proper <span className="text-[#008068] font-normal">conversation.</span>
             </h2>
           </div>
 
@@ -36,12 +36,12 @@ export default function EditorialFooter() {
               className="w-7 h-7 rounded-full border border-white/20 hidden sm:flex items-center justify-center shrink-0"
               aria-hidden="true"
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-white/70" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#008068]" />
             </div>
 
             <Link
               href="#book"
-              className="px-7 py-3.5 rounded-full bg-[#FAF8F5] text-[#182B22] hover:bg-white transition-all duration-300 text-sm font-semibold tracking-wide inline-flex items-center gap-2 group shadow-md"
+              className="px-7 py-3.5 rounded-full bg-white text-[#182B22] hover:bg-neutral-100 transition-all duration-300 text-sm font-semibold tracking-wide inline-flex items-center gap-2 group shadow-md"
             >
               <span>Book an assessment</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -185,7 +185,7 @@ export default function EditorialFooter() {
             "LifeCare" taking massive width across bottom
             ==================================================================== */}
         <div className="pt-16 sm:pt-24 select-none pointer-events-none">
-          <h1 className="font-serif text-[17vw] sm:text-[19vw] lg:text-[20vw] text-[#FAF8F5] leading-none tracking-tight opacity-95 -ml-1 sm:-ml-3 font-normal">
+          <h1 className="font-sans font-light text-[17vw] sm:text-[19vw] lg:text-[20vw] text-white/95 leading-none tracking-[-0.04em] opacity-95 -ml-1 sm:-ml-3">
             LifeCare
           </h1>
         </div>

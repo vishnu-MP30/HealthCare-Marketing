@@ -21,8 +21,8 @@ export default function HealthReadsSection() {
   return (
     <section
       id="health-reads"
-      className="relative z-10 w-full bg-[#FAF8F5] text-[#132a21] py-24 sm:py-32 border-b border-[#132a21]/10"
-      style={{ backgroundColor: "#FAF8F5" }}
+      className="relative z-10 w-full bg-[#fcfcfc] text-[#111111] py-24 sm:py-32 border-b border-neutral-200 select-none"
+      style={{ backgroundColor: "#fcfcfc" }}
       aria-label="Health Reads & Clinical Guidance"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
@@ -36,11 +36,11 @@ export default function HealthReadsSection() {
             Clinical Insights &amp; Guidance
           </span>
 
-          <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl text-[#132a21] font-normal tracking-tight leading-[1.08] mt-3 mb-6">
-            Health Reads.
+          <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] text-[#111111] leading-[1.04] tracking-[-0.035em] mt-3 mb-6">
+            Health <span className="text-[#008068] font-normal">Reads.</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-[#132a21]/70 font-light leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-neutral-600 font-light leading-relaxed max-w-2xl mx-auto">
             Not sure which guidance fits? Choose a clinical focus and explore measured insights, preventive protocols, and practical advice from our medical team.
           </p>
         </div>
@@ -65,8 +65,8 @@ export default function HealthReadsSection() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? "bg-[#132a21] text-white shadow-sm"
-                    : "bg-transparent text-[#132a21]/70 border border-[#132a21]/20 hover:border-[#132a21] hover:text-[#132a21]"
+                    ? "bg-[#111111] text-white shadow-sm"
+                    : "bg-transparent text-neutral-600 border border-neutral-300 hover:border-[#111111] hover:text-[#111111]"
                 }`}
               >
                 {tab.label}
@@ -92,7 +92,7 @@ export default function HealthReadsSection() {
               className="group flex flex-col items-center text-center cursor-pointer select-none"
             >
               {/* Circular Framed Image */}
-              <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden shadow-sm border border-[#132a21]/10 bg-white transition-all duration-500 group-hover:scale-105 group-hover:shadow-xl">
+              <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 rounded-full overflow-hidden shadow-sm border border-neutral-200 bg-white transition-all duration-500 group-hover:scale-105 group-hover:shadow-xl">
                 <Image
                   src={article.image}
                   alt={article.title}
@@ -103,13 +103,13 @@ export default function HealthReadsSection() {
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-[#008068]/15 transition-colors duration-400" />
               </div>
 
-              {/* Title Underneath in Bodoni Serif Font */}
-              <h3 className="font-serif text-lg sm:text-xl lg:text-2xl text-[#132a21] font-normal leading-snug mt-6 transition-colors duration-200 group-hover:text-[#008068] max-w-[260px]">
+              {/* Title Underneath in Sans Font */}
+              <h3 className="font-sans font-light text-lg sm:text-xl lg:text-2xl text-[#111111] leading-snug tracking-[-0.02em] mt-6 transition-colors duration-200 group-hover:text-[#008068] max-w-[260px]">
                 {article.title}
               </h3>
 
               {/* Minimal reading time prompt */}
-              <span className="text-[11px] sm:text-xs uppercase tracking-widest text-[#132a21]/45 mt-2 font-medium flex items-center gap-1 group-hover:text-[#008068] transition-colors">
+              <span className="text-[11px] sm:text-xs uppercase tracking-widest text-neutral-400 mt-2 font-medium flex items-center gap-1 group-hover:text-[#008068] transition-colors">
                 <BookOpen className="w-3 h-3" />
                 Read article
               </span>
@@ -118,10 +118,10 @@ export default function HealthReadsSection() {
         </div>
 
         {/* Bottom CTA / Browse All */}
-        <div className="mt-16 sm:mt-20 pt-10 border-t border-[#132a21]/10 text-center">
+        <div className="mt-16 sm:mt-20 pt-10 border-t border-neutral-200 text-center">
           <Link
             href="#all-reads"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-[#132a21] hover:text-[#008068] transition-colors border-b border-[#132a21]/30 pb-0.5"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-[#111111] hover:text-[#008068] transition-colors border-b border-neutral-300 pb-0.5"
           >
             Explore all health &amp; clinical articles
             <ArrowRight className="w-3.5 h-3.5" />

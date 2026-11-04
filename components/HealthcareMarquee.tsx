@@ -21,8 +21,8 @@ export default function HealthcareMarquee() {
   return (
     <section
       aria-label="Healthcare Specialties Marquee"
-      className="relative z-10 w-full overflow-hidden border-y border-[#132a21]/15 py-6 sm:py-8 lg:py-10 select-none bg-[#FAF8F5]"
-      style={{ backgroundColor: "#FAF8F5" }}
+      className="relative z-10 w-full overflow-hidden border-y border-neutral-200 py-6 sm:py-8 lg:py-10 select-none bg-[#fcfcfc]"
+      style={{ backgroundColor: "#fcfcfc" }}
     >
       {/* Inline Hardware-Accelerated Animation Styles to guarantee 100% active infinite motion */}
       <style>{`
@@ -43,8 +43,8 @@ export default function HealthcareMarquee() {
       `}</style>
 
       {/* Subtle edge fades for smooth entrance and exit */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 md:w-44 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/90 to-transparent pointer-events-none z-10" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 md:w-44 bg-gradient-to-l from-[#FAF8F5] via-[#FAF8F5]/90 to-transparent pointer-events-none z-10" />
+      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 md:w-44 bg-gradient-to-r from-[#fcfcfc] via-[#fcfcfc]/90 to-transparent pointer-events-none z-10" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 md:w-44 bg-gradient-to-l from-[#fcfcfc] via-[#fcfcfc]/90 to-transparent pointer-events-none z-10" />
 
       {/* Continuous Infinite Moving Track */}
       <div className="marquee-moving-track items-center">
@@ -52,7 +52,7 @@ export default function HealthcareMarquee() {
         <div className="flex shrink-0 items-center">
           {HEALTHCARE_FIELDS.map((field, idx) => (
             <div key={`field-1-${idx}`} className="flex items-center shrink-0">
-              <span className="font-serif italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] tracking-tight text-[#132a21]">
+              <span className="font-sans font-light text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] tracking-[-0.035em] text-[#111111]">
                 {field}
               </span>
               <span
@@ -69,7 +69,7 @@ export default function HealthcareMarquee() {
         <div className="flex shrink-0 items-center" aria-hidden="true">
           {HEALTHCARE_FIELDS.map((field, idx) => (
             <div key={`field-2-${idx}`} className="flex items-center shrink-0">
-              <span className="font-serif italic font-normal text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] tracking-tight text-[#132a21]">
+              <span className="font-sans font-light text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] tracking-[-0.035em] text-[#111111]">
                 {field}
               </span>
               <span

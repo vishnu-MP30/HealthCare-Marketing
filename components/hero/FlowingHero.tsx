@@ -246,15 +246,15 @@ export default function FlowingHero() {
           margin: "0 auto",
         }}
       >
-        {/* Large Editorial Serif Headline */}
+        {/* Large Editorial Headline */}
         <h1
-          className="font-serif text-[#1A2A1F] font-normal tracking-[-0.02em] leading-[1.02] max-w-5xl hero-headline-anim"
+          className="font-sans font-light text-[#1A2A1F] tracking-[-0.035em] leading-[1.02] max-w-5xl hero-headline-anim"
           style={{
             fontSize: "clamp(2.4rem, 4.6vw, 5.4rem)",
           }}
         >
           <span>Personalized Care for a </span>
-          <span className="text-[#0B501C] font-normal">Healthier You.</span>
+          <span className="text-[#008068] font-normal">Healthier You.</span>
         </h1>
 
         {/* One-Line Subtitle (20-24px below headline) */}
@@ -267,7 +267,7 @@ export default function FlowingHero() {
           <a
             ref={ctaRef}
             href="#care"
-            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#0B501C] hover:bg-[#083D15] text-white font-sans text-base font-medium tracking-wide transition-all duration-200 shadow-md hover:shadow-lg hover:scale-[1.02] cursor-pointer"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#008068] hover:bg-[#006B57] text-white font-sans text-base font-medium tracking-wide transition-all duration-200 shadow-md hover:shadow-lg hover:scale-[1.02] cursor-pointer"
           >
             <span>Explore Our Care</span>
             <span aria-hidden="true">→</span>
@@ -292,7 +292,7 @@ export default function FlowingHero() {
       >
         <span
           className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors ${
-            isPlayingSound ? "bg-[#0B501C] text-white" : "bg-[#1A2A1F]/10 text-[#1A2A1F]"
+            isPlayingSound ? "bg-[#008068] text-white" : "bg-[#1A2A1F]/10 text-[#1A2A1F]"
           }`}
         >
           {isPlayingSound ? (

@@ -149,17 +149,18 @@ export default function SpecialtyDepartments() {
   return (
     <section
       id="specialty-departments"
-      className="relative w-full bg-[#FAF8F5] text-neutral-900 py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-t border-neutral-200/80 overflow-hidden select-none"
+      className="relative w-full bg-[#fcfcfc] text-neutral-900 py-16 sm:py-24 px-4 sm:px-8 lg:px-12 border-t border-neutral-200 overflow-hidden select-none"
+      style={{ backgroundColor: "#fcfcfc" }}
     >
       <div className="max-w-[1400px] mx-auto">
         {/* ==================================================================
-            HEADER ROW (Terracotta serif title, clean subtext & view all button)
+            HEADER ROW (Editorial serif title, clean subtext & view all button)
             ================================================================== */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-14">
           <div className="max-w-2xl">
-            {/* Terracotta Editorial Serif Title */}
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[52px] text-[#944b2d] font-normal tracking-tight leading-tight">
-              Specialty Departments
+            {/* Editorial Title */}
+            <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] text-[#111111] leading-[1.04] tracking-[-0.035em]">
+              Specialty <span className="text-[#008068] font-normal">Departments</span>
             </h2>
             <p className="mt-3 text-sm sm:text-base text-neutral-600 font-sans leading-relaxed">
               A few of our specialty departments that are equipped for your special needs.
@@ -173,7 +174,7 @@ export default function SpecialtyDepartments() {
                 type="button"
                 onClick={() => scroll("left")}
                 aria-label="Scroll left"
-                className="w-10 h-10 rounded-full bg-[#F3E7DA]/70 hover:bg-[#F3E7DA] text-[#6A4126] flex items-center justify-center transition-all duration-200 active:scale-95 border border-[#6A4126]/10 cursor-pointer"
+                className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-neutral-200 text-[#111111] flex items-center justify-center transition-all duration-200 active:scale-95 border border-neutral-200 cursor-pointer"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M15 19l-7-7 7-7" />
@@ -183,7 +184,7 @@ export default function SpecialtyDepartments() {
                 type="button"
                 onClick={() => scroll("right")}
                 aria-label="Scroll right"
-                className="w-10 h-10 rounded-full bg-[#F3E7DA]/70 hover:bg-[#F3E7DA] text-[#6A4126] flex items-center justify-center transition-all duration-200 active:scale-95 border border-[#6A4126]/10 cursor-pointer"
+                className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-neutral-200 text-[#111111] flex items-center justify-center transition-all duration-200 active:scale-95 border border-neutral-200 cursor-pointer"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M9 5l7 7-7 7" />
@@ -195,7 +196,7 @@ export default function SpecialtyDepartments() {
             <button
               type="button"
               onClick={() => setViewAllOpen(true)}
-              className="inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 rounded-full bg-[#F3E7DA] text-[#6A4126] hover:bg-[#ebdccb] font-sans text-xs sm:text-[13px] tracking-wider font-semibold uppercase transition-all duration-200 shadow-xs active:scale-95 group border border-[#6A4126]/10 cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 rounded-full bg-[#111111] text-white hover:bg-neutral-800 font-sans text-xs sm:text-[13px] tracking-wider font-semibold uppercase transition-all duration-200 shadow-xs active:scale-95 group border border-[#111111] cursor-pointer"
             >
               <span>VIEW ALL DEPARTMENTS</span>
               <span className="transition-transform duration-200 group-hover:translate-x-0.5">↗</span>
@@ -263,7 +264,7 @@ export default function SpecialtyDepartments() {
         {/* Bottom indicator hint */}
         <div className="flex items-center justify-between mt-6 text-xs text-neutral-500 font-mono">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#944b2d]" />
+            <span className="w-2 h-2 rounded-full bg-[#008068]" />
             <span>5 SPECIALTY DIVISIONS • ACCREDITED EXCELLENCE</span>
           </div>
           <span className="hidden sm:inline">DRAG OR SCROLL TO EXPLORE MORE →</span>
@@ -308,7 +309,7 @@ export default function SpecialtyDepartments() {
                 <span className="text-[11px] font-mono uppercase tracking-widest text-[#34d399] font-bold">
                   {selectedDept.category}
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-serif text-white font-normal mt-1">
+                <h3 className="text-2xl sm:text-3xl font-sans font-light text-white mt-1 tracking-[-0.035em]">
                   {selectedDept.name}
                 </h3>
               </div>
@@ -317,7 +318,7 @@ export default function SpecialtyDepartments() {
             {/* Modal Content */}
             <div className="p-6 sm:p-8 overflow-y-auto space-y-5">
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-widest text-[#944b2d] font-bold mb-1">
+                <h4 className="text-xs font-mono uppercase tracking-widest text-[#111111] font-bold mb-1">
                   Department Overview
                 </h4>
                 <p className="text-sm sm:text-base text-neutral-700 font-sans leading-relaxed">
@@ -326,7 +327,7 @@ export default function SpecialtyDepartments() {
               </div>
 
               {/* Clinical Highlights */}
-              <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-neutral-200">
+              <div className="p-4 rounded-2xl bg-[#fcfcfc] border border-neutral-200">
                 <h4 className="text-xs font-mono uppercase tracking-widest text-neutral-900 font-bold mb-2">
                   Specialized Infrastructure &amp; Capabilities
                 </h4>
@@ -379,12 +380,12 @@ export default function SpecialtyDepartments() {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="p-6 sm:p-8 bg-[#FAF8F5] border-b border-neutral-200 flex items-center justify-between">
+            <div className="p-6 sm:p-8 bg-[#fcfcfc] border-b border-neutral-200 flex items-center justify-between">
               <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-[#944b2d] font-bold">
+                <span className="text-xs font-mono uppercase tracking-widest text-[#008068] font-bold">
                   Clinical Network Directory
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-serif text-[#944b2d] font-normal mt-1">
+                <h3 className="text-2xl sm:text-3xl font-sans font-light text-[#111111] mt-1 tracking-[-0.035em]">
                   All Specialized Medical Departments
                 </h3>
               </div>
@@ -412,7 +413,7 @@ export default function SpecialtyDepartments() {
                       </span>
                       <span className="text-xs text-neutral-500 font-mono">{dept.stats}</span>
                     </div>
-                    <h4 className="text-lg font-serif font-bold text-neutral-900 mt-0.5">{dept.name}</h4>
+                    <h4 className="text-lg font-sans font-medium text-neutral-900 mt-0.5 tracking-tight">{dept.name}</h4>
                     <p className="text-xs sm:text-sm text-neutral-600 mt-1 font-sans leading-relaxed">
                       {dept.description}
                     </p>
@@ -423,7 +424,7 @@ export default function SpecialtyDepartments() {
                           setViewAllOpen(false);
                           setSelectedDept(dept);
                         }}
-                        className="text-xs font-semibold text-[#944b2d] hover:underline cursor-pointer"
+                        className="text-xs font-semibold text-[#008068] hover:underline cursor-pointer"
                       >
                         View Full Clinical Scope →
                       </button>

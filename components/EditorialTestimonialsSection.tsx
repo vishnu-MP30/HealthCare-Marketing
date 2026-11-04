@@ -46,8 +46,8 @@ export default function EditorialTestimonialsSection() {
   return (
     <section
       id="testimonials"
-      className="relative z-10 w-full bg-[#EAECE6] text-[#132a21] py-24 sm:py-32 border-b border-[#132a21]/10 select-none"
-      style={{ backgroundColor: "#EAECE6" }}
+      className="relative z-10 w-full bg-[#fcfcfc] text-[#111111] py-24 sm:py-32 border-b border-neutral-200 select-none"
+      style={{ backgroundColor: "#fcfcfc" }}
       aria-label="Patient Testimonials"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
@@ -56,33 +56,34 @@ export default function EditorialTestimonialsSection() {
             N° 06 — IN THEIR WORDS, Headline, Center Dot Icon
             ==================================================================== */}
         <div className="mb-14 sm:mb-18">
-          <span className="font-mono text-xs uppercase tracking-widest text-[#132a21]/60 mb-4 block">
+          <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-4 block">
             N° 06 — IN THEIR WORDS
           </span>
 
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#132a21] font-normal leading-[1.08] tracking-tight">
-            Back to the things they love.
+          <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] text-[#111111] leading-[1.04] tracking-[-0.035em]">
+            Back to the things they{" "}
+            <span className="text-[#008068] font-normal">love.</span>
           </h2>
 
           {/* Minimalist central circle indicator mark from reference */}
           <div
-            className="w-7 h-7 rounded-full border border-[#132a21]/25 flex items-center justify-center my-6"
+            className="w-7 h-7 rounded-full border border-neutral-300 flex items-center justify-center my-6"
             aria-hidden="true"
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-[#132a21]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#008068]" />
           </div>
         </div>
 
         {/* ====================================================================
             3-COLUMN TESTIMONIAL CARDS WITH HOVER PHOTO REVEAL
-            Resting: Clean ivory card with serif italic quote
+            Resting: Clean card with sans quote
             Hover: Smoothly reveals photo of caring, support, and doctors/patients
             ==================================================================== */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {TESTIMONIALS.map((item) => (
             <div
               key={item.id}
-              className="group relative rounded-2xl bg-[#FAF8F5] p-8 sm:p-10 min-h-[380px] lg:min-h-[420px] flex flex-col justify-between overflow-hidden shadow-xs border border-[#132a21]/10 transition-all duration-500 cursor-pointer hover:shadow-xl"
+              className="group relative rounded-2xl bg-[#f5f5f5] p-8 sm:p-10 min-h-[380px] lg:min-h-[420px] flex flex-col justify-between overflow-hidden shadow-xs border border-neutral-200 transition-all duration-500 cursor-pointer hover:shadow-xl"
             >
               {/* HOVER PHOTO REVEAL LAYER: Caring, Love, Support character photo */}
               <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
@@ -97,20 +98,20 @@ export default function EditorialTestimonialsSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/35" />
               </div>
 
-              {/* Top: Serif Italic Quote */}
+              {/* Top: Sans Quote */}
               <div className="relative z-10">
-                <p className="font-serif italic text-lg sm:text-xl text-[#132a21]/90 leading-relaxed font-normal transition-colors duration-300 group-hover:text-white">
+                <p className="font-sans font-light text-lg sm:text-xl text-[#111111] leading-relaxed transition-colors duration-300 group-hover:text-white">
                   &ldquo;{item.quote}&rdquo;
                 </p>
               </div>
 
               {/* Bottom: Author Name & Treatment */}
-              <div className="relative z-10 pt-8 border-t border-[#132a21]/10 group-hover:border-white/20 transition-colors duration-300">
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#132a21] block transition-colors duration-300 group-hover:text-white flex items-center gap-2">
+              <div className="relative z-10 pt-8 border-t border-neutral-200 group-hover:border-white/20 transition-colors duration-300">
+                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#111111] block transition-colors duration-300 group-hover:text-white flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#008068] group-hover:bg-[#2dd4bf] transition-colors" />
                   {item.name}
                 </span>
-                <span className="text-xs text-[#132a21]/60 block mt-1 transition-colors duration-300 group-hover:text-white/70">
+                <span className="text-xs text-neutral-500 block mt-1 transition-colors duration-300 group-hover:text-white/70">
                   {item.treatment}
                 </span>
               </div>

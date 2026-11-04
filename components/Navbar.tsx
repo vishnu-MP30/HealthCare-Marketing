@@ -56,12 +56,12 @@ export default function Navbar() {
               </svg>
             </div>
 
-            {/* Brand Typography (Editorial Serif + Italic Edition Accent) */}
+            {/* Brand Typography */}
             <div className="flex items-baseline gap-2.5">
-              <span className="font-serif-display text-2xl font-bold tracking-[0.14em] text-black">
+              <span className="font-sans text-2xl font-semibold tracking-wider text-black">
                 VELORA
               </span>
-              <span className="hidden font-serif-display text-sm italic text-[#484848] sm:inline-block">
+              <span className="hidden font-sans text-sm text-[#484848] sm:inline-block">
                 Studio
               </span>
             </div>

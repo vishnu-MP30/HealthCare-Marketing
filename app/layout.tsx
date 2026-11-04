@@ -38,7 +38,7 @@ const bodoniModa = Bodoni_Moda({
 });
 
 const dmSans = DM_Sans({
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",

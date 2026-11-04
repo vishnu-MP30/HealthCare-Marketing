@@ -48,8 +48,8 @@ export default function ClinicalJournalSection() {
   return (
     <section
       id="journal"
-      className="relative z-10 w-full bg-[#FAF8F5] text-[#132a21] py-24 sm:py-32 border-b border-[#132a21]/10 select-none"
-      style={{ backgroundColor: "#FAF8F5" }}
+      className="relative z-10 w-full bg-[#fcfcfc] text-[#111111] py-24 sm:py-32 border-b border-neutral-200 select-none"
+      style={{ backgroundColor: "#fcfcfc" }}
       aria-label="Clinical Journal"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
@@ -57,30 +57,30 @@ export default function ClinicalJournalSection() {
             HEADER: Reference 1 Layout
             N° 07 — JOURNAL, Title, Center Dot Icon, Read the Journal CTA
             ==================================================================== */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 sm:pb-16 border-b border-[#132a21]/15">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 sm:pb-16 border-b border-neutral-200">
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-[#132a21]/60 mb-4 block">
+            <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-4 block">
               N° 07 — JOURNAL
             </span>
-            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#132a21] font-normal leading-[1.08] tracking-tight max-w-xl">
+            <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] text-[#111111] leading-[1.04] tracking-[-0.035em] max-w-2xl">
               Plain advice from
               <br />
-              the treatment room.
+              the treatment <span className="text-[#008068] font-normal">room.</span>
             </h2>
           </div>
 
           <div className="flex items-center gap-6 self-start md:self-end">
             {/* Minimalist central circle indicator from reference */}
             <div
-              className="w-7 h-7 rounded-full border border-[#132a21]/25 hidden sm:flex items-center justify-center shrink-0"
+              className="w-7 h-7 rounded-full border border-neutral-300 hidden sm:flex items-center justify-center shrink-0"
               aria-hidden="true"
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-[#132a21]" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#111111]" />
             </div>
 
             <Link
               href="#all-articles"
-              className="px-6 py-3 rounded-full border border-[#132a21]/30 hover:border-[#132a21] hover:bg-[#132a21] hover:text-white transition-all duration-300 text-sm font-medium tracking-wide inline-flex items-center gap-2 group shadow-2xs"
+              className="px-6 py-3 rounded-full border border-neutral-300 hover:border-[#111111] hover:bg-[#111111] hover:text-white text-[#111111] transition-all duration-300 text-sm font-medium tracking-wide inline-flex items-center gap-2 group shadow-2xs"
             >
               <span>Read the journal</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -99,7 +99,7 @@ export default function ClinicalJournalSection() {
               className="group flex flex-col cursor-pointer"
             >
               {/* Photo Card with Clean Straight Rectangle Framing */}
-              <div className="relative w-full aspect-[16/10] overflow-hidden bg-stone-200 border border-[#132a21]/10">
+              <div className="relative w-full aspect-[16/10] overflow-hidden bg-neutral-100 border border-neutral-200">
                 <Image
                   src={article.image}
                   alt={article.title}
@@ -110,17 +110,17 @@ export default function ClinicalJournalSection() {
               </div>
 
               {/* Read Time */}
-              <span className="font-mono text-[11px] uppercase tracking-wider text-[#132a21]/55 mt-4 block">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-neutral-400 mt-4 block">
                 {article.readTime}
               </span>
 
               {/* Article Title */}
-              <h3 className="font-serif text-xl sm:text-2xl text-[#132a21] font-normal leading-snug mt-2 mb-2 group-hover:text-[#008068] transition-colors duration-200">
+              <h3 className="font-sans font-light text-xl sm:text-2xl text-[#111111] leading-snug tracking-[-0.02em] mt-2 mb-2 group-hover:text-[#008068] transition-colors duration-200">
                 {article.title}
               </h3>
 
               {/* Excerpt */}
-              <p className="text-sm text-[#132a21]/70 font-light leading-relaxed">
+              <p className="text-sm text-neutral-600 font-light leading-relaxed">
                 {article.excerpt}
               </p>
             </Link>

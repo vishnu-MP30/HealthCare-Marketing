@@ -2,6 +2,18 @@
 
 import React, { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
+import {
+  Calendar,
+  Stethoscope,
+  Dna,
+  Video,
+  Activity,
+  HeartPulse,
+  ShieldCheck,
+  Users,
+  ArrowLeft,
+  ArrowRight,
+} from "lucide-react";
 import { SERVICES } from "@/content/services";
 
 const N = SERVICES.length;
@@ -49,6 +61,34 @@ function getMobileSnapshot() {
 
 const getServerSnapshotFalse = () => false;
 
+// Custom 24/7 Badge Icon helper matching reference image
+function FeatureIcon({ icon }: { icon: string }) {
+  switch (icon) {
+    case "calendar":
+      return <Calendar className="w-5 h-5" />;
+    case "clock24":
+      return (
+        <span className="flex items-center justify-center text-[10px] font-bold tracking-tight text-[#008068] border-[1.5px] border-[#008068] rounded-full w-6 h-6 leading-none">
+          24/7
+        </span>
+      );
+    case "stethoscope":
+      return <Stethoscope className="w-5 h-5" />;
+    case "dna":
+      return <Dna className="w-5 h-5" />;
+    case "video":
+      return <Video className="w-5 h-5" />;
+    case "activity":
+      return <Activity className="w-5 h-5" />;
+    case "heartPulse":
+      return <HeartPulse className="w-5 h-5" />;
+    case "shield":
+      return <ShieldCheck className="w-5 h-5" />;
+    default:
+      return <Activity className="w-5 h-5" />;
+  }
+}
+
 export default function ServicesDial() {
   const wrapperRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -75,7 +115,7 @@ export default function ServicesDial() {
     getServerSnapshotFalse
   );
 
-  // Smooth-scroll click handler for dial buttons
+  // Smooth-scroll click handler for dial buttons & stepper arrows
   const handleDialClick = (stepIndex: number) => {
     if (!wrapperRef.current || !stageRef.current) return;
     const wrapRect = wrapperRef.current.getBoundingClientRect();
@@ -111,8 +151,8 @@ export default function ServicesDial() {
       if (mob) return;
 
       const isTablet = w >= 768 && w <= 1100;
-      // Arc radius & center: positioned so the crest and numbers are centered in the left 50% column
-      const radius = isTablet ? h * 0.65 : h * 0.72;
+      // Arc radius & center: positioned so the green disc fills the left edge, and the numbers & beacon sit along the edge
+      const radius = isTablet ? h * 0.7 : h * 0.76;
       const centerX = isTablet ? -w * 0.22 : -w * 0.24;
       const centerY = h * 0.5;
 
@@ -138,7 +178,7 @@ export default function ServicesDial() {
       buttonRefs.current.forEach((btn, i) => {
         if (!btn) return;
         const angle = i * STEP_DEG;
-        btn.style.transform = `rotate(${angle}deg) translateX(${radius + 28}px) translateY(-50%)`;
+        btn.style.transform = `rotate(${angle}deg) translateX(${radius + 32}px) translateY(-50%)`;
       });
     };
 
@@ -164,7 +204,7 @@ export default function ServicesDial() {
         if (btn && !mob) {
           const isNear = l.near > 0.5;
           btn.style.opacity = String(0.4 + l.near * 0.6);
-          btn.style.fontSize = `${32 + l.near * 16}px`;
+          btn.style.fontSize = `${30 + l.near * 14}px`;
           btn.style.fontWeight = isNear ? "700" : "500";
           btn.style.color = isNear ? "#008068" : "#94A3B8";
         }
@@ -242,190 +282,270 @@ export default function ServicesDial() {
       style={{ height: "calc(100svh * 5)" }}
       aria-label="Women and family healthcare pathways"
     >
-      {/* Sticky 100vh Stage */}
+      {/* Pinned 100vh Stage with Crisp Light Theme matching Specialism Showcase */}
       <div
         ref={stageRef}
-        className="stage sticky top-0 w-full h-[100svh] overflow-hidden bg-white"
+        className="stage sticky top-0 w-full h-[100svh] overflow-hidden bg-[#fcfcfc] flex items-center justify-between"
       >
         {/* ====================================================================
-            LEFT ZONE: ROTATING ARC DIAL FEATURE IN BOLD EMERALD GREEN
+            LEFT ZONE: HERO GREEN ROTATING DISC DIAL & CENTER POINTS (Reference Mockup)
             ==================================================================== */}
-        <div className="absolute left-0 top-0 w-full md:w-[50vw] h-full pointer-events-none z-20 overflow-hidden">
+        <div className="relative w-full md:w-[48vw] lg:w-[45vw] h-full flex items-center justify-center lg:justify-end pr-4 sm:pr-8 lg:pr-12 pointer-events-none z-20">
           
-          {/* Header positioned in the open center-right space of the left column (clearing the arc) */}
-          <div className="absolute top-8 sm:top-12 right-4 sm:right-6 lg:right-8 max-w-[320px] sm:max-w-[360px] pointer-events-auto text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50/90 border border-[#008068]/20 text-[#008068] text-[11px] sm:text-xs font-semibold tracking-wider uppercase mb-2.5 shadow-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#008068] animate-pulse" />
-              <span>Women &amp; Family Care Pathways</span>
-            </div>
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-[2.2rem] text-slate-900 font-normal tracking-tight leading-[1.12]">
-              Healthcare designed for
-              <br />
-              women &amp; families.
-            </h2>
-            <p className="text-slate-500 text-xs sm:text-sm font-light mt-2 max-w-xs leading-relaxed">
-              Scroll down to rotate through each milestone of care.
-            </p>
-          </div>
-        </div>
-
-        {/* DIAL INSTRUMENT (Semi-Circle Arc with Bold Green Line & Rotating Numbers) */}
-        <div
-          ref={dialContainerRef}
-          className="dial absolute inset-0 pointer-events-none z-30 transition-opacity duration-300"
-          aria-hidden={isMobile}
-        >
-          {/* Bold Green Semi-Circle Arc Line (Bold & clearly visible) */}
+          {/* DIAL INSTRUMENT: Solid Green Disc, Glowing Beacon & Step Numbers */}
           <div
-            ref={ringArcRef}
-            className="absolute rounded-full border-[3px] border-[#008068] shadow-[0_0_20px_rgba(0,128,104,0.3)] pointer-events-none z-20"
-            aria-hidden="true"
-          />
-
-          {/* Active Dot with Radiant Glow at Peak of Arc */}
-          <div
-            ref={activeDotRef}
-            className="absolute w-4 h-4 rounded-full pointer-events-none z-30 bg-[#008068] ring-4 ring-[#008068]/25 shadow-[0_0_15px_#008068] transition-all duration-200"
-            aria-hidden="true"
-          />
-
-          {/* Rotating Ring Holding Step Numbers (01, 02, 03, 04) */}
-          <div ref={ringRef} className="absolute w-0 h-0 pointer-events-none z-30">
-            {SERVICES.map((step, i) => (
-              <button
-                key={step.id}
-                ref={(el) => {
-                  buttonRefs.current[i] = el;
-                }}
-                type="button"
-                onClick={() => handleDialClick(i)}
-                aria-label={`Go to ${step.title}`}
-                aria-current={activeStepIndex === i ? "step" : undefined}
-                className="absolute left-0 top-0 origin-top-left pointer-events-auto cursor-pointer bg-transparent border-0 select-none px-3 py-1 font-serif transition-all duration-200 hover:!opacity-80 focus-visible:outline-none whitespace-nowrap"
-              >
-                {step.stepNumber}
-              </button>
-            ))}
-          </div>
-
-          {/* Mobile Step Indicator Pills (< 768px) */}
-          <div
-            className="md:hidden absolute top-4 inset-x-0 flex items-center justify-center z-40 pointer-events-auto px-4"
-            aria-label="Step indicator"
+            ref={dialContainerRef}
+            className="dial absolute inset-0 pointer-events-none z-10 transition-opacity duration-300"
+            aria-hidden={isMobile}
           >
-            <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-[#008068]/30 shadow-md">
-              {SERVICES.map((step, i) => {
-                const isActive = activeStepIndex === i;
-                return (
-                  <button
-                    key={step.id}
-                    ref={(el) => {
-                      mobileBtnRefs.current[i] = el;
-                    }}
-                    type="button"
-                    onClick={() => handleDialClick(i)}
-                    aria-label={`Go to ${step.title}`}
-                    className={`flex items-center gap-1.5 text-sm font-serif ${
-                      isActive ? "text-[#008068] font-bold" : "text-slate-400"
+            {/* Large Solid Green Disc on Far Left matching Hero Green */}
+            <div
+              ref={ringArcRef}
+              className="absolute rounded-full bg-gradient-to-br from-[#008068] via-[#006B57] to-[#004D3F] shadow-[0_0_60px_rgba(0,128,104,0.35)] pointer-events-none z-10 border border-emerald-400/25"
+              aria-hidden="true"
+            />
+
+            {/* Glowing Green Active Beacon at Peak of Arc */}
+            <div
+              ref={activeDotRef}
+              className="absolute w-5 h-5 rounded-full pointer-events-none z-30 bg-white ring-4 ring-[#008068]/30 border-2 border-emerald-400 shadow-[0_0_18px_#10b981] transition-all duration-200"
+              aria-hidden="true"
+            />
+
+            {/* Rotating Numbers (01, 02, 03, 04) along Outer Boundary */}
+            <div ref={ringRef} className="absolute w-0 h-0 pointer-events-none z-30">
+              {SERVICES.map((step, i) => (
+                <button
+                  key={step.id}
+                  ref={(el) => {
+                    buttonRefs.current[i] = el;
+                  }}
+                  type="button"
+                  onClick={() => handleDialClick(i)}
+                  aria-label={`Go to ${step.title}`}
+                  aria-current={activeStepIndex === i ? "step" : undefined}
+                  className="absolute left-0 top-0 origin-top-left pointer-events-auto cursor-pointer bg-transparent border-0 select-none px-3 py-1 font-sans transition-all duration-200 hover:!opacity-80 focus-visible:outline-none whitespace-nowrap"
+                >
+                  {step.stepNumber}
+                </button>
+              ))}
+            </div>
+
+            {/* Mobile Step Indicator Pills (< 768px) */}
+            <div
+              className="md:hidden absolute top-4 inset-x-0 flex items-center justify-center z-40 pointer-events-auto px-4"
+              aria-label="Step indicator"
+            >
+              <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200 shadow-md">
+                {SERVICES.map((step, i) => {
+                  const isActive = activeStepIndex === i;
+                  return (
+                    <button
+                      key={step.id}
+                      ref={(el) => {
+                        mobileBtnRefs.current[i] = el;
+                      }}
+                      type="button"
+                      onClick={() => handleDialClick(i)}
+                      aria-label={`Go to ${step.title}`}
+                      className={`flex items-center gap-1.5 text-sm font-sans ${
+                        isActive ? "text-[#008068] font-bold" : "text-neutral-400"
+                      }`}
+                    >
+                      {isActive && (
+                        <span className="w-2 h-2 rounded-full bg-[#008068]" />
+                      )}
+                      <span>{step.stepNumber}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* CENTER-LEFT CONTENT BLOCK (Clearing the arc, aligned with reference image) */}
+          <div className="relative z-20 max-w-[340px] sm:max-w-[370px] pointer-events-auto text-left py-6">
+            {/* Pill Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50/90 border border-emerald-200/60 shadow-2xs mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#008068]" />
+              <span className="text-xs font-semibold text-neutral-800">
+                Women &amp; Family Care
+              </span>
+            </div>
+
+            {/* Main Headline */}
+            <h2 className="font-sans font-light text-3xl sm:text-4xl lg:text-[42px] text-[#111111] leading-[1.08] tracking-[-0.035em] mb-6">
+              Healthcare for<br />
+              <span className="text-[#008068] font-normal">women &amp; families.</span>
+            </h2>
+
+            {/* Three Stacked Key Feature Points with Rounded Icon Badges */}
+            <div className="flex flex-col gap-3 mb-8 max-w-[320px]">
+              <div className="flex items-center gap-3.5 p-1.5 rounded-xl transition-colors hover:bg-emerald-50/40">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-[#008068] shrink-0">
+                  <HeartPulse className="w-5 h-5" />
+                </div>
+                <span className="font-sans font-bold text-neutral-900 text-sm sm:text-[15px] tracking-tight">
+                  End-to-end care
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3.5 p-1.5 rounded-xl transition-colors hover:bg-emerald-50/40">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-[#008068] shrink-0">
+                  <Users className="w-5 h-5" />
+                </div>
+                <span className="font-sans font-bold text-neutral-900 text-sm sm:text-[15px] tracking-tight">
+                  Family-focused support
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3.5 p-1.5 rounded-xl transition-colors hover:bg-emerald-50/40">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-[#008068] shrink-0">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <span className="font-sans font-bold text-neutral-900 text-sm sm:text-[15px] tracking-tight">
+                  Trusted care team
+                </span>
+              </div>
+            </div>
+
+            {/* Bottom Stepper & Circular Arrow Navigation Row */}
+            <div className="flex items-center gap-4 pt-4 border-t border-neutral-200/70 max-w-[320px]">
+              {/* Step counter */}
+              <div className="text-xs sm:text-sm font-semibold text-neutral-900 font-mono tracking-wider">
+                0{activeStepIndex + 1} <span className="text-neutral-400 font-normal">/ 04</span>
+              </div>
+
+              {/* 4 Segmented Stepper Bars */}
+              <div className="flex items-center gap-1.5 flex-1">
+                {SERVICES.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      activeStepIndex === idx ? "w-6 bg-[#008068]" : "w-3 bg-neutral-200"
                     }`}
-                  >
-                    {isActive && (
-                      <span className="w-2 h-2 rounded-full bg-[#008068]" />
-                    )}
-                    <span>{step.stepNumber}</span>
-                  </button>
-                );
-              })}
+                  />
+                ))}
+              </div>
+
+              {/* Prev / Next circular arrow buttons */}
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleDialClick(Math.max(0, activeStepIndex - 1))}
+                  disabled={activeStepIndex === 0}
+                  className="w-8 h-8 rounded-full border border-neutral-300/80 bg-white flex items-center justify-center text-neutral-700 hover:text-[#008068] hover:border-[#008068] disabled:opacity-30 disabled:pointer-events-none transition-all shadow-2xs cursor-pointer"
+                  aria-label="Previous milestone"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDialClick(Math.min(N - 1, activeStepIndex + 1))}
+                  disabled={activeStepIndex === N - 1}
+                  className="w-8 h-8 rounded-full bg-[#008068] hover:bg-[#006B57] text-white flex items-center justify-center disabled:opacity-30 disabled:pointer-events-none transition-all shadow-sm cursor-pointer"
+                  aria-label="Next milestone"
+                >
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* ====================================================================
-            RIGHT ZONE: STRAIGHT, FULL-EXPANDED PHOTOGRAPH WITH HOVER CONTENT REVEAL
+            RIGHT ZONE: ROUNDED PHOTOGRAPH + TITLE + 2 FEATURE CARDS + CTA (Reference Mockup)
             ==================================================================== */}
-        <div className="service-visual absolute inset-x-0 top-0 h-[48svh] md:inset-x-auto md:right-0 md:top-0 md:w-[50vw] md:h-full pointer-events-auto z-20 overflow-hidden bg-slate-900 border-l border-slate-200/80 group cursor-pointer">
-          {/* Expanded Photographic Images (Cross-fading with Scroll) */}
-          {SERVICES.map((step, i) => (
+        <div className="service-visual w-full md:w-[52vw] lg:w-[55vw] h-full pointer-events-auto z-20 flex flex-col justify-center p-6 sm:p-8 lg:p-12 xl:p-14 overflow-hidden">
+          
+          <div className="max-w-[620px] w-full flex flex-col justify-between">
+            {/* TOP: Rounded Expanded Photograph with Floating Milestone Pill */}
+            <div className="relative w-full h-[42vh] sm:h-[46vh] lg:h-[48vh] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-sm border border-neutral-200/80 bg-neutral-100 shrink-0">
+              {SERVICES.map((step, i) => (
+                <div
+                  key={step.id}
+                  ref={(el) => {
+                    imgRefs.current[i] = el;
+                  }}
+                  className="absolute inset-0 w-full h-full will-change-[transform,opacity]"
+                >
+                  <Image
+                    src={step.image}
+                    alt={step.alt}
+                    fill
+                    priority={i === 0}
+                    loading={i <= 1 ? "eager" : "lazy"}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-105"
+                    style={{
+                      objectPosition: step.objectPosition || "center 22%",
+                    }}
+                  />
+                  
+                  {/* Floating Milestone Badge in Top-Left Corner */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-neutral-800 text-xs font-semibold border border-neutral-200/80 shadow-xs">
+                      <span className="w-2 h-2 rounded-full bg-[#008068]" />
+                      <span>Milestone {step.stepNumber}</span>
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* DYNAMIC CONTENT CONTAINER (Transitions smoothly on milestone change) */}
             <div
-              key={step.id}
-              ref={(el) => {
-                imgRefs.current[i] = el;
-              }}
-              className="absolute inset-0 w-full h-full will-change-[transform,opacity]"
+              key={activeService.id}
+              className="w-full flex flex-col justify-between pt-5 animate-in fade-in duration-200"
             >
-              <Image
-                src={step.image}
-                alt={step.alt}
-                fill
-                priority={i === 0}
-                loading={i === 0 ? "eager" : i === 1 ? "eager" : "lazy"}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="w-full h-full object-cover rounded-none transition-transform duration-700 group-hover:scale-105"
-                style={{
-                  objectPosition: step.objectPosition || "center 35%",
-                }}
-              />
-            </div>
-          ))}
-
-          {/* RESTING STATE: Floating Capsule Button at Bottom */}
-          <div className="absolute bottom-8 left-8 right-8 z-30 flex items-center justify-between pointer-events-none transition-opacity duration-300 group-hover:opacity-0">
-            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-md border border-white/50 shadow-xl text-slate-900 text-xs sm:text-sm font-medium">
-              <span className="w-2 h-2 rounded-full bg-[#008068] animate-pulse" />
-              <span className="font-semibold text-[#008068]">
-                {activeService.stepNumber}
-              </span>
-              <span className="font-medium text-slate-800">{activeService.title}</span>
-              <span className="text-slate-300 font-light hidden sm:inline">|</span>
-              <span className="text-slate-500 font-light hidden sm:inline">
-                Hover to view care details ↗
-              </span>
-            </div>
-          </div>
-
-          {/* HOVER REVEAL: Rich Emerald Green Overlay with Full Title, Content & Tags */}
-          <div className="absolute inset-0 z-40 bg-gradient-to-t from-[#004D3F]/98 via-[#006B57]/95 to-[#008068]/92 backdrop-blur-md p-8 sm:p-12 lg:p-16 flex flex-col justify-between text-white opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-auto">
-            {/* Top Content Block */}
-            <div>
-              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-emerald-200 font-semibold mb-4">
-                <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
-                <span>Free, covered by Lifecare employer or health plan</span>
-              </div>
-              <span className="font-serif text-3xl sm:text-4xl text-emerald-200/80 font-normal mb-2 block">
-                {activeService.stepNumber}
-              </span>
-              <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-white font-normal leading-tight tracking-tight mb-4">
+              {/* Milestone Title */}
+              <h3 className="font-sans font-bold text-2xl sm:text-3xl lg:text-[32px] text-[#111111] tracking-tight mb-4">
                 {activeService.title}
               </h3>
-              <p className="text-white/90 text-sm sm:text-base lg:text-lg font-light leading-relaxed max-w-lg mb-6">
-                {activeService.description}
-              </p>
-              <div className="flex flex-wrap gap-2 sm:gap-2.5">
-                {activeService.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="h-9 px-4 inline-flex items-center rounded-full text-xs sm:text-sm text-white font-medium bg-white/15 border border-white/25 shadow-xs"
+
+              {/* TWO HORIZONTAL FEATURE CARDS SIDE BY SIDE (Reference Mockup) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-5">
+                {activeService.featureCards.map((card, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3.5 sm:p-4 rounded-2xl bg-[#f0fdf4] border border-emerald-100/80 flex items-center gap-3.5 shadow-2xs"
                   >
-                    {tag}
-                  </span>
+                    <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200/60 flex items-center justify-center text-[#008068] shrink-0 shadow-2xs">
+                      <FeatureIcon icon={card.icon} />
+                    </div>
+                    <span className="font-sans font-bold text-neutral-900 text-xs sm:text-sm tracking-tight leading-snug">
+                      {card.title}
+                    </span>
+                  </div>
                 ))}
               </div>
-            </div>
 
-            {/* Bottom Content / Action Button */}
-            <div className="pt-6 border-t border-white/20 flex items-center justify-between">
-              <span className="text-xs text-emerald-200 font-light">
-                Specialist Clinical Continuum · LifeCare
-              </span>
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-[#008068] hover:bg-emerald-50 text-sm font-semibold transition-colors shadow-md"
-              >
-                <span>Explore clinical program</span>
-                <span>→</span>
-              </button>
+              {/* BOTTOM ROW: Tags on Left, CTA Button on Right */}
+              <div className="flex items-center justify-between gap-4">
+                {/* Pill Tags */}
+                <div className="flex flex-wrap items-center gap-2">
+                  {activeService.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3.5 py-1.5 rounded-full text-xs font-medium text-neutral-700 bg-emerald-50/80 border border-emerald-100/60 shadow-2xs"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* CTA Action Button */}
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#008068] hover:bg-[#006B57] text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm shrink-0 cursor-pointer"
+                >
+                  <span>Book pathway</span>
+                  <span>→</span>
+                </button>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
