@@ -65,15 +65,16 @@ export default function SpecialismShowcase() {
         {/* ====================================================================
             UPPER HALF: EDITORIAL HEADLINE + DUAL OVERLAPPING PHOTOGRAPHY
             ==================================================================== */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
           
           {/* Left Column: Monumental Editorial Typography */}
-          <div className="lg:col-span-7 flex flex-col justify-start">
-            <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] leading-[1.04] tracking-[-0.035em] text-[#111111]">
-              The art of<br />
-              relationships.<br />
-              The science of<br />
-              <span className="text-[#008068] font-normal">specialism.</span>
+          <div className="lg:col-span-8 flex flex-col justify-start">
+            <h2 className="font-sans font-light text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] leading-[1.08] tracking-[-0.035em] text-[#111111]">
+              <span className="block sm:whitespace-nowrap">The art of relationships.</span>
+              <span className="block sm:whitespace-nowrap mt-1">
+                The science of{" "}
+                <span className="text-[#008068] font-normal">specialism.</span>
+              </span>
             </h2>
 
             <div className="mt-8 sm:mt-12 max-w-xl">
@@ -88,7 +89,7 @@ export default function SpecialismShowcase() {
           </div>
 
           {/* Right Column: Layered Photographic Composition with Coral Crosshairs */}
-          <div className="lg:col-span-5 relative flex justify-center lg:justify-end items-center pt-4 lg:pt-0">
+          <div className="lg:col-span-4 relative flex justify-center lg:justify-end items-center pt-4 lg:pt-0">
             <div className="relative w-full max-w-[460px] h-[480px] sm:h-[540px]">
               
               {/* Decorative Coral Plus Grid (+) */}

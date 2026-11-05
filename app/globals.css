@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -68,6 +69,14 @@ body {
 
 .font-serif-display {
   font-family: var(--font-serif), "Bodoni MT", Didot, Georgia, serif;
+}
+
+.font-script {
+  font-family: 'Dancing Script', cursive;
+}
+
+.font-editorial {
+  font-family: 'Instrument Serif', Georgia, serif;
 }
 
 .font-sans-body {

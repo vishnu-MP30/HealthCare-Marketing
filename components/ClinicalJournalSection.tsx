@@ -62,9 +62,8 @@ export default function ClinicalJournalSection() {
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-4 block">
               N° 07 — JOURNAL
             </span>
-            <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] text-[#111111] leading-[1.04] tracking-[-0.035em] max-w-2xl">
-              Plain advice from
-              <br />
+            <h2 className="font-sans font-light text-3xl sm:text-5xl md:text-6xl lg:text-[68px] xl:text-[74px] text-[#111111] leading-[1.08] tracking-[-0.035em] max-w-4xl whitespace-pre-line">
+              Plain advice from{"\n"}
               the treatment <span className="text-[#008068] font-normal">room.</span>
             </h2>
           </div>

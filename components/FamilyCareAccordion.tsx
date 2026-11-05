@@ -26,19 +26,26 @@ export default function FamilyCareAccordion() {
       {/* ====================================================================
           INTRO: CENTERED HEADLINE & SUBTITLE (Uniform #fcfcfc Canvas)
           ==================================================================== */}
-      <div className="relative z-10 max-w-[1440px] mx-auto flex flex-col items-center pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-8 lg:px-12">
-        <div className="text-center max-w-3xl mx-auto px-4">
-          <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] text-[#111111] tracking-[-0.035em] leading-[1.04]">
-            Healthcare designed<br />
-            for women and families<br />
-            that&apos;s personal<br />
-            <span className="text-[#008068] font-normal">
-              and proven
+      <div className="relative z-10 max-w-[1440px] mx-auto flex flex-col items-center pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-14 px-4 sm:px-8 lg:px-12">
+        <div className="text-center max-w-6xl xl:max-w-7xl mx-auto flex flex-col items-center justify-center">
+          {/* Category Pill */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/80 border border-emerald-200/60 shadow-2xs mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#008068] animate-pulse" />
+            <span className="text-xs sm:text-sm font-medium tracking-wide text-neutral-800">
+              Women &amp; Family Care Continuum
+            </span>
+          </div>
+
+          <h2 className="font-sans font-light text-4xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[84px] text-[#111111] tracking-[-0.035em] leading-[1.04] text-center mx-auto text-balance">
+            <span className="block sm:whitespace-nowrap">Healthcare designed for women and families</span>
+            <span className="block mt-1 sm:mt-2">
+              that&apos;s personal{" "}
+              <span className="text-[#008068] font-normal">and proven</span>
             </span>
           </h2>
 
-          <p className="mt-5 text-sm sm:text-base lg:text-lg text-neutral-600 font-normal tracking-normal leading-relaxed">
-            Trusted by 2,300+ employers &amp; Lifecare clinical partners to improve outcomes across every stage
+          <p className="mt-6 text-base sm:text-lg md:text-xl text-neutral-600 font-light tracking-normal leading-relaxed max-w-2xl mx-auto text-center">
+            Trusted by 2,300+ employers &amp; Lifecare clinical partners to improve outcomes across every stage.
           </p>
         </div>
       </div>

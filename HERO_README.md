@@ -1,73 +1,91 @@
-# Scroll-Driven "Walk Into the Hospital" Cinematic Hero
+# Althea Aesthetic & Wellness Hero Section
 
-This document outlines the architecture, asset configuration, animation tunables, and copy customization for the scroll-driven cinematic hospital hero on the **LifeCare Hospital** marketing website.
-
----
-
-## 1. Timeline Structure & Camera Choreography
-
-The hero is driven by a single master GSAP `ScrollTrigger` pinned timeline (`scrub: 0.8`), simulating a **2.5D camera dolly-zoom** that moves the user from the exterior driveway, through the entrance canopy and automatic glass doors, into the main atrium, onward into the compassionate inpatient bedside care ward, and forward into specialist surgical and diagnostic care.
-
-| Stage | Range (% of scroll) | Visual Action | Active Scene |
-|---|---|---|---|
-| **01** | `0% – 15%` | **Exterior Facade**: Wide view with subtle breathing zoom (1.00 → 1.04). Primary headline and "24/7" badge visible. | `01-exterior.jpg` |
-| **02** | `15% – 30%` | **Dolly-in #1 (Canopy Approach)**: Exterior scales (1.04 → 2.65) centered on the entrance doors (`transform-origin: 50% 72%`). Seamless crossfade into canopy approach. | `02-canopy.jpg` |
-| **03** | `30% – 45%` | **Dolly-in #2 (Sliding Glass Doors)**: Canopy scales (0.95 → 2.15). Automatic sliding doors layer crossfades in with reception desk clearly visible through the glass. | `02-doors.jpg` |
-| **04** | `45% – 60%` | **Step Into Reception Atrium**: Doors scale (1.22 → 2.35) parting open. Warm reception lobby lands (`0.95 → 1.05`). Welcome headline reveals: *"WELCOME TO LIFECARE."* | `03-lobby.jpg` |
-| **05** | `60% – 76%` | **5th View: Inpatient Bedside Care**: Camera pushes from reception into the recovery ward. Doctor providing bedside attention. Left-aligned spacious white typography: *"CARE DESIGNED AROUND YOU."* | `04-patient-care.jpg` |
-| **06** | `76% – 90%` | **Symmetric Full-Bleed Opening (Surgical Care)**: Bedside care smoothly transitions. Centered window expands simultaneously and symmetrically on both left & right sides to full-bleed. Crisp, high-contrast white typography reveals on the left. | `04-surgical-team.webp` |
-| **07** | `90% – 100%` | **Light-Section Circular Portal (MRI Diagnostics)**: Background turns warm off-white. Circular mask (`clip-path: circle(0% → 85%)`) opens into the MRI scan suite. Pin releases smoothly into site flow. | `05-diagnostics-mri.webp` |
+A responsive, accessible, high-performance hero section recreating the Althea reference aesthetic with Next.js, React, Tailwind CSS, HTML5 Canvas, and the Web Audio API.
 
 ---
 
-## 2. How to Edit Marketing Copy
+## 1. Visual Architecture & Layers (Bottom to Top)
 
-All headlines, captions, coordinates, navigation links, and micro-labels are decoupled from the animation code and stored in:
+1. **Layer 0 (Background & Ambient Halos)**:
+   - Soft pale gradient (`#F9FAFC` → `#F4F6FB` → `#EBF0F8` → `#FDF8F5`).
+   - Radial glow centered behind the character face (`rgba(255, 255, 255, 0.98)` fading to transparent).
+   - Warm apricot/orange ambient halo (`rgba(255, 160, 95, 0.35)` with 100px blur).
+2. **Layer 1 (Contour Lines Canvas)**:
+   - Dynamic HTML5 `<canvas>` rendering 18 concentric squircle topographic loops.
+   - Built with Catmull-Rom closed splines converted to hardware-accelerated cubic Bézier curves.
+   - Continuous outward motion with linear progression.
+   - Double-pass stroke: crisp white primary stroke (1px) with subtle warm apricot glow second pass.
+   - Sound reaction: gently pulses line opacity/brightness in sync with ambient audio.
+3. **Layer 2 (Center Glow Mask)**:
+   - Radial CSS gradient washing out contour lines as they cross her facial focal point.
+4. **Layer 3 (Fixed Center Character)**:
+   - High-fidelity transparent WebP of the woman in profile (`public/hero/woman-profile.webp`).
+   - Fixed position: `left: 50%`, `transform: translateX(-50%)`, `top: 10%`, `height: 70%` (desktop), `62%` (tablet), `58%` (mobile).
+   - Never moves, scales, parallaxes, or follows cursor.
+   - Bottom edge feathered with a gradient mask so the neck and shoulders fade into the background behind the headline.
+5. **Layer 4 (Typography & CTA)**:
+   - Editorial Serif Headline: *"Subtle care. Visible confidence."* in `Instrument Serif`, tightly tracked.
+   - Subtitle: *"Modern aesthetic and wellness care, with a gentle and personal approach."* in sans-serif.
+   - Pill CTA: *"Start your journey"* in warm radiant orange (`#E05D26`), lifting to 1.03 scale on hover.
+6. **Layer 5 (Navbar & Audio Control)**:
+   - Left: handwritten script logo *"Althea"* in `Dancing Script`.
+   - Center: `About`, `Services`, `Journal`, `Contact`.
+   - Right: White pill button *"Book a consultation"*, lifting 2px on hover.
+   - Mobile: collapsible hamburger navigation drawer.
+   - Bottom-Left: 60px circular *"Experience with sound"* button with morphing sine-wave icon and Web Audio playback.
+7. **Loader**:
+   - Initial 0 → 100 counter on background over 1.3s before revealing the scene.
 
-📁 [`content/hero.ts`](file:///c:/Users/ACER/Downloads/Marketing_web/content/hero.ts)
+---
 
-### Example: Modifying the 5th View (Inpatient Care) Copy
+## 2. Asset File Locations
+
+| Asset | Path | Description |
+|---|---|---|
+| **Center Character** | [`public/hero/woman-profile.webp`](file:///c:/Users/ACER/Downloads/marketing_web/public/hero/woman-profile.webp) | Transparent 928×1228 RGBA image of woman in profile |
+| **Ambient Audio** | [`public/audio/althea-ambient.mp3`](file:///c:/Users/ACER/Downloads/marketing_web/public/audio/althea-ambient.mp3) | Peaceful looping soundscape for the Experience button |
+
+---
+
+## 3. Tunable Numbers & Configuration Guide
+
+Open [`components/hero/ContourLinesCanvas.tsx`](file:///c:/Users/ACER/Downloads/marketing_web/components/hero/ContourLinesCanvas.tsx) to adjust contour line parameters:
+
 ```ts
-patientCare: {
-  id: "patientCare",
-  sceneNumber: "05",
-  label: "INPATIENT CARE & RECOVERY",
-  headlineLine1: "CARE DESIGNED",
-  headlineEm: "AROUND YOU.", // Rendered with italic accent
-  description: "Dedicated clinicians and attentive bedside care, delivering comfort and dignity at every stage of recovery.",
-  badge: "BEDSIDE EXCELLENCE",
-  caption: "INPATIENT CARE / 24-HOUR MONITORING / DEDICATED RECOVERY",
-}
+// 1. Number of Concentric Rings (default: 18)
+const NUM_RINGS = 18; // Increase for denser lines, decrease for sparser lines
+
+// 2. Control Points per Ring (default: 16)
+const NUM_POINTS = 16; // 12-16 points around the loop
+
+// 3. Outward Progression Speed (default: 12.0s)
+const CYCLE_DURATION = 12.0; // Seconds to expand by 1 full spacing (higher = slower & calmer)
+
+// 4. Ring Spacing (default: 72px)
+const BASE_SPACING = 72; // Desktop spacing in px (automatically scales with viewport width)
+
+// 5. Center Coordinates
+const cx = width * 0.5;   // 50% horizontal center
+const cy = height * 0.39; // 39% vertical focal point (aligned with character cheek/face)
+
+// 6. Squircle Stretch Aspect Ratio (default: 1.35)
+const x = cx + r * 1.35 * Math.cos(theta); // 1.35:1 horizontal expansion ratio
+
+// 7. Stroke Color & Opacity
+// Pass 1 (Primary White Stroke)
+ctx.strokeStyle = `rgba(255, 255, 255, ${(0.68 * ringOpacity).toFixed(3)})`;
+// Pass 2 (Warm Apricot / Orange Accent Glow)
+ctx.strokeStyle = `rgba(255, 190, 150, ${(0.22 * ringOpacity).toFixed(3)})`;
 ```
 
 ---
 
-## 3. How to Swap or Update Images
+## 4. Audio Control Configuration
 
-All scene images are stored in:
+Open [`components/hero/ExperienceSoundButton.tsx`](file:///c:/Users/ACER/Downloads/marketing_web/components/hero/ExperienceSoundButton.tsx):
 
-📁 [`public/hero/`](file:///c:/Users/ACER/Downloads/Marketing_web/public/hero/)
-
-- `01-exterior.jpg` — Wide hospital facade
-- `02-canopy.jpg` — Approach canopy and modern pillars
-- `02-doors.jpg` — Sliding automatic glass entrance
-- `03-lobby.jpg` — Warm reception lobby and desk
-- `04-patient-care.jpg` — 5th View: Inpatient bedside clinical care
-- `04-surgical-team.webp` — Specialist surgical care team
-- `05-diagnostics-mri.webp` — Advanced MRI imaging suite
-
-To change image paths, focal points, or default scaling, adjust:
-
-📁 [`components/hero/scenes.ts`](file:///c:/Users/ACER/Downloads/Marketing_web/components/hero/scenes.ts)
-
----
-
-## 4. How to Tune Scroll Length & Zoom Speeds
-
-Open [`components/hero/ScrollHero.tsx`](file:///c:/Users/ACER/Downloads/Marketing_web/components/hero/ScrollHero.tsx):
-
-- **Scroll Length**:
-  - Desktop: `end: "+=720%"` (increase to make scroll slower/more deliberate, decrease for faster progression).
-  - Mobile: `end: "+=520%"`.
-- **Scrub Inertia**:
-  - `scrub: 0.8` (increase to `1.2` for higher smoothness/lag, decrease to `0.4` for snappier response).
+- **Fade-in Duration**: `gainNode.gain.linearRampToValueAtTime(0.45, ctx.currentTime + 1.0);` (1.0s)
+- **Fade-out Duration**: `gainNode.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.6);` (0.6s)
+- **Sine Wave Amplitude**: `amplitude = 5.5;`
+- **Sine Wave Frequency**: `frequency = 2.0;` (2 cycles across the 28px width)
+- **Sine Wave Speed**: `phaseOffset = (wavePhase / 1.2) * Math.PI * 2;` (1.2s per period)
