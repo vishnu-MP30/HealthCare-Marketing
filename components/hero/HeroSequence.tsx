@@ -11,7 +11,7 @@ import Lenis from "lenis";
  * ============================================================================
  */
 export const HERO_CONFIG = {
-  brandName: "LifeCare",
+  brandName: "Mendly",
   brandLogo: "/lifecare logo.png",
 
   // Master Color Palette
@@ -115,8 +115,7 @@ function Sphere({
         backdropFilter: "blur(2px) contrast(1.08) brightness(1.04)",
         WebkitBackdropFilter: "blur(2px) contrast(1.08) brightness(1.04)",
         ...style,
-      }}
-    >
+      }}>
       {/* 1. Internal Secondary Refraction Ring */}
       <div
         className="absolute inset-[8px] rounded-full pointer-events-none"
@@ -198,8 +197,7 @@ function OverlapLensSVG({
       xmlns="http://www.w3.org/2000/svg"
       className={`pointer-events-none ${className}`}
       style={style}
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <defs>
         <linearGradient id="lensIridescent" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#5AA9FF" stopOpacity="0.75" />
@@ -387,7 +385,7 @@ export default function HeroSequence() {
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            if (self.progress > 0.08) {
+            if (self.progress> 0.08) {
               idleTween.pause();
             } else {
               idleTween.play();
@@ -431,7 +429,7 @@ export default function HeroSequence() {
 
       // Statement text lines start fading in at 0.04 and fully visible by 0.10
       const lines = statementLinesRef.current?.querySelectorAll(".statement-line");
-      if (lines && lines.length > 0) {
+      if (lines && lines.length> 0) {
         tl.fromTo(
           lines,
           { opacity: 0, y: 24 },
@@ -583,7 +581,7 @@ export default function HeroSequence() {
       );
 
       const stageBubbles = bubblesGroupRef.current?.querySelectorAll(".stage-bubble");
-      if (stageBubbles && stageBubbles.length > 0) {
+      if (stageBubbles && stageBubbles.length> 0) {
         tl.fromTo(
           stageBubbles,
           { scale: 0, opacity: 0, y: 40 },
@@ -602,7 +600,7 @@ export default function HeroSequence() {
 
       // Right-side stats rows reveal one by one with hairline dividers
       const statRows = statsListStage1Ref.current?.querySelectorAll(".stat-row");
-      if (statRows && statRows.length > 0) {
+      if (statRows && statRows.length> 0) {
         tl.fromTo(
           statRows,
           { opacity: 0, x: 30 },
@@ -615,7 +613,7 @@ export default function HeroSequence() {
       // 0.70 - 0.76: DROPLETS (Bubbles shrink to small droplets 10-130px)
       // Large ones disappear, droplets spread and float in upper/center area
       // =======================================================================
-      if (stageBubbles && stageBubbles.length > 0) {
+      if (stageBubbles && stageBubbles.length> 0) {
         tl.fromTo(
           stageBubbles,
           { scale: 1, opacity: 1 },
@@ -659,7 +657,7 @@ export default function HeroSequence() {
         0.76
       );
 
-      if (stageBubbles && stageBubbles.length > 0) {
+      if (stageBubbles && stageBubbles.length> 0) {
         tl.fromTo(
           stageBubbles,
           { opacity: 0.65 },
@@ -720,7 +718,7 @@ export default function HeroSequence() {
       );
 
       const navLinks = navPillWrapRef.current?.querySelectorAll(".nav-link-item");
-      if (navLinks && navLinks.length > 0) {
+      if (navLinks && navLinks.length> 0) {
         tl.fromTo(
           navLinks,
           { color: "rgba(255, 255, 255, 0.85)" },
@@ -820,8 +818,7 @@ export default function HeroSequence() {
       ref={containerRef}
       id="hero-seq"
       className="hero-seq relative w-full h-[100svh] overflow-hidden select-none bg-[#00201F]"
-      aria-label="Interactive Hero Sequence"
-    >
+      aria-label="Interactive Hero Sequence">
       {/* =====================================================================
           FIXED NAVBAR: ALWAYS TRANSPARENT BACKGROUND (Only Capsule Pill Blur)
           ===================================================================== */}
@@ -831,8 +828,7 @@ export default function HeroSequence() {
           <a
             href="#hero-seq"
             className="pointer-events-auto flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8DE1DC]"
-            aria-label={`${HERO_CONFIG.brandName} Home`}
-          >
+            aria-label={`${HERO_CONFIG.brandName} Home`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={navLogoImgRef}
@@ -849,14 +845,12 @@ export default function HeroSequence() {
             <nav
               ref={navPillWrapRef}
               className="flex items-center gap-1 bg-[#003436]/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15 shadow-[0_4px_20px_rgba(0,0,0,0.25)] transition-all duration-300"
-              aria-label="Hero navigation"
-            >
+              aria-label="Hero navigation">
               {content.navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="nav-link-item px-4 py-1.5 rounded-full text-xs font-medium tracking-wide text-white/85 hover:text-white transition-all duration-200"
-                >
+                  className="nav-link-item px-4 py-1.5 rounded-full text-xs font-medium tracking-wide text-white/85 hover:text-white transition-all duration-200">
                   {link.label}
                 </a>
               ))}
@@ -865,8 +859,7 @@ export default function HeroSequence() {
             {/* Coral Action Pill */}
             <a
               href="#book"
-              className="px-5 py-2.5 rounded-full bg-[#F25C5C] hover:bg-[#ff6e6e] text-white text-xs font-semibold tracking-wider uppercase shadow-[0_4px_16px_rgba(242,92,92,0.4)] hover:shadow-[0_6px_22px_rgba(242,92,92,0.6)] transition-all duration-200 hover:-translate-y-0.5"
-            >
+              className="px-5 py-2.5 rounded-full bg-[#F25C5C] hover:bg-[#ff6e6e] text-white text-xs font-semibold tracking-wider uppercase shadow-[0_4px_16px_rgba(242,92,92,0.4)] hover:shadow-[0_6px_22px_rgba(242,92,92,0.6)] transition-all duration-200 hover:-translate-y-0.5">
               {content.contactCta}
             </a>
           </div>
@@ -876,8 +869,7 @@ export default function HeroSequence() {
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="pointer-events-auto md:hidden text-white p-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20"
-            aria-label="Toggle navigation"
-          >
+            aria-label="Toggle navigation">
             <div className="w-5 flex flex-col gap-1.5">
               <span className="h-0.5 w-full bg-white rounded-full" />
               <span className="h-0.5 w-full bg-white rounded-full" />
@@ -894,16 +886,14 @@ export default function HeroSequence() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-base py-2 border-b border-white/10 text-white/90"
-              >
+                className="text-base py-2 border-b border-white/10 text-white/90">
                 {link.label}
               </a>
             ))}
             <a
               href="#book"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-2 text-center bg-[#F25C5C] text-white font-bold py-3 rounded-full shadow-lg"
-            >
+              className="mt-2 text-center bg-[#F25C5C] text-white font-bold py-3 rounded-full shadow-lg">
               {content.contactCta}
             </a>
           </div>
@@ -923,8 +913,7 @@ export default function HeroSequence() {
         className="absolute inset-0 z-10 flex flex-col items-center justify-center overflow-hidden"
         style={{
           background: "linear-gradient(180deg, #00201F 0%, #1A6469 38%, #3F8A8F 72%, #DCEEF2 100%)",
-        }}
-      >
+        }}>
         {/* Idle Drifting Group for Spheres */}
         <div ref={idleSpheresGroupRef} className="absolute inset-0 pointer-events-none">
           {/* Sphere 1 (BIG): Diameter ~65vw (min 1100px), center y ~8vh */}
@@ -961,8 +950,7 @@ export default function HeroSequence() {
         <div
           ref={sceneATextRef}
           className="relative z-10 max-w-5xl mx-auto px-6 text-center flex flex-col items-center"
-          style={{ marginTop: "-18vh" }}
-        >
+          style={{ marginTop: "-18vh" }}>
           <h1 className="font-serif text-white font-normal text-5xl sm:text-7xl lg:text-[104px] leading-[1.02] tracking-tight drop-shadow-[0_4px_24px_rgba(0,25,27,0.7)]">
             <span>{content.sceneA.headlineLine1}</span>
             <br />
@@ -980,15 +968,13 @@ export default function HeroSequence() {
           type="button"
           onClick={handleScrollDown}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 w-11 h-11 rounded-full border border-white/30 bg-black/15 backdrop-blur-md flex items-center justify-center text-white/90 hover:text-white hover:border-white/60 hover:bg-black/25 transition-all duration-300 group cursor-pointer"
-          aria-label="Scroll to discover next stage"
-        >
+          aria-label="Scroll to discover next stage">
           <svg
             className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            strokeWidth="2"
-          >
+            strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </button>
@@ -997,8 +983,7 @@ export default function HeroSequence() {
         <a
           ref={ctaPillRef}
           href="#book"
-          className="hidden sm:flex absolute bottom-8 right-10 z-20 items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white text-xs font-medium tracking-wide transition-all duration-300"
-        >
+          className="hidden sm:flex absolute bottom-8 right-10 z-20 items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white text-xs font-medium tracking-wide transition-all duration-300">
           <span className="w-2 h-2 rounded-full bg-[#F25C5C] animate-pulse" />
           <span>{content.sceneA.ctaPill}</span>
         </a>
@@ -1015,8 +1000,7 @@ export default function HeroSequence() {
         className="absolute inset-0 z-20 flex items-center justify-center overflow-hidden"
         style={{
           background: "radial-gradient(ellipse 85% 70% at 50% 48%, #00605E 0%, #00504F 55%, #003638 100%)",
-        }}
-      >
+        }}>
         {/* Content Wrap with Slow Upward Drift (-4vh) between 0.10 and 0.16 */}
         <div ref={sceneBContentWrapRef} className="relative w-full max-w-[820px] mx-auto px-6 py-12">
           {/* 4 Thin 1px Rounded 14px Corner Brackets */}
@@ -1041,8 +1025,7 @@ export default function HeroSequence() {
           <div ref={statementLinesRef} className="text-center px-6 sm:px-12">
             <h2
               className="font-serif text-white font-normal text-4xl sm:text-6xl lg:text-[76px] leading-[1.02] tracking-tight"
-              style={{ textWrap: "balance" }}
-            >
+              style={{ textWrap: "balance" }}>
               <span className="statement-line block">{content.sceneB.statementLine1}</span>
               <span className="statement-line block">{content.sceneB.statementLine2}</span>
               <span className="statement-line block">{content.sceneB.statementLine3}</span>
@@ -1071,16 +1054,14 @@ export default function HeroSequence() {
             transformOrigin: "50% 50%",
             boxShadow: "0 0 60px rgba(0,0,0,0.45), inset 0 0 30px rgba(255,255,255,0.35)",
             border: "1.5px solid rgba(255,255,255,0.5)",
-          }}
-        >
+          }}>
           {/* Inner Counter-Rotated Stage Container (-45deg) so sphere stays upright */}
           <div
             className="absolute inset-[-450%] flex items-center justify-center pointer-events-none"
             style={{
               transform: "rotate(-45deg)",
               background: "linear-gradient(180deg, #2E7F84 0%, #1A6469 40%, #3F8A8F 70%, #DCEEF2 100%)",
-            }}
-          >
+            }}>
             {/* Big Glass Sphere Pre-Rendered Inside Rising Frame */}
             <Sphere
               style={{
@@ -1103,13 +1084,11 @@ export default function HeroSequence() {
         className="absolute inset-0 z-30 opacity-0 pointer-events-none flex items-center justify-center overflow-hidden"
         style={{
           background: "linear-gradient(180deg, #2E7F84 0%, #1A6469 40%, #3F8A8F 70%, #DCEEF2 100%)",
-        }}
-      >
+        }}>
         {/* 2 Thin Vertical Glass Line Elements (1px) at Left and Right */}
         <div
           ref={verticalRailsRef}
-          className="absolute inset-y-0 inset-x-12 sm:inset-x-28 flex justify-between pointer-events-none opacity-0"
-        >
+          className="absolute inset-y-0 inset-x-12 sm:inset-x-28 flex justify-between pointer-events-none opacity-0">
           <div className="w-[1px] h-full bg-gradient-to-b from-transparent via-white/20 to-transparent" />
           <div className="w-[1px] h-full bg-gradient-to-b from-transparent via-white/20 to-transparent" />
         </div>
@@ -1129,8 +1108,7 @@ export default function HeroSequence() {
         {/* 4b, 4c, 4d. SPHERE PAIR WRAPPER (Split 0.40-0.50, Rotate 0.50-0.58, Scale Down 0.58-0.64) */}
         <div
           ref={spherePairWrapperRef}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-        >
+          className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {/* Sphere Left */}
           <div ref={splitSphereLeftRef} className="absolute">
             <Sphere
@@ -1165,8 +1143,7 @@ export default function HeroSequence() {
         <div
           ref={bubblesGroupRef}
           className="absolute inset-0 pointer-events-none overflow-hidden"
-          aria-hidden="true"
-        >
+          aria-hidden="true">
           {/* Bubble 1: Top-Left Huge Cropped Orb (700px) */}
           <Sphere
             className="stage-bubble absolute -top-32 -left-24"
@@ -1228,8 +1205,7 @@ export default function HeroSequence() {
         {/* Glass Rounded-Square Frame with Concentric Circular Ring */}
         <div
           ref={vialFrameWrapRef}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0"
-        >
+          className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0">
           {/* Glass Rounded Square Frame (480px, radius 52px) */}
           <div
             className="w-[480px] h-[480px] rounded-[52px] border border-white/40 flex items-center justify-center relative"
@@ -1240,8 +1216,7 @@ export default function HeroSequence() {
               WebkitBackdropFilter: "blur(8px)",
               boxShadow:
                 "0 24px 60px rgba(0, 20, 24, 0.45), inset 0 0 30px rgba(255, 255, 255, 0.22)",
-            }}
-          >
+            }}>
             {/* Concentric Glass Orbital Ring (420px) */}
             <div
               className="w-[420px] h-[420px] rounded-full border-2 border-white/35"
@@ -1256,8 +1231,7 @@ export default function HeroSequence() {
         <div
           ref={vialEmergingWrapRef}
           className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0"
-          style={{ transformOrigin: "50% 50%" }}
-        >
+          style={{ transformOrigin: "50% 50%" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/assets/vial.webp"
@@ -1286,8 +1260,7 @@ export default function HeroSequence() {
           {/* Right-Side Stat List Stage 1 (0.64 to 0.75) */}
           <div
             ref={statsListStage1Ref}
-            className="w-full md:w-80 flex flex-col divide-y divide-white/20"
-          >
+            className="w-full md:w-80 flex flex-col divide-y divide-white/20">
             {content.moleculeStage.statsStage1.map((stat, idx) => (
               <div key={idx} className="stat-row py-3.5 first:pt-0 last:pb-0 opacity-0">
                 <span className="text-[11px] sm:text-xs font-normal uppercase tracking-wider text-white/70 block">
@@ -1303,8 +1276,7 @@ export default function HeroSequence() {
           {/* Right-Side Stat List Stage 2 (0.75 to 0.81) */}
           <div
             ref={statsListStage2Ref}
-            className="w-full md:w-80 flex flex-col divide-y divide-white/20 opacity-0 absolute right-6 sm:right-12 bottom-0"
-          >
+            className="w-full md:w-80 flex flex-col divide-y divide-white/20 opacity-0 absolute right-6 sm:right-12 bottom-0">
             {content.moleculeStage.statsStage2.map((stat, idx) => (
               <div key={idx} className="py-4 first:pt-0 last:pb-0">
                 <span className="text-[11px] sm:text-xs font-normal uppercase tracking-wider text-white/70 block">
@@ -1326,8 +1298,7 @@ export default function HeroSequence() {
           ===================================================================== */}
       <div
         ref={whiteSectionRef}
-        className="absolute inset-0 z-40 bg-white flex items-center justify-center overflow-hidden pointer-events-auto"
-      >
+        className="absolute inset-0 z-40 bg-white flex items-center justify-center overflow-hidden pointer-events-auto">
         {/* Left Arc Mask Container (starts centered in Image 3, moves left in Image 4 & 5) */}
         <div
           ref={leftArcContainerRef}
@@ -1336,8 +1307,7 @@ export default function HeroSequence() {
             width: "520px",
             height: "520px",
             transformOrigin: "50% 50%",
-          }}
-        >
+          }}>
           {/* Mint Rounded Square Frame (Image 3) */}
           <div
             ref={mintSquareFrameRef}
@@ -1355,8 +1325,7 @@ export default function HeroSequence() {
             style={{
               background: "#FFFFFF",
               boxShadow: "inset 0 2px 14px rgba(0, 30, 35, 0.06)",
-            }}
-          >
+            }}>
             {/* Medicine Vial inside Left Shape (sharp in Image 3, blurred in Image 4 & 5, upright) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -1375,15 +1344,13 @@ export default function HeroSequence() {
         <div
           ref={weKnowHeadingWrapRef}
           className="absolute z-10 text-center pointer-events-none opacity-0 flex items-center justify-center"
-          style={{ transformOrigin: "center center" }}
-        >
+          style={{ transformOrigin: "center center" }}>
           <h2
             ref={weKnowTitleRef}
             className="font-serif text-[#003B3A] font-medium tracking-tight whitespace-nowrap leading-none"
             style={{
               fontSize: "clamp(64px, 7.8vw, 118px)",
-            }}
-          >
+            }}>
             We know
           </h2>
         </div>
@@ -1391,13 +1358,11 @@ export default function HeroSequence() {
         {/* Right Side Content Block (Image 5) */}
         <div
           ref={weKnowRightBlockRef}
-          className="absolute right-[6%] lg:right-[10%] max-w-[620px] flex flex-col items-start opacity-0 pointer-events-auto"
-        >
+          className="absolute right-[6%] lg:right-[10%] max-w-[620px] flex flex-col items-start opacity-0 pointer-events-auto">
           {/* Large Editorial Statement */}
           <p
             className="font-serif text-[#003B3A] font-normal leading-[1.14] tracking-tight text-3xl sm:text-4xl lg:text-[46px]"
-            style={{ textWrap: "balance" }}
-          >
+            style={{ textWrap: "balance" }}>
             as programs pass through various stages of development, they need specific experience and focused attention.
           </p>
 

@@ -92,8 +92,7 @@ export default function SectorRail({
         role="tablist"
         aria-label="Healthcare Clinical Sectors"
         className="grid grid-cols-2 lg:flex lg:flex-col gap-2 relative w-full"
-        id="sector-rail-container"
-      >
+        id="sector-rail-container">
         {reorderedSectors.map((sector, index) => {
           const isActive = sector.id === activeSectorId;
 
@@ -108,8 +107,7 @@ export default function SectorRail({
                 aria-selected={true}
                 aria-controls={`sector-panel-${sector.id}`}
                 tabIndex={0}
-                className="sector-tab-item col-span-2 lg:col-span-1 relative rounded-[18px] bg-white p-3.5 sm:p-4 shadow-[0_6px_20px_rgba(0,0,0,0.05)] border border-[#dce6e1] z-10 will-change-transform"
-              >
+                className="sector-tab-item col-span-2 lg:col-span-1 relative rounded-[18px] bg-white p-3.5 sm:p-4 shadow-[0_6px_20px_rgba(0,0,0,0.05)] border border-[#dce6e1] z-10 will-change-transform">
                 {/* Sector Name Eyebrow */}
                 <div className="flex items-center gap-1.5 text-[#008068] font-mono text-[9px] tracking-[0.16em] uppercase font-bold mb-1">
                   {renderSectorIcon(sector.iconName, "w-3 h-3 text-[#008068]")}
@@ -141,8 +139,7 @@ export default function SectorRail({
               aria-controls={`sector-panel-${sector.id}`}
               tabIndex={0}
               onClick={() => handleSectorClick(sector.id)}
-              className="sector-tab-item flex items-center gap-2 p-2 sm:p-2.5 rounded-xl text-left bg-white/50 hover:bg-white/90 border border-transparent hover:border-[#dce6e1] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068] will-change-transform opacity-70 hover:opacity-100 transition-opacity"
-            >
+              className="sector-tab-item flex items-center gap-2 p-2 sm:p-2.5 rounded-xl text-left bg-white/50 hover:bg-white/90 border border-transparent hover:border-[#dce6e1] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068] will-change-transform opacity-70 hover:opacity-100 transition-opacity">
               <div className="text-[#5f746a] shrink-0">
                 {renderSectorIcon(sector.iconName, "w-3.5 h-3.5")}
               </div>

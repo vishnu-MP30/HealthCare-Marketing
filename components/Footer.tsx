@@ -42,9 +42,8 @@ export default function Footer() {
   return (
     <footer
       id="site-footer"
-      aria-label="LifeCare Hospital Footer"
-      className="relative w-full bg-[#075F30] overflow-hidden text-white font-figtree"
-    >
+      aria-label="Mendly Hospital Footer"
+      className="relative w-full bg-[#075F30] overflow-hidden text-white font-figtree">
       {/* ==================================================================== */}
       {/* BACKGROUND BANNER IMAGE WITH MEDICAL TEAM ON RIGHT                   */}
       {/* ==================================================================== */}
@@ -85,33 +84,28 @@ export default function Footer() {
             </span>
             <nav
               aria-label="Footer Navigation"
-              className="flex flex-col space-y-3"
-            >
+              className="flex flex-col space-y-3">
               <Link
                 href="#journey"
-                className="text-[14px] sm:text-[15px] text-white hover:text-white/80 hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group"
-              >
+                className="text-[14px] sm:text-[15px] text-white hover:text-white/80 hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group">
                 <span className="w-1.5 h-1.5 rounded-full bg-white opacity-60 group-hover:opacity-100 transition-opacity" />
                 Intelligent Healthcare Pathway
               </Link>
               <Link
                 href="#family-care"
-                className="text-[14px] sm:text-[15px] text-white hover:text-white/80 hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group"
-              >
+                className="text-[14px] sm:text-[15px] text-white hover:text-white/80 hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group">
                 <span className="w-1.5 h-1.5 rounded-full bg-white opacity-60 group-hover:opacity-100 transition-opacity" />
                 Healthcare for Families and Women
               </Link>
               <Link
                 href="#departments"
-                className="text-[14px] sm:text-[15px] text-white hover:text-white/80 hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group"
-              >
+                className="text-[14px] sm:text-[15px] text-white hover:text-white/80 hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group">
                 <span className="w-1.5 h-1.5 rounded-full bg-white opacity-60 group-hover:opacity-100 transition-opacity" />
                 Speciality Departments
               </Link>
               <Link
                 href="#health-reads"
-                className="text-[14px] sm:text-[15px] text-white hover:text-white/80 hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group"
-              >
+                className="text-[14px] sm:text-[15px] text-white hover:text-white/80 hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-2 group">
                 <span className="w-1.5 h-1.5 rounded-full bg-white opacity-60 group-hover:opacity-100 transition-opacity" />
                 Health Reads
               </Link>
@@ -132,8 +126,7 @@ export default function Footer() {
                     stroke="currentColor"
                     strokeWidth="2"
                     viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
+                    aria-hidden="true">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -145,8 +138,7 @@ export default function Footer() {
                   <strong className="text-white font-semibold block sm:inline">24/7 Helpline:</strong>{" "}
                   <a
                     href="tel:+18005432273"
-                    className="hover:underline text-white font-medium"
-                  >
+                    className="hover:underline text-white font-medium">
                     +1 (800) 543-CARE
                   </a>
                 </span>
@@ -159,8 +151,7 @@ export default function Footer() {
                     stroke="currentColor"
                     strokeWidth="2"
                     viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
+                    aria-hidden="true">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -171,10 +162,9 @@ export default function Footer() {
                 <span>
                   <strong className="text-white font-semibold block sm:inline">Email:</strong>{" "}
                   <a
-                    href="mailto:care@lifecare.org"
-                    className="hover:underline text-white/95"
-                  >
-                    care@lifecare.org
+                    href="mailto:care@mendly.org"
+                    className="hover:underline text-white/95">
+                    care@mendly.org
                   </a>
                 </span>
               </li>
@@ -186,8 +176,7 @@ export default function Footer() {
                     stroke="currentColor"
                     strokeWidth="2"
                     viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
+                    aria-hidden="true">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -201,7 +190,7 @@ export default function Footer() {
                   </svg>
                 </div>
                 <span className="text-white/90">
-                  100 LifeCare Plaza, Medical Center
+                  100 Mendly Plaza, Medical Center
                 </span>
               </li>
             </ul>
@@ -219,15 +208,13 @@ export default function Footer() {
             {submitted ? (
               <div
                 role="status"
-                className="bg-white/20 border border-white/40 rounded-xl p-3 text-[13px] text-white flex items-center gap-2 animate-fadeIn"
-              >
+                className="bg-white/20 border border-white/40 rounded-xl p-3 text-[13px] text-white flex items-center gap-2 animate-fadeIn">
                 <svg
                   className="w-4 h-4 text-white flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2.5"
-                  viewBox="0 0 24 24"
-                >
+                  viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -249,16 +236,14 @@ export default function Footer() {
                 />
                 <button
                   type="submit"
-                  className="absolute right-1 px-3.5 py-1.5 rounded-full bg-white hover:bg-white/90 text-[#075F30] text-[12.5px] font-semibold transition-all duration-200 cursor-pointer shadow-sm hover:scale-[1.02] active:scale-[0.98] flex items-center gap-1"
-                >
+                  className="absolute right-1 px-3.5 py-1.5 rounded-full bg-white hover:bg-white/90 text-[#075F30] text-[12.5px] font-semibold transition-all duration-200 cursor-pointer shadow-sm hover:scale-[1.02] active:scale-[0.98] flex items-center gap-1">
                   <span>Send</span>
                   <svg
                     className="w-3 h-3"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2.2"
-                    viewBox="0 0 24 24"
-                  >
+                    viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -282,17 +267,15 @@ export default function Footer() {
               className="text-white font-extrabold tracking-[-0.04em] leading-none select-none"
               style={{
                 fontSize: "clamp(48px, 8.5vw, 118px)",
-              }}
-            >
-              LifeCare
+              }}>
+              Mendly
             </h2>
 
             {/* Back to Top Button */}
             <button
               type="button"
               onClick={scrollToTop}
-              className="self-start sm:self-end text-white/75 hover:text-white transition-colors text-xs uppercase tracking-widest flex items-center gap-2 group pb-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
+              className="self-start sm:self-end text-white/75 hover:text-white transition-colors text-xs uppercase tracking-widest flex items-center gap-2 group pb-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
               <span>Back to Top</span>
               <div className="w-6 h-6 rounded-full bg-white/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
                 <svg
@@ -300,8 +283,7 @@ export default function Footer() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
+                  viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -314,7 +296,7 @@ export default function Footer() {
 
           {/* Copyright & Hospital Details Line (Bottom Aligned like Reference) */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-white/70 pt-4 gap-3">
-            <p>© LifeCare 2026. All rights reserved.</p>
+            <p>© Mendly 2026. All rights reserved.</p>
             <p className="font-light tracking-wide">
               Advanced Specialist Care • Clinical Excellence • Emergency Services
             </p>

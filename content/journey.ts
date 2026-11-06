@@ -116,8 +116,8 @@ export const JOURNEY_FLOW_DATA: {
   sectionHighlight: string;
   sectors: Sector[];
 } = {
-  systemOfRecordLabel: "THE SYSTEM OF RECORD · LIFECARE EHR",
-  systemOfActionLabel: "THE SYSTEM OF ACTION · LIFECARE CAREFLOW",
+  systemOfRecordLabel: "THE SYSTEM OF RECORD · MENDLY EHR",
+  systemOfActionLabel: "THE SYSTEM OF ACTION · MENDLY CAREFLOW",
   sectionEyebrow: "INTELLIGENT HEALTHCARE PATHWAYS",
   sectionTitle: "Connecting clinical intent to ",
   sectionHighlight: "measurable patient outcomes.",
@@ -153,7 +153,7 @@ export const JOURNEY_FLOW_DATA: {
           icon: "calendar",
           card: {
             type: "ticket",
-            centreName: "LifeCare Health Centre",
+            centreName: "Mendly Health Centre",
             badgeText: "COMMUNITY CLINIC",
             time: "10:15am",
             department: "COMMUNITY RESPIRATORY",
@@ -189,7 +189,7 @@ export const JOURNEY_FLOW_DATA: {
         {
           kind: "chip",
           id: "op-step-1",
-          label: "LifeCare App push",
+          label: "Mendly App push",
           icon: "message",
           card: {
             type: "notification",
@@ -264,7 +264,7 @@ export const JOURNEY_FLOW_DATA: {
           icon: "calendar",
           card: {
             type: "ticket",
-            centreName: "LifeCare Surgical Pavilion",
+            centreName: "Mendly Surgical Pavilion",
             badgeText: "ELECTIVE SURGERY",
             time: "07:30am",
             department: "ORTHOPEDIC SUITE",

@@ -59,7 +59,7 @@ export const TESTIMONIALS_SLIDES: TestimonialSlide[] = [
       {
         id: "t-5",
         quote:
-          "The compassion and clinical excellence at LifeCare gave my mother her dignity and vitality back. We felt supported every single day.",
+          "The compassion and clinical excellence at Mendly gave my mother her dignity and vitality back. We felt supported every single day.",
         author: "DAVID & SARAH",
         role: "Patient Family & Care Advocates",
         avatar: "/testimonials/avatar-david.png",

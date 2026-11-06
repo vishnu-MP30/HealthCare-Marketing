@@ -60,11 +60,11 @@ export default function PageLoader({ onComplete }: PageLoaderProps) {
       aria-hidden="true"
     >
       <div className="flex flex-col items-center justify-center">
-        <div className="font-editorial text-[48px] sm:text-[60px] font-light text-[#2f323c] tracking-tight tabular-nums select-none">
+        <div className="font-display text-[48px] sm:text-[60px] font-semibold text-[#1F2123] tracking-tight tabular-nums select-none">
           {count}
         </div>
-        <div className="mt-2 text-xs uppercase tracking-[0.25em] text-[#E05D26] font-medium font-sans">
-          Althea
+        <div className="mt-2 text-xs uppercase tracking-[0.25em] text-[#E8682A] font-semibold font-body">
+          Mendly
         </div>
       </div>
     </div>

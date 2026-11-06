@@ -21,8 +21,7 @@ export default function Navbar() {
           <Link
             href="/"
             className="group flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068]"
-            aria-label="VELORA Creative & Marketing Studio"
-          >
+            aria-label="Mendly Healthcare & Clinical Practice">
             {/* Custom Sculptural V Symbol */}
             <div className="relative flex h-8 w-8 items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <svg
@@ -30,8 +29,7 @@ export default function Navbar() {
                 height="28"
                 viewBox="0 0 32 32"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+                xmlns="http://www.w3.org/2000/svg">
                 {/* Left faceted blade in Emerald Green */}
                 <path
                   d="M4 6L14.2 27.2C14.7 28.2 16.1 28.3 16.7 27.4L20.8 21.2L11.5 6H4Z"
@@ -59,10 +57,10 @@ export default function Navbar() {
             {/* Brand Typography */}
             <div className="flex items-baseline gap-2.5">
               <span className="font-sans text-2xl font-semibold tracking-wider text-black">
-                VELORA
+                Mendly
               </span>
-              <span className="hidden font-sans text-sm text-[#484848] sm:inline-block">
-                Studio
+              <span className="hidden font-sans text-xs tracking-widest uppercase text-[#E8682A] font-semibold sm:inline-block">
+                Health
               </span>
             </div>
           </Link>
@@ -71,8 +69,7 @@ export default function Navbar() {
         {/* CENTER ZONE: Navigation */}
         <nav
           className="hidden md:flex items-center gap-10 lg:gap-14"
-          aria-label="Main Navigation"
-        >
+          aria-label="Main Navigation">
           {navLinks.map((item) => {
             const isActive = activeLink === item.id;
             return (
@@ -84,8 +81,7 @@ export default function Navbar() {
                   isActive
                     ? "font-semibold text-black"
                     : "font-normal text-[#484848] hover:text-black"
-                }`}
-              >
+                }`}>
                 <span>{item.label}</span>
                 {/* Crisp editorial underline inspired by the reference */}
                 <span
@@ -106,8 +102,7 @@ export default function Navbar() {
           <div className="hidden sm:block">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-1.5 rounded-full border border-black/25 px-5 py-2 text-[14px] font-medium tracking-wide text-black transition-all duration-200 hover:border-[#008068] hover:text-[#008068] hover:bg-[#008068]/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068]"
-            >
+              className="group inline-flex items-center gap-1.5 rounded-full border border-black/25 px-5 py-2 text-[14px] font-medium tracking-wide text-black transition-all duration-200 hover:border-[#008068] hover:text-[#008068] hover:bg-[#008068]/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068]">
               <span>Let&apos;s Talk</span>
               <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-xs text-[#008068]">
                 ↗
@@ -121,15 +116,13 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="inline-flex md:hidden items-center justify-center p-2 text-black hover:text-[#008068] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068]"
             aria-expanded={mobileMenuOpen}
-            aria-label="Toggle navigation menu"
-          >
+            aria-label="Toggle navigation menu">
             <svg
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="1.75"
-              stroke="currentColor"
-            >
+              stroke="currentColor">
               {mobileMenuOpen ? (
                 <path
                   strokeLinecap="round"
@@ -160,8 +153,7 @@ export default function Navbar() {
                   setActiveLink(item.id);
                   setMobileMenuOpen(false);
                 }}
-                className="flex items-center justify-between text-base font-medium text-black hover:text-[#008068] transition-colors"
-              >
+                className="flex items-center justify-between text-base font-medium text-black hover:text-[#008068] transition-colors">
                 <span>{item.label}</span>
                 <span className="text-xs text-[#008068]">→</span>
               </a>
@@ -170,8 +162,7 @@ export default function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex w-full items-center justify-center gap-2 rounded-full border border-[#008068] bg-[#008068] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#006B57]"
-              >
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-[#008068] bg-[#008068] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#006B57]">
                 <span>Let&apos;s Talk</span>
                 <span>↗</span>
               </a>

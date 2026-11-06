@@ -12,8 +12,7 @@ interface PreviewCardProps {
 export default function PreviewCard({ card, className = "" }: PreviewCardProps) {
   return (
     <div
-      className={`relative w-full min-w-0 max-w-none rounded-[24px] p-2.5 sm:p-3 bg-white/40 backdrop-blur-md border border-white/70 shadow-[0_8px_24px_rgba(0,0,0,0.04)] select-none will-change-transform ${className}`}
-    >
+      className={`relative w-full min-w-0 max-w-none rounded-[24px] p-2.5 sm:p-3 bg-white/40 backdrop-blur-md border border-white/70 shadow-[0_8px_24px_rgba(0,0,0,0.04)] select-none will-change-transform ${className}`}>
       <div className="relative rounded-[18px] bg-white p-3.5 sm:p-4 shadow-2xs border border-[#e8ece9] flex flex-col justify-between min-h-[190px] sm:min-h-[205px]">
         {/* 1. FORM / SURVEY CARD */}
         {card.type === "form" && (
@@ -49,15 +48,13 @@ export default function PreviewCard({ card, className = "" }: PreviewCardProps) 
                     opt.checked
                       ? "bg-[#e8f5e9] text-[#006b57] border border-[#a5d6a7]/60"
                       : "bg-[#f8faf9] text-[#556960] border border-transparent"
-                  }`}
-                >
+                  }`}>
                   <div
                     className={`card-checkbox-icon w-3.5 h-3.5 rounded flex items-center justify-center border text-[9px] shrink-0 ${
                       opt.checked
                         ? "bg-[#008068] border-[#008068] text-white"
                         : "border-[#c4d1ca] bg-white"
-                    }`}
-                  >
+                    }`}>
                     {opt.checked && <Check className="w-2.5 h-2.5 stroke-[3]" />}
                   </div>
                   <span className="break-words [overflow-wrap:anywhere]">{opt.label}</span>
@@ -212,8 +209,7 @@ export default function PreviewCard({ card, className = "" }: PreviewCardProps) 
                   className="card-result-counter inline-block"
                   data-prefix={card.counterPrefix || ""}
                   data-target={card.counterTarget || 0}
-                  data-suffix={card.counterSuffix || ""}
-                >
+                  data-suffix={card.counterSuffix || ""}>
                   {card.counterPrefix || ""}{card.dateOrMetric}{card.counterSuffix || ""}
                 </span>
               </span>

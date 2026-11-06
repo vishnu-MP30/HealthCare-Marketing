@@ -32,8 +32,7 @@ export default function AutoplayIndicator({
               type="button"
               onClick={() => onSelectIndex(idx)}
               aria-label={`Jump to sector ${idx + 1}`}
-              className="relative focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068] rounded-full p-1 -m-1"
-            >
+              className="relative focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068] rounded-full p-1 -m-1">
               {isActive ? (
                 // Active Expanding Pill with Filling Progress Bar
                 <div className="relative h-2 w-7 sm:w-8 rounded-full bg-[#d0ded6] overflow-hidden">
@@ -57,8 +56,7 @@ export default function AutoplayIndicator({
         onClick={onTogglePlay}
         className="w-6 h-6 rounded-full bg-white/70 hover:bg-white border border-[#d0ded6] text-[#008068] flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068] shadow-xs"
         aria-label={isPlaying ? "Pause automated sector rotation" : "Start automated sector rotation"}
-        title={isPlaying ? "Pause autoplay" : "Resume autoplay"}
-      >
+        title={isPlaying ? "Pause autoplay" : "Resume autoplay"}>
         {isPlaying ? (
           <Pause className="w-3 h-3 fill-[#008068]" />
         ) : (

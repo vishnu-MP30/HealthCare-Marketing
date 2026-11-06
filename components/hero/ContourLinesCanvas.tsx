@@ -2,6 +2,49 @@
 
 import React, { useEffect, useRef } from "react";
 
+/**
+ * ============================================================================
+ * CONTOUR-WAVE BACKGROUND KNOBS (FLOWER TOPOGRAPHIC RINGS)
+ * ============================================================================
+ * Full configuration exposed at the top of the file as requested.
+ */
+export const CONTOUR_KNOBS = {
+  // Rings count & spacing
+  rings: 20, // Draw about 16 rings plus spare so outer rings leave screen
+  spacingVW: 7.4, // ~7.4vw spacing (~105px at 1440px wide)
+  r0VW: 4.5, // Innermost radius ~4.5vw
+  originX: 0.5, // Horizontally centred on character (50%)
+  originY: 0.55, // Vertically around chin & neck (55% of hero height)
+  period: 12.0, // Each ring advances one full spacing every 12 seconds
+  numPoints: 260, // Closed polyline of 260 points around origin
+
+  // Horizontal stretch growing with age u:
+  // sx(u) = stretchXMin + (stretchXMax - stretchXMin) * (1 - exp(-u / stretchXDecay))
+  stretchXMin: 1.04, // Inner rings almost round (1.04)
+  stretchXMax: 1.38, // Outer rings ~1.38x wider than tall
+  stretchXDecay: 5.5, // Exponential growth factor
+
+  // Fades
+  birthFadeRings: 3.2, // Fade-in over first 3.2 rings: min(1, u / 3.2)
+  deathStartRing: 8.0, // Past u = 8, drop to about 45% alpha by u = 18
+  deathEndRing: 18.0,
+  deathMinAlpha: 0.45,
+
+  // Line style & visibility
+  strokeAlpha: 0.85, // 1px white stroke: rgba(255, 255, 255, 0.85 * alpha)
+  tintAlpha: 0.3, // Orange tint stroke offset down 1px: rgba(232, 121, 60, 0.30 * alpha)
+  tintOffsetY: 1.0, // 1px offset down
+
+  // Harmonics table: [k lobes, amplitude at u=0, decay in rings, phase, spin rad/s, twist per ring]
+  harmonics: [
+    [9, 0.066, 7, 0.4, 0.1, 0.55], // scalloped flower lobes
+    [7, 0.03, 8, 2.1, -0.07, 0.4],
+    [5, 0.04, 12, 1.3, 0.05, 0.3],
+    [3, 0.05, 40, 4.0, -0.04, 0.22], // broad swell
+    [2, 0.035, 60, 0.9, 0.03, 0.15], // slight asymmetry
+  ] as const,
+};
+
 interface ContourLinesCanvasProps {
   isSoundActive?: boolean;
 }
@@ -28,7 +71,7 @@ export default function ContourLinesCanvas({
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // Resize canvas respecting devicePixelRatio <= 2
+    // Device pixel ratio capped at 2 for crisp lines with maximum performance
     const resize = () => {
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
@@ -45,11 +88,10 @@ export default function ContourLinesCanvas({
     };
     document.addEventListener("visibilitychange", onVisibilityChange);
 
-    const NUM_RINGS = 18;
-    const NUM_POINTS = 16;
-    const CYCLE_DURATION = 12.0; // seconds for 1 spacing outward travel
-    const BASE_SPACING = 72; // desktop spacing px
-    const BASE_INNER_RADIUS = 12; // inner radius px
+    // Pre-allocate point buffer for 260 points (x, y pairs = 520 floats)
+    const numPoints = CONTOUR_KNOBS.numPoints;
+    const pointBufferX = new Float64Array(numPoints);
+    const pointBufferY = new Float64Array(numPoints);
 
     const render = (now: number) => {
       if (!startTime) startTime = now;
@@ -69,99 +111,112 @@ export default function ContourLinesCanvas({
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, width, height);
 
-      // Centered on the character's face: cx = 50%, cy ≈ 38% - 40%
-      const cx = width * 0.5;
-      const cy = height * 0.39;
+      // Origin: horizontally centred on character (50%), vertically around chin/neck (55%)
+      const cx = width * CONTOUR_KNOBS.originX;
+      const cy = height * CONTOUR_KNOBS.originY;
 
-      // Scale spacing smoothly by viewport width (reference 1280px)
-      const scaleFactor = Math.min(Math.max(width / 1280, 0.55), 1.25);
-      const spacing = BASE_SPACING * scaleFactor;
-      const innerRadius = BASE_INNER_RADIUS * scaleFactor;
+      // Spacing based on viewport width: ~7.4vw (~105px at 1440w), r0 ~4.5vw
+      const spacing = (width * CONTOUR_KNOBS.spacingVW) / 100;
+      const r0 = (width * CONTOUR_KNOBS.r0VW) / 100;
 
-      // Fractional outward movement in [0, 1)
-      const timeOffset = prefersReducedMotion
+      // Continuous time: each ring advances one full spacing every 12 seconds
+      const t = prefersReducedMotion ? 0 : elapsed;
+      const ringAdvance = prefersReducedMotion
         ? 0
-        : (elapsed / CYCLE_DURATION) % 1;
+        : (t / CONTOUR_KNOBS.period) % 1;
 
-      // Noise drift over time
-      const driftTime = elapsed * 0.05;
-
-      // Sound reaction pulse
-      const soundPulse = isSoundActiveRef.current
-        ? 1.0 + 0.18 * Math.sin(elapsed * 3.5)
+      // Subtle sound responsiveness if active
+      const soundScale = isSoundActiveRef.current
+        ? 1.0 + 0.05 * Math.sin(elapsed * 4.0)
         : 1.0;
 
-      // Render rings from outer to inner or inner to outer
-      for (let i = 0; i < NUM_RINGS; i++) {
-        // Continuous radius that travels outward
-        const ringProgress = i + timeOffset;
-        const currentRadius = innerRadius + ringProgress * spacing;
+      const harmonics = CONTOUR_KNOBS.harmonics;
+      const numHarmonics = harmonics.length;
 
-        // Inner rings fade in over first 3 rings (0 -> 1)
-        const innerFade = Math.min(Math.max((ringProgress - 0.2) / 2.8, 0), 1);
+      // Draw each ring from outermost to innermost or innermost outward
+      for (let i = 0; i < CONTOUR_KNOBS.rings; i++) {
+        // Continuous age u: 0 at centre, growing outward
+        const u = i + ringAdvance;
+        const baseR = (r0 + u * spacing) * soundScale;
 
-        // Outer rings fade gently down to ~0.35
-        const outerProgress = ringProgress / NUM_RINGS;
-        const outerFade = Math.max(1.0 - outerProgress * 0.65, 0.35);
+        // 1. Birth fade-in over first 3.2 rings
+        const inAlpha = Math.min(1.0, Math.max(0.0, u / CONTOUR_KNOBS.birthFadeRings));
 
-        // Calculate opacity
-        const ringOpacity = Math.max(
-          0,
-          Math.min(1, innerFade * outerFade * soundPulse)
-        );
-
-        if (ringOpacity <= 0.01) continue;
-
-        // Sample control points around squircle
-        const points: { x: number; y: number }[] = [];
-
-        for (let j = 0; j < NUM_POINTS; j++) {
-          const theta = (j / NUM_POINTS) * Math.PI * 2;
-
-          // Multi-octave organic wobble noise (sine sum)
-          const n1 = Math.sin(2 * theta + driftTime + i * 0.25) * 0.05;
-          const n2 = Math.sin(3 * theta - driftTime * 0.8 + 1.2) * 0.03;
-          const n3 = Math.cos(4 * theta + driftTime * 0.5 + 2.4) * 0.02;
-          const wobble = n1 + n2 + n3; // amplitude ~6-10% of radius
-
-          const r = currentRadius * (1 + wobble);
-
-          // Squircle horizontal stretch ratio 1.35:1
-          const x = cx + r * 1.35 * Math.cos(theta);
-          const y = cy + r * Math.sin(theta);
-          points.push({ x, y });
+        // 2. Death fade-out past u = 8, drop to ~45% by u = 18
+        let outAlpha = 1.0;
+        if (u > CONTOUR_KNOBS.deathStartRing) {
+          if (u <= CONTOUR_KNOBS.deathEndRing) {
+            const prog =
+              (u - CONTOUR_KNOBS.deathStartRing) /
+              (CONTOUR_KNOBS.deathEndRing - CONTOUR_KNOBS.deathStartRing);
+            outAlpha = 1.0 - (1.0 - CONTOUR_KNOBS.deathMinAlpha) * prog;
+          } else {
+            // Spare outer rings gracefully fade out
+            const extra = Math.min(1.0, (u - CONTOUR_KNOBS.deathEndRing) / 2.0);
+            outAlpha = CONTOUR_KNOBS.deathMinAlpha * (1.0 - extra);
+          }
         }
 
-        // Draw closed Catmull-Rom spline through points
-        ctx.beginPath();
-        for (let j = 0; j < NUM_POINTS; j++) {
-          const p0 = points[(j - 1 + NUM_POINTS) % NUM_POINTS];
-          const p1 = points[j];
-          const p2 = points[(j + 1) % NUM_POINTS];
-          const p3 = points[(j + 2) % NUM_POINTS];
+        const alpha = inAlpha * outAlpha;
+        if (alpha <= 0.005) continue;
 
-          if (j === 0) {
-            ctx.moveTo(p1.x, p1.y);
+        // Horizontal stretch sx(u) = 1.04 + (1.38 - 1.04) * (1 - exp(-u / 5.5))
+        const sx =
+          CONTOUR_KNOBS.stretchXMin +
+          (CONTOUR_KNOBS.stretchXMax - CONTOUR_KNOBS.stretchXMin) *
+            (1.0 - Math.exp(-u / CONTOUR_KNOBS.stretchXDecay));
+
+        // Sample closed polyline of 260 points around origin
+        for (let j = 0; j < numPoints; j++) {
+          const theta = (j / numPoints) * (Math.PI * 2);
+
+          // Sum of harmonics: amp * exp(-u / decay) * sin(k * theta + phase + spin * t + twist * u)
+          let harmonicSum = 0;
+          for (let h = 0; h < numHarmonics; h++) {
+            const [k, amp, decay, phase, spin, twist] = harmonics[h];
+            harmonicSum +=
+              amp *
+              Math.exp(-u / decay) *
+              Math.sin(k * theta + phase + spin * t + twist * u);
           }
 
-          // Catmull-Rom to cubic Bézier control points
-          const cp1x = p1.x + (p2.x - p0.x) / 6;
-          const cp1y = p1.y + (p2.y - p0.y) / 6;
-          const cp2x = p2.x - (p3.x - p1.x) / 6;
-          const cp2y = p2.y - (p3.y - p1.y) / 6;
+          const r = baseR * (1.0 + harmonicSum);
+          pointBufferX[j] = cx + Math.cos(theta) * r * sx;
+          pointBufferY[j] = cy + Math.sin(theta) * r;
+        }
 
-          ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+        // ─────────────────────────────────────────────────────────────
+        // Pass 1: Crisp White 1px stroke: rgba(255, 255, 255, 0.85 * alpha)
+        // ─────────────────────────────────────────────────────────────
+        ctx.beginPath();
+        for (let j = 0; j < numPoints; j++) {
+          if (j === 0) {
+            ctx.moveTo(pointBufferX[j], pointBufferY[j]);
+          } else {
+            ctx.lineTo(pointBufferX[j], pointBufferY[j]);
+          }
         }
         ctx.closePath();
-
-        // Pass 1: crisp clean white stroke (1px)
         ctx.lineWidth = 1.0;
-        ctx.strokeStyle = `rgba(255, 255, 255, ${(0.68 * ringOpacity).toFixed(3)})`;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${(CONTOUR_KNOBS.strokeAlpha * alpha).toFixed(3)})`;
         ctx.stroke();
 
-        // Pass 2: subtle warm peach/apricot glow tint pass
-        ctx.lineWidth = 1.2;
-        ctx.strokeStyle = `rgba(255, 190, 150, ${(0.22 * ringOpacity).toFixed(3)})`;
+        // ─────────────────────────────────────────────────────────────
+        // Pass 2: Orange tint stroke offset down 1px: rgba(232, 121, 60, 0.30 * alpha)
+        // Soft warm delicate edge with no blur or glow
+        // ─────────────────────────────────────────────────────────────
+        ctx.beginPath();
+        const offsetY = CONTOUR_KNOBS.tintOffsetY;
+        for (let j = 0; j < numPoints; j++) {
+          if (j === 0) {
+            ctx.moveTo(pointBufferX[j], pointBufferY[j] + offsetY);
+          } else {
+            ctx.lineTo(pointBufferX[j], pointBufferY[j] + offsetY);
+          }
+        }
+        ctx.closePath();
+        ctx.lineWidth = 1.0;
+        ctx.strokeStyle = `rgba(232, 121, 60, ${(CONTOUR_KNOBS.tintAlpha * alpha).toFixed(3)})`;
         ctx.stroke();
       }
 

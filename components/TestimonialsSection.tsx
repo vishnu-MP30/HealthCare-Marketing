@@ -68,7 +68,7 @@ export default function TestimonialsSection() {
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
+    const isLeftSwipe = distance> 50;
     const isRightSwipe = distance < -50;
     if (isLeftSwipe) {
       nextSlide();
@@ -83,8 +83,7 @@ export default function TestimonialsSection() {
     <section
       id="testimonials"
       aria-label="Client and Caregiver Testimonials"
-      className="testimonials-section relative w-full bg-[#FAF8F5] py-14 sm:py-20 overflow-hidden"
-    >
+      className="testimonials-section relative w-full bg-[#FAF8F5] py-14 sm:py-20 overflow-hidden">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Banner Container with 3rd Uploaded Image as Background */}
         <div
@@ -94,8 +93,7 @@ export default function TestimonialsSection() {
           className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_16px_50px_rgba(0,0,0,0.06)] bg-[#EBF4EE] border border-black/[0.04]"
           style={{
             minHeight: "500px",
-          }}
-        >
+          }}>
           {/* Desktop/Tablet Background Graphic */}
           <div
             className="absolute inset-0 w-full h-full bg-cover bg-no-repeat pointer-events-none"
@@ -126,13 +124,11 @@ export default function TestimonialsSection() {
                     isTransitioning
                       ? "opacity-0 translate-y-2 scale-[0.99]"
                       : "opacity-100 translate-y-0 scale-100"
-                  }`}
-                >
+                  }`}>
                   {activeSlideData.items.map((item) => (
                     <div
                       key={item.id}
-                      className="bg-white rounded-[4px] p-6 sm:p-7 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-black/[0.03] flex flex-col justify-between min-h-[220px] sm:min-h-[240px] transition-transform duration-300 hover:-translate-y-1"
-                    >
+                      className="bg-white rounded-[4px] p-6 sm:p-7 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-black/[0.03] flex flex-col justify-between min-h-[220px] sm:min-h-[240px] transition-transform duration-300 hover:-translate-y-1">
                       {/* Top: Signature Quotation Marks & Quote */}
                       <div>
                         {/* Quotation Icon: Deep Plum / Purple as in Reference */}
@@ -140,8 +136,7 @@ export default function TestimonialsSection() {
                           <svg
                             className="w-8 h-8 fill-current"
                             viewBox="0 0 24 24"
-                            aria-hidden="true"
-                          >
+                            aria-hidden="true">
                             <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                           </svg>
                         </div>
@@ -187,8 +182,7 @@ export default function TestimonialsSection() {
                     type="button"
                     onClick={prevSlide}
                     aria-label="Previous testimonials slide"
-                    className="p-1.5 rounded-full text-gray-400 hover:text-[#8A246B] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8A246B]"
-                  >
+                    className="p-1.5 rounded-full text-gray-400 hover:text-[#8A246B] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8A246B]">
                     <svg
                       className="w-4 h-4"
                       viewBox="0 0 24 24"
@@ -196,8 +190,7 @@ export default function TestimonialsSection() {
                       stroke="currentColor"
                       strokeWidth="2.5"
                       strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
+                      strokeLinejoin="round">
                       <path d="m15 18-6-6 6-6" />
                     </svg>
                   </button>
@@ -230,8 +223,7 @@ export default function TestimonialsSection() {
                     type="button"
                     onClick={nextSlide}
                     aria-label="Next testimonials slide"
-                    className="p-1.5 rounded-full text-gray-400 hover:text-[#8A246B] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8A246B]"
-                  >
+                    className="p-1.5 rounded-full text-gray-400 hover:text-[#8A246B] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8A246B]">
                     <svg
                       className="w-4 h-4"
                       viewBox="0 0 24 24"
@@ -239,8 +231,7 @@ export default function TestimonialsSection() {
                       stroke="currentColor"
                       strokeWidth="2.5"
                       strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
+                      strokeLinejoin="round">
                       <path d="m9 18 6-6-6-6" />
                     </svg>
                   </button>

@@ -182,8 +182,7 @@ export default function StatementSection() {
     <section
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full overflow-hidden select-none"
-    >
+      className="relative w-full overflow-hidden select-none">
       {/* ====================================================================
           1. TOP METADATA STRIP (Grid-Aligned, matching Reference 1)
           ==================================================================== */}
@@ -265,8 +264,7 @@ export default function StatementSection() {
             transform: `perspective(900px) rotateX(${mousePos.y * -28}deg) rotateY(${mousePos.x * 28}deg) translate3d(${mousePos.x * 32}px, ${mousePos.y * 32}px, ${isHovering ? 45 : 10}px) scale(${isHovering ? 1.08 : 1}) rotate(-14deg)`,
             filter: `drop-shadow(${mousePos.x * -20 + 8}px ${mousePos.y * 20 + 22}px ${isHovering ? 36 : 24}px rgba(0,0,0,${isHovering ? 0.28 : 0.20}))`,
           }}
-          title="Interactive Studio Monograph Currency Note"
-        >
+          title="Interactive Studio Monograph Currency Note">
           <div className="relative w-full h-full animate-[float_6s_ease-in-out_infinite]">
             <Image
               src="/velora-banknote.png"
@@ -285,8 +283,7 @@ export default function StatementSection() {
         */}
         <div
           ref={textContainerRef}
-          className="relative z-10 font-serif-display font-normal text-left text-[clamp(1.9rem,3.8vw,4.1rem)] leading-[1.32] tracking-[-0.015em] max-w-[1300px] mx-auto space-y-2 sm:space-y-4"
-        >
+          className="relative z-10 font-serif-display font-normal text-left text-[clamp(1.9rem,3.8vw,4.1rem)] leading-[1.32] tracking-[-0.015em] max-w-[1300px] mx-auto space-y-2 sm:space-y-4">
           {STATEMENT_PARAGRAPHS.map((para, pIdx) => (
             <p key={pIdx} className="flex flex-wrap items-baseline gap-x-[0.24em] leading-[1.32]">
               {para.words.map((item, wIdx) => {
@@ -296,8 +293,7 @@ export default function StatementSection() {
                     <span
                       key={wIdx}
                       className="hl-icon inline-flex self-center px-1.5 transition-all duration-300 ease-out"
-                      style={{ opacity: 0.25, filter: "grayscale(1)" }}
-                    >
+                      style={{ opacity: 0.25, filter: "grayscale(1)" }}>
                       <svg width="24" height="34" viewBox="0 0 24 34" fill="none" className="text-black inline-block">
                         <circle cx="12" cy="5" r="3" fill="currentColor"/>
                         <path d="M8 9H16L17 21H14L13 14H11L10 21H7L8 9Z" fill="currentColor"/>
@@ -312,8 +308,7 @@ export default function StatementSection() {
                     <span
                       key={wIdx}
                       className="hl-icon inline-flex self-center px-1.5 transition-all duration-300 ease-out"
-                      style={{ opacity: 0.25, filter: "grayscale(1)" }}
-                    >
+                      style={{ opacity: 0.25, filter: "grayscale(1)" }}>
                       <svg width="26" height="30" viewBox="0 0 26 30" fill="none" className="text-black inline-block">
                         <circle cx="13" cy="5" r="3" fill="currentColor"/>
                         <path d="M7 10H19L20 22H16L15 15H11L10 22H6L7 10Z" fill="currentColor"/>
@@ -327,8 +322,7 @@ export default function StatementSection() {
                     <span
                       key={wIdx}
                       className="hl-icon inline-flex self-center px-1.5 transition-all duration-300 ease-out"
-                      style={{ opacity: 0.25, filter: "grayscale(1)" }}
-                    >
+                      style={{ opacity: 0.25, filter: "grayscale(1)" }}>
                       <svg width="28" height="24" viewBox="0 0 28 24" fill="none" className="text-black inline-block">
                         <circle cx="8" cy="6" r="3" fill="currentColor"/>
                         <path d="M4 11C4 11 7 10 9 11L12 18H5L4 11Z" fill="currentColor"/>
@@ -345,8 +339,7 @@ export default function StatementSection() {
                   <span
                     key={wIdx}
                     className="hl-word inline-block transition-colors duration-300 ease-out"
-                    style={{ color: "rgba(0, 0, 0, 0.22)", opacity: 0.75 }}
-                  >
+                    style={{ color: "rgba(0, 0, 0, 0.22)", opacity: 0.75 }}>
                     {item.text}
                   </span>
                 );
@@ -395,8 +388,7 @@ export default function StatementSection() {
             </p>
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full border border-black px-6 py-2.5 text-xs font-semibold tracking-wider uppercase text-black hover:bg-[#008068] hover:border-[#008068] hover:text-white transition-all"
-            >
+              className="group inline-flex items-center gap-2 rounded-full border border-black px-6 py-2.5 text-xs font-semibold tracking-wider uppercase text-black hover:bg-[#008068] hover:border-[#008068] hover:text-white transition-all">
               <span>Order Monograph Edition</span>
               <span className="text-xs transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5">
                 ↗

@@ -1,6 +1,6 @@
 /**
  * Clean scene configurations for the 2.5D camera dolly-zoom hero experience.
- * Using the high-resolution LifeCare Hospital assets including the 5th Inpatient Care section.
+ * Using the high-resolution Mendly Hospital assets including the 5th Inpatient Care section.
  */
 
 export interface SceneConfig {
@@ -20,7 +20,7 @@ export const SCENES: SceneConfig[] = [
     index: 1,
     label: "01 / EXTERIOR",
     imageSrc: "/hero/01-exterior.jpg",
-    alt: "LifeCare Hospital exterior facade with canopy entrance and driveway",
+    alt: "Mendly Hospital exterior facade with canopy entrance and driveway",
     focalPoint: "50% 72%",
     scaleStart: 1.0,
     scalePeak: 2.65,
@@ -30,7 +30,7 @@ export const SCENES: SceneConfig[] = [
     index: 2,
     label: "02 / CANOPY APPROACH",
     imageSrc: "/hero/02-canopy.jpg",
-    alt: "LifeCare Hospital modern entrance canopy and pillars",
+    alt: "Mendly Hospital modern entrance canopy and pillars",
     focalPoint: "50% 66%",
     scaleStart: 0.96,
     scalePeak: 2.15,
@@ -40,7 +40,7 @@ export const SCENES: SceneConfig[] = [
     index: 3,
     label: "03 / SLIDING DOORS",
     imageSrc: "/hero/02-doors.jpg",
-    alt: "Automatic glass sliding doors with LifeCare reception visible inside",
+    alt: "Automatic glass sliding doors with Mendly reception visible inside",
     focalPoint: "50% 56%",
     scaleStart: 0.98,
     scalePeak: 2.25,
@@ -50,7 +50,7 @@ export const SCENES: SceneConfig[] = [
     index: 4,
     label: "04 / RECEPTION ATRIUM",
     imageSrc: "/hero/03-lobby.jpg",
-    alt: "Warm interior reception lobby with wooden desk and LifeCare branding",
+    alt: "Warm interior reception lobby with wooden desk and Mendly branding",
     focalPoint: "50% 50%",
     scaleStart: 1.0,
     scalePeak: 1.15,

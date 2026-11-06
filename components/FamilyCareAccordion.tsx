@@ -20,32 +20,30 @@ export default function FamilyCareAccordion() {
   return (
     <section
       id="family-care"
-      className="family-care-section relative w-full bg-[#fcfcfc] text-[#111111] select-none border-t border-neutral-200/60 overflow-clip"
-      aria-label="Lifecare Family & Women's Healthcare"
-    >
+      className="family-care-section relative w-full bg-white text-[#1F2123] select-none border-t border-[#1F2123]/10 overflow-clip"
+      aria-label="Mendly Family & Women's Healthcare">
       {/* ====================================================================
-          INTRO: CENTERED HEADLINE & SUBTITLE (Uniform #fcfcfc Canvas)
+          INTRO: LEFT-ALIGNED 2-LINE HEADLINE & SUBTITLE
           ==================================================================== */}
-      <div className="relative z-10 max-w-[1440px] mx-auto flex flex-col items-center pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-14 px-4 sm:px-8 lg:px-12">
-        <div className="text-center max-w-6xl xl:max-w-7xl mx-auto flex flex-col items-center justify-center">
+      <div className="relative z-10 max-w-[1440px] mx-auto flex flex-col items-start pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-14 px-6 sm:px-10 lg:px-14">
+        <div className="text-left w-full flex flex-col items-start justify-start">
           {/* Category Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/80 border border-emerald-200/60 shadow-2xs mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#008068] animate-pulse" />
-            <span className="text-xs sm:text-sm font-medium tracking-wide text-neutral-800">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F8F9FA] border border-[#1F2123]/10 shadow-2xs mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E8682A] animate-pulse" />
+            <span className="text-xs sm:text-sm font-medium tracking-wide text-[#1F2123]/80 font-body">
               Women &amp; Family Care Continuum
             </span>
           </div>
 
-          <h2 className="font-sans font-light text-4xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[84px] text-[#111111] tracking-[-0.035em] leading-[1.04] text-center mx-auto text-balance">
-            <span className="block sm:whitespace-nowrap">Healthcare designed for women and families</span>
+          <h2 className="font-display font-bold text-[#1F2123] text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.06] text-left w-full mb-4">
+            <span className="block">Comprehensive care</span>
             <span className="block mt-1 sm:mt-2">
-              that&apos;s personal{" "}
-              <span className="text-[#008068] font-normal">and proven</span>
+              built for your <span className="text-[#E8682A]">family.</span>
             </span>
           </h2>
 
-          <p className="mt-6 text-base sm:text-lg md:text-xl text-neutral-600 font-light tracking-normal leading-relaxed max-w-2xl mx-auto text-center">
-            Trusted by 2,300+ employers &amp; Lifecare clinical partners to improve outcomes across every stage.
+          <p className="mt-4 text-base sm:text-lg md:text-xl text-[#1F2123]/75 font-body font-light tracking-normal leading-relaxed max-w-3xl text-left">
+            Trusted by 2,300+ employers &amp; Mendly clinical partners to improve outcomes across every stage.
           </p>
         </div>
       </div>

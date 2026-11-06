@@ -18,16 +18,14 @@ export default function AdaptiveHeader({ currentSceneIndex = 1 }: AdaptiveHeader
   return (
     <header
       id="adaptive-header"
-      className="fixed top-0 left-0 w-full z-50 pointer-events-auto transition-all duration-500"
-    >
+      className="fixed top-0 left-0 w-full z-50 pointer-events-auto transition-all duration-500">
       <div className="mx-auto flex h-[68px] sm:h-[76px] w-full max-w-[1600px] items-center justify-between px-5 sm:px-8 md:px-12">
         {/* LEFT ZONE: Brand Wordmark */}
         <div className="flex items-center">
           <a
             href="#"
             className="group flex items-center gap-2.5 focus:outline-none"
-            aria-label={HERO_CONTENT.hospitalName}
-          >
+            aria-label={HERO_CONTENT.hospitalName}>
             <div className="flex items-center gap-2 bg-black/35 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10">
               <span className="inline-block h-2 w-2 rounded-full bg-[#008068] animate-pulse" />
               <span className="font-mono-hud text-[12px] sm:text-[13px] tracking-[0.16em] uppercase text-white font-semibold">
@@ -40,14 +38,12 @@ export default function AdaptiveHeader({ currentSceneIndex = 1 }: AdaptiveHeader
         {/* CENTER ZONE: Monospaced Navigation Links */}
         <nav
           className="hidden md:flex items-center gap-8 lg:gap-11 bg-black/35 backdrop-blur-md px-6 py-2 rounded-full border border-white/10"
-          aria-label="Hero Navigation"
-        >
+          aria-label="Hero Navigation">
           {HERO_CONTENT.navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="font-mono-hud text-[11px] lg:text-[12px] tracking-[0.18em] uppercase text-white/85 hover:text-white transition-colors duration-200"
-            >
+              className="font-mono-hud text-[11px] lg:text-[12px] tracking-[0.18em] uppercase text-white/85 hover:text-white transition-colors duration-200">
               {link.label}
             </a>
           ))}
@@ -57,8 +53,7 @@ export default function AdaptiveHeader({ currentSceneIndex = 1 }: AdaptiveHeader
         <div className="flex items-center gap-3">
           <a
             href={HERO_CONTENT.ctaHref}
-            className="group relative inline-flex items-center gap-1.5 rounded-full bg-[#008068] px-5 sm:px-6 py-2.5 text-[12px] sm:text-[13px] font-semibold tracking-[0.1em] text-white uppercase transition-all duration-300 hover:bg-[#006B57] hover:scale-[1.03] shadow-lg focus:outline-none"
-          >
+            className="group relative inline-flex items-center gap-1.5 rounded-full bg-[#008068] px-5 sm:px-6 py-2.5 text-[12px] sm:text-[13px] font-semibold tracking-[0.1em] text-white uppercase transition-all duration-300 hover:bg-[#006B57] hover:scale-[1.03] shadow-lg focus:outline-none">
             <span>{HERO_CONTENT.ctaText}</span>
           </a>
 
@@ -70,15 +65,13 @@ export default function AdaptiveHeader({ currentSceneIndex = 1 }: AdaptiveHeader
               isDarkScene ? "text-white" : "text-black"
             }`}
             aria-label="Toggle Navigation Menu"
-            aria-expanded={mobileMenuOpen}
-          >
+            aria-expanded={mobileMenuOpen}>
             <svg
               className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="2"
-              stroke="currentColor"
-            >
+              stroke="currentColor">
               {mobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -98,8 +91,7 @@ export default function AdaptiveHeader({ currentSceneIndex = 1 }: AdaptiveHeader
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-mono-hud text-xs tracking-widest text-white/90 hover:text-white uppercase py-1"
-              >
+                className="font-mono-hud text-xs tracking-widest text-white/90 hover:text-white uppercase py-1">
                 {link.label}
               </a>
             ))}

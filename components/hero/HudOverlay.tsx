@@ -44,8 +44,7 @@ export default function HudOverlay({
       {/* 2. CENTER: SCROLL PROMPT (Only on Starting Hero, fades early) */}
       <div
         className="mx-auto flex flex-col items-center gap-2 transition-opacity duration-300 pointer-events-none"
-        style={{ opacity: isStartingHero ? scrollPromptOpacity : 0 }}
-      >
+        style={{ opacity: isStartingHero ? scrollPromptOpacity : 0 }}>
         <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/55 backdrop-blur-md border border-white/15 shadow-lg">
           <span className="font-mono-hud text-[11px] tracking-[0.22em] text-white uppercase font-semibold">
             {HERO_CONTENT.scrollPrompt}
@@ -55,8 +54,7 @@ export default function HudOverlay({
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            strokeWidth="2.5"
-          >
+            strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>

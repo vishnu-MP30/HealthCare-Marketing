@@ -52,7 +52,7 @@ export default function JourneyFlow() {
 
     const timer = setInterval(() => {
       setAutoplayProgress((prev) => {
-        if (prev >= 100) {
+        if (prev>= 100) {
           // Advance to next sector
           const nextIndex = (currentSectorIndex + 1) % totalSectors;
           setActiveSectorId(JOURNEY_FLOW_DATA.sectors[nextIndex].id);
@@ -95,8 +95,7 @@ export default function JourneyFlow() {
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
-      className="relative w-full py-16 sm:py-20 px-4 sm:px-6 md:px-10 lg:px-12 overflow-hidden bg-[#fbf6f1] select-none border-b border-[#e6ddd4]"
-    >
+      className="relative w-full py-16 sm:py-20 px-4 sm:px-6 md:px-10 lg:px-12 overflow-hidden bg-[#fbf6f1] select-none border-b border-[#e6ddd4]">
       {/* 1. BACKGROUND TEXTURE: Soft Peach / Emerald Glow + Architectural Dot Grid */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute -top-32 right-1/4 w-[500px] h-[500px] bg-[#e6f4ea]/60 rounded-full blur-3xl" />

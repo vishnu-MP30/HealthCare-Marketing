@@ -40,8 +40,7 @@ export default function StepChip({
         isOutcome
           ? "bg-[#e8f5e9] border-[#a5d6a7] text-[#008068]"
           : "bg-white border-[#d8e2dc] text-[#1c2e28]"
-      } ${className}`}
-    >
+      } ${className}`}>
       <span className="flex items-center justify-center chip-icon-wrapper">{renderIcon()}</span>
       <span className="text-xs font-semibold tracking-wide whitespace-nowrap">
         {label}

@@ -8,56 +8,61 @@ export default function ClinicalIntro() {
   return (
     <section
       id="clinical-intro"
-      className="relative w-full bg-[#fcfcfc] text-[#111111] pt-20 sm:pt-28 md:pt-32 pb-20 sm:pb-28 md:pb-36 px-6 sm:px-10 lg:px-14 overflow-hidden border-t border-neutral-200/60"
-      aria-label="Clinical Approach and Suites"
-    >
+      className="relative w-full bg-white text-[#1F2123] pt-12 sm:pt-16 md:pt-20 pb-14 sm:pb-20 md:pb-24 px-6 sm:px-10 lg:px-14 overflow-hidden border-t border-[#1F2123]/10"
+      aria-label="Clinical Approach and Suites">
       <div className="max-w-[1440px] mx-auto">
         {/* PART 1: RESTORE. REFINE. RENEW. */}
-        <div className="mb-16 sm:mb-20 md:mb-28">
+        <div className="mb-12 sm:mb-16 md:mb-20">
           {/* Top Kicker Label */}
-          <p className="text-neutral-500 text-sm sm:text-base font-normal tracking-wide mb-8 sm:mb-12">
-            LifeCare Clinical Practice
+          <p className="text-[#1F2123]/70 font-body text-base sm:text-lg font-medium tracking-wider mb-3 sm:mb-5">
+            Mendly Clinical Practice
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* Left Column: Very Large 3-Word Title */}
-            <div className="lg:col-span-7">
-              <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] text-[#111111] leading-[1.02] tracking-[-0.035em]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start">
+            {/* Left Column: Very Large Bold Statement Filling Entire Left to Center Section */}
+            <div className="lg:col-span-7 xl:col-span-8 pb-4">
+              <h2
+                className="font-display font-black tracking-tighter text-[#1F2123] select-none"
+                style={{
+                  fontSize: "clamp(4.5rem, 2.5rem + 7.8vw, 11.25rem)",
+                  lineHeight: 0.94,
+                  letterSpacing: "-0.04em",
+                }}>
                 Restore.
                 <br />
                 Refine.
                 <br />
-                <span className="text-[#008068] font-normal">Renew.</span>
+                <span className="text-[#E8682A]">Renew.</span>
               </h2>
             </div>
 
-            {/* Right Column: Narrative Copy & Underlined Link (Fills top empty space) */}
-            <div className="lg:col-span-5 flex flex-col justify-start pt-2 lg:pt-3">
-              <p className="text-neutral-700 text-base sm:text-lg md:text-[1.125rem] font-light leading-relaxed mb-4 max-w-lg">
-                Every care journey at LifeCare starts with understanding your goals. We
+            {/* Right Column: Right Section Narrative Text & Indicators */}
+            <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-start pt-1 lg:pt-2">
+              <p className="text-[#1F2123] font-body text-xl sm:text-2xl md:text-3xl font-bold leading-snug mb-5 w-full max-w-xl tracking-tight text-justify [text-justify:inter-word]">
+                Every care journey at Mendly starts with understanding your goals. We
                 treat the person as a whole, coordinate in seamless steps, and never
                 recommend more than the outcome requires.
               </p>
 
-              <p className="text-neutral-600 text-sm sm:text-base leading-relaxed mb-6 max-w-lg font-light">
+              <p className="text-[#1F2123]/85 font-body text-base sm:text-lg md:text-xl font-medium leading-relaxed mb-6 w-full max-w-xl text-justify [text-justify:inter-word]">
                 Through measured diagnostics, compassionate listening, and dedicated multidisciplinary specialists, we design tailored clinical pathways that prioritize long-term vitality, restorative health, and genuine patient autonomy at every milestone.
               </p>
 
               {/* Clinical Tenet Indicators */}
-              <div className="grid grid-cols-2 gap-4 py-4 my-2 border-y border-neutral-200/80 max-w-lg">
+              <div className="grid grid-cols-2 gap-4 py-5 my-2 border-y border-[#1F2123]/10 w-full max-w-xl">
                 <div>
-                  <span className="block text-[11px] font-mono uppercase tracking-wider text-neutral-400 mb-1">
+                  <span className="block text-xs font-body uppercase tracking-wider text-[#1F2123]/50 mb-1">
                     Philosophy
                   </span>
-                  <span className="text-sm font-sans font-medium text-[#111111]">
+                  <span className="text-base sm:text-lg font-sans font-medium text-[#1F2123]">
                     Restorative &amp; Minimal
                   </span>
                 </div>
                 <div>
-                  <span className="block text-[11px] font-mono uppercase tracking-wider text-neutral-400 mb-1">
+                  <span className="block text-xs font-body uppercase tracking-wider text-[#1F2123]/50 mb-1">
                     Continuity
                   </span>
-                  <span className="text-sm font-sans font-medium text-[#111111]">
+                  <span className="text-base sm:text-lg font-sans font-medium text-[#1F2123]">
                     Direct Specialist Care
                   </span>
                 </div>
@@ -66,8 +71,7 @@ export default function ClinicalIntro() {
               <div className="mt-4">
                 <Link
                   href="#about"
-                  className="inline-flex items-center gap-2 text-sm sm:text-base text-neutral-900 underline underline-offset-4 decoration-neutral-400 hover:decoration-[#008068] hover:text-[#008068] transition-colors font-medium"
-                >
+                  className="inline-flex items-center gap-2 text-base sm:text-lg text-[#1F2123] font-body underline underline-offset-4 decoration-[#1F2123]/30 hover:decoration-[#E8682A] hover:text-[#E8682A] transition-colors font-medium">
                   <span>About our clinical approach</span>
                   <span aria-hidden="true">→</span>
                 </Link>
@@ -80,17 +84,17 @@ export default function ClinicalIntro() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Text & Description */}
           <div className="lg:col-span-5 pr-0 lg:pr-6">
-            <h3 className="font-sans font-light text-3xl sm:text-5xl md:text-6xl lg:text-[64px] text-[#111111] leading-[1.04] tracking-[-0.035em] mb-6 whitespace-pre-line">
+            <h3 className="font-display font-semibold text-[#1F2123] tracking-tight mb-6 whitespace-pre-line">
               Step inside our{"\n"}
-              <span className="text-[#008068] font-normal">clinical suites.</span>
+              <span className="text-[#E8682A] font-normal">clinical suites.</span>
             </h3>
-            <p className="text-neutral-600 text-base sm:text-lg font-light leading-relaxed max-w-md mb-6">
+            <p className="text-[#1F2123]/70 font-body text-base sm:text-lg font-light leading-relaxed max-w-md mb-6">
               Private consultation rooms, natural light, and a calm, quiet healing
               atmosphere. Consultations are unhurried, and every patient visit ends
               with dedicated written aftercare.
             </p>
-            <div className="flex items-center gap-3 text-xs font-mono text-neutral-500 uppercase tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#008068]" />
+            <div className="flex items-center gap-3 text-xs font-body text-[#1F2123]/60 font-body uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E8682A]" />
               <span>Acoustically isolated · Private recovery bays</span>
             </div>
           </div>

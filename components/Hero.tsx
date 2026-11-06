@@ -55,8 +55,7 @@ export default function Hero() {
         <div className="flex items-center gap-4">
           <a
             href="#contact"
-            className="group relative inline-flex items-center gap-2 rounded-full bg-[#008068] px-7 py-3 text-sm font-semibold tracking-wide text-white transition-all duration-200 hover:bg-[#006B57] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068]"
-          >
+            className="group relative inline-flex items-center gap-2 rounded-full bg-[#008068] px-7 py-3 text-sm font-semibold tracking-wide text-white transition-all duration-200 hover:bg-[#006B57] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#008068]">
             <span>Start a Project</span>
             <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5 text-xs">
               ↗
@@ -65,8 +64,7 @@ export default function Hero() {
 
           <a
             href="#approach"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-black hover:text-[#008068] transition-colors py-2 px-3 border-b border-black/30 hover:border-[#008068]"
-          >
+            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-black hover:text-[#008068] transition-colors py-2 px-3 border-b border-black/30 hover:border-[#008068]">
             <span>Our Approach</span>
             <span className="text-xs">→</span>
           </a>

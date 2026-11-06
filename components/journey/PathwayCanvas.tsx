@@ -85,14 +85,14 @@ export default function PathwayCanvas({
       }
 
       // INITIAL HIDDEN STATE (via gsap.set before timeline begins)
-      if (chips && chips.length > 0) gsap.set(chips, { opacity: 0, y: 8, scale: 0.96 });
-      if (connectors && connectors.length > 0) gsap.set(connectors, { scaleY: 0, transformOrigin: "top" });
-      if (cards && cards.length > 0) gsap.set(cards, { opacity: 0, y: 16 });
-      if (optionRows && optionRows.length > 0) gsap.set(optionRows, { opacity: 0, x: -6 });
-      if (chatIn && chatIn.length > 0) gsap.set(chatIn, { opacity: 0, x: -10 });
-      if (chatOut && chatOut.length > 0) gsap.set(chatOut, { opacity: 0, x: 10 });
-      if (qrCodes && qrCodes.length > 0) gsap.set(qrCodes, { opacity: 0, scale: 0.8 });
-      if (decisionCircles && decisionCircles.length > 0) gsap.set(decisionCircles, { scale: 0 });
+      if (chips && chips.length> 0) gsap.set(chips, { opacity: 0, y: 8, scale: 0.96 });
+      if (connectors && connectors.length> 0) gsap.set(connectors, { scaleY: 0, transformOrigin: "top" });
+      if (cards && cards.length> 0) gsap.set(cards, { opacity: 0, y: 16 });
+      if (optionRows && optionRows.length> 0) gsap.set(optionRows, { opacity: 0, x: -6 });
+      if (chatIn && chatIn.length> 0) gsap.set(chatIn, { opacity: 0, x: -10 });
+      if (chatOut && chatOut.length> 0) gsap.set(chatOut, { opacity: 0, x: 10 });
+      if (qrCodes && qrCodes.length> 0) gsap.set(qrCodes, { opacity: 0, scale: 0.8 });
+      if (decisionCircles && decisionCircles.length> 0) gsap.set(decisionCircles, { scale: 0 });
       if (travelingDotRef.current) gsap.set(travelingDotRef.current, { opacity: 0 });
       if (mainLineRef.current) gsap.set(mainLineRef.current, { drawSVG: "0%" });
       if (connectorPathRef.current) gsap.set(connectorPathRef.current, { drawSVG: "0%" });
@@ -147,7 +147,7 @@ export default function PathwayCanvas({
               ease: "power1.inOut",
               onUpdate: function () {
                 const progress = this.progress();
-                if (travelingDotRef.current && totalLen > 0) {
+                if (travelingDotRef.current && totalLen> 0) {
                   const pt = linePath.getPointAtLength(progress * totalLen);
                   travelingDotRef.current.setAttribute("cx", String(pt.x));
                   travelingDotRef.current.setAttribute("cy", String(pt.y));
@@ -186,17 +186,17 @@ export default function PathwayCanvas({
               "step1+=0.3"
             );
           }
-          if (optionRows.length > 0) {
+          if (optionRows.length> 0) {
             tl.to(
               optionRows,
               { opacity: 1, x: 0, duration: 0.25, stagger: 0.05 },
               "step1+=0.25"
             );
           }
-          if (chatIn.length > 0) {
+          if (chatIn.length> 0) {
             tl.to(chatIn, { opacity: 1, x: 0, duration: 0.3 }, "step1+=0.2");
           }
-          if (chatOut.length > 0) {
+          if (chatOut.length> 0) {
             tl.to(chatOut, { opacity: 1, x: 0, duration: 0.3 }, "step1+=0.35");
           }
 
@@ -209,7 +209,7 @@ export default function PathwayCanvas({
               "step2"
             );
           }
-          if (decisionCircles.length > 0) {
+          if (decisionCircles.length> 0) {
             tl.to(
               decisionCircles,
               { scale: 1, duration: 0.3, ease: "back.out(2)" },
@@ -228,14 +228,14 @@ export default function PathwayCanvas({
           }
 
           // Card 2 inner animations
-          if (qrCodes.length > 0) {
+          if (qrCodes.length> 0) {
             tl.to(
               qrCodes,
               { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" },
               "step2+=0.3"
             );
           }
-          if (waveformBars.length > 0) {
+          if (waveformBars.length> 0) {
             tl.fromTo(
               waveformBars,
               { scaleY: 0.3 },
@@ -321,7 +321,7 @@ export default function PathwayCanvas({
           }
         });
 
-        if (decisionCircles.length > 0) {
+        if (decisionCircles.length> 0) {
           tl.to(decisionCircles, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 0.3);
         }
       });
@@ -339,8 +339,7 @@ export default function PathwayCanvas({
       className="relative flex-1 flex flex-col min-w-0 w-full overflow-visible"
       id={`sector-panel-${sector.id}`}
       role="tabpanel"
-      aria-labelledby={`sector-tab-${sector.id}`}
-    >
+      aria-labelledby={`sector-tab-${sector.id}`}>
       {/* Top Label */}
       <div className="flex items-center gap-2 mb-3 sm:mb-5">
         <span className="w-2 h-2 rounded-full bg-[#008068] animate-pulse" />
@@ -358,8 +357,7 @@ export default function PathwayCanvas({
             className="w-full h-full overflow-visible"
             viewBox={`0 0 ${Math.max(trackWidth, 600)} 44`}
             preserveAspectRatio="none"
-            fill="none"
-          >
+            fill="none">
             {/* S-CURVE CONNECTOR from Sector Rail on left */}
             <path
               ref={connectorPathRef}
@@ -408,8 +406,7 @@ export default function PathwayCanvas({
               return (
                 <div
                   key={step.id || idx}
-                  className="pathway-step-col flex flex-col items-center w-full min-w-0"
-                >
+                  className="pathway-step-col flex flex-col items-center w-full min-w-0">
                   <DecisionNode step={step} />
                 </div>
               );
@@ -420,8 +417,7 @@ export default function PathwayCanvas({
               return (
                 <div
                   key={step.id || idx}
-                  className="pathway-step-col flex flex-col items-center w-full min-w-0"
-                >
+                  className="pathway-step-col flex flex-col items-center w-full min-w-0">
                   {/* Step Chip Row */}
                   <div className="h-10 flex items-center justify-center">
                     <div className="pathway-step-chip will-change-transform">
@@ -448,8 +444,7 @@ export default function PathwayCanvas({
             return (
               <div
                 key={step.id || idx}
-                className="pathway-step-col flex flex-col items-center w-full min-w-0"
-              >
+                className="pathway-step-col flex flex-col items-center w-full min-w-0">
                 {/* Step Chip Row */}
                 <div className="h-10 flex items-center justify-center">
                   <div className="pathway-step-chip will-change-transform">

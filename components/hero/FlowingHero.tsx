@@ -18,111 +18,81 @@ export default function FlowingHero() {
 
       <section
         className="relative w-full min-h-[100svh] overflow-hidden select-none"
-        aria-label="Althea Aesthetic and Wellness Care"
+        aria-label="Mendly Aesthetic and Clinical Wellness Care"
         style={{
           background:
-            "linear-gradient(180deg, #F9FAFC 0%, #F4F6FB 40%, #EBF0F8 80%, #FDF8F5 100%)",
+            "radial-gradient(ellipse 45% 55% at 50% 52%, #FFF6EF 0%, #F3EEF3 50%, #E3E8F2 100%)",
         }}
       >
         {/* ====================================================================
-            LAYER 0: BACKGROUND WARM RADIAL GLOW (Behind Woman's Face)
-            ==================================================================== */}
-        <div
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 65% 55% at 50% 38%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 245, 235, 0.65) 28%, rgba(235, 242, 252, 0.35) 55%, transparent 75%)",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Ambient warm orange subtle focal halo */}
-        <div
-          className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none z-0 blur-[100px] opacity-40"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255, 160, 95, 0.35) 0%, rgba(255, 210, 180, 0.15) 50%, transparent 80%)",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* ====================================================================
-            LAYER 1: CONTOUR LINES CANVAS (Continuous Outward Topographic Rings)
+            LAYER 1: CONTOUR LINES CANVAS (Lobed "Flower" Topographic Rings)
+            Positioned absolutely under character with zero glow or blur.
             ==================================================================== */}
         <ContourLinesCanvas isSoundActive={isSoundActive} />
 
         {/* ====================================================================
-            LAYER 2: SOFT CENTER GLOW WASH
-            ==================================================================== */}
-        <div
-          className="absolute inset-0 pointer-events-none z-[2]"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 39%, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.25) 32%, transparent 64%)",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* ====================================================================
-            LAYER 3: CENTRE CHARACTER (FIXED PROFILE WOMAN)
+            LAYER 2: CENTRE CHARACTER (FIXED DOCTOR PORTRAIT)
             Never moves, never scales, no parallax, no hover transform.
+            Face stays fully above headline; stethoscope and coat sit behind text.
             ==================================================================== */}
         <div
           className={`absolute left-1/2 -translate-x-1/2 z-[3] pointer-events-none will-change-opacity transition-opacity duration-1000 ease-out ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
           style={{
-            top: "10%",
-            height: "70%",
-            aspectRatio: "928 / 1228",
+            top: "8%",
+            height: "63%",
+            aspectRatio: "896 / 1200",
             maskImage:
-              "linear-gradient(to bottom, black 0%, black 65%, rgba(0,0,0,0.7) 80%, transparent 97%)",
+              "linear-gradient(to bottom, #000 0%, #000 52%, transparent 86%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, black 0%, black 65%, rgba(0,0,0,0.7) 80%, transparent 97%)",
+              "linear-gradient(to bottom, #000 0%, #000 52%, transparent 86%)",
           }}
         >
           <div className="relative w-full h-full">
             <Image
-              src="/hero/woman-profile.webp"
-              alt="Woman in peaceful profile with soft glowing aesthetic skin"
+              src="/hero/doctor-portrait.png"
+              alt="Friendly female doctor in white coat with stethoscope"
               fill
               priority
-              sizes="(max-width: 768px) 58vh, (max-width: 1024px) 62vh, 70vh"
+              sizes="(max-width: 768px) 52vh, (max-width: 1024px) 58vh, 63vh"
               className="object-contain"
             />
           </div>
         </div>
 
         {/* ====================================================================
-            LAYER 4: TEXT CONTENT (Headline, Subtitle, Warm Orange CTA)
-            Baseline overlaps the woman's neck and shoulders.
+            LAYER 3: TEXT CONTENT (Headline, Subtitle, Medium Orange CTA)
+            Shifted down ~70px so "Subtle care." starts below stethoscope & chest.
             ==================================================================== */}
         <div
           className="absolute inset-x-0 z-[4] flex flex-col items-center text-center px-4 pointer-events-auto"
           style={{
-            top: "clamp(390px, 51svh, 570px)",
+            top: "clamp(420px, 54svh, 580px)",
             maxWidth: "1400px",
             margin: "0 auto",
           }}
         >
-          {/* High-Contrast Editorial Serif Headline */}
+          {/* Heading: Font weight 600, negative tracking -0.02em */}
           <h1
-            className={`font-editorial font-normal text-[#262832] tracking-normal leading-[1.02] max-w-5xl transition-all duration-1000 ease-out ${
+            className={`font-display tracking-[-0.02em] leading-[1.03] max-w-5xl transition-all duration-1000 ease-out ${
               isLoaded
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-3"
             }`}
             style={{
               fontSize: "clamp(2.85rem, 6.2vw, 5.6rem)",
+              fontWeight: 600,
               transitionDelay: "150ms",
             }}
           >
-            Subtle care. Visible confidence.
+            <span style={{ color: "#2B2D36", fontWeight: 600 }}>Subtle care.</span>{" "}
+            <span style={{ color: "#E8793A", fontWeight: 600 }}>Visible confidence.</span>
           </h1>
 
           {/* Subtitle below headline */}
           <p
-            className={`mt-4 sm:mt-5 font-sans text-[15px] sm:text-[17px] text-[#4b4e5c] font-normal max-w-2xl transition-all duration-1000 ease-out ${
+            className={`mt-3.5 sm:mt-4 font-body text-[15px] sm:text-[17px] text-[#2B2D36]/75 font-normal max-w-2xl transition-all duration-1000 ease-out ${
               isLoaded
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-3"
@@ -133,38 +103,19 @@ export default function FlowingHero() {
           >
             Modern aesthetic and wellness care, with a gentle and personal approach.
           </p>
-
-          {/* CTA: Warm Orange Pill Button */}
-          <div
-            className={`mt-6 sm:mt-8 transition-all duration-1000 ease-out ${
-              isLoaded
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-3"
-            }`}
-            style={{
-              transitionDelay: "390ms",
-            }}
-          >
-            <a
-              href="#journey"
-              className="inline-flex items-center justify-center px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#E05D26] hover:bg-[#C94E1B] text-white font-sans text-[15px] sm:text-base font-medium tracking-normal transition-all duration-200 shadow-[0_4px_20px_rgba(224,93,38,0.25)] hover:shadow-[0_6px_28px_rgba(224,93,38,0.38)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
-            >
-              Start your journey
-            </a>
-          </div>
         </div>
 
         {/* ====================================================================
-            LAYER 5: NAVBAR (32px side padding, ~110px top row)
+            LAYER 4: NAVBAR (32px side padding, ~110px top row)
             ==================================================================== */}
         <header className="absolute top-0 inset-x-0 z-20 px-6 sm:px-8 py-6 sm:py-8 flex items-center justify-between">
           {/* Left: Script-style Logo */}
           <div className="flex items-center">
             <a
               href="#"
-              className="font-script font-bold text-[36px] sm:text-[42px] text-[#242630] hover:text-[#E05D26] transition-colors leading-none tracking-tight cursor-pointer select-none"
+              className="font-script font-bold text-[36px] sm:text-[42px] text-[#2B2D36] hover:text-[#E8793A] transition-colors leading-none tracking-tight cursor-pointer select-none"
             >
-              Althea
+              Mendly
             </a>
           </div>
 
@@ -177,7 +128,7 @@ export default function FlowingHero() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="font-sans text-[16px] lg:text-[17px] text-[#3a3d4a] hover:text-[#E05D26] transition-colors font-normal"
+                className="font-body text-[16px] lg:text-[17px] text-[#2B2D36]/80 hover:text-[#E8793A] transition-colors font-medium"
               >
                 {item}
               </a>
@@ -188,7 +139,7 @@ export default function FlowingHero() {
           <div className="hidden md:flex items-center">
             <a
               href="#consultation"
-              className="px-6 py-3 rounded-full bg-white text-[#2f323c] hover:text-[#E05D26] font-sans text-sm font-medium transition-all duration-200 shadow-[0_2px_14px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 border border-white/80 cursor-pointer"
+              className="px-6 py-3 rounded-full bg-white text-[#2B2D36] hover:text-[#E8793A] hover:border-[#E8793A] font-body text-sm font-medium transition-all duration-200 shadow-[0_2px_14px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 border border-[#2B2D36]/15 cursor-pointer"
             >
               Book a consultation
             </a>
@@ -228,22 +179,22 @@ export default function FlowingHero() {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-24 inset-x-6 z-30 p-6 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-black/5 flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="md:hidden absolute top-24 inset-x-6 z-30 p-6 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border border-[#1F2123]/10 flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-200">
             {["About", "Services", "Journal", "Contact"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-sans text-lg text-[#3a3d4a] hover:text-[#E05D26] font-medium py-1 transition-colors"
+                className="font-body text-lg text-[#2B2D36] hover:text-[#E8793A] font-medium py-1 transition-colors"
               >
                 {item}
               </a>
             ))}
-            <div className="pt-2 border-t border-black/5">
+            <div className="pt-2 border-t border-[#1F2123]/10">
               <a
                 href="#consultation"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-center w-full py-3 rounded-full bg-[#E05D26] text-white font-sans text-sm font-medium shadow-md"
+                className="block text-center w-full py-3 rounded-full bg-[#E8793A] text-white font-body text-sm font-medium shadow-md"
               >
                 Book a consultation
               </a>
@@ -252,9 +203,38 @@ export default function FlowingHero() {
         )}
 
         {/* ====================================================================
-            LAYER 6: BOTTOM-LEFT SOUND BUTTON ("Experience with sound")
+            LAYER 5: BOTTOM-LEFT SOUND BUTTON ("Experience with sound")
+            Border: 1.5px #E8793A, label "Experience" in charcoal, "with sound" in grey
             ==================================================================== */}
         <ExperienceSoundButton onSoundToggle={setIsSoundActive} />
+
+        {/* ====================================================================
+            LAYER 6: BOTTOM-RIGHT CTA BUTTON ("Start your journey")
+            Right-aligned inside the hero section so it is never cut off
+            ==================================================================== */}
+        <div
+          className={`absolute right-6 md:right-8 bottom-6 md:bottom-8 z-30 pointer-events-auto transition-all duration-1000 ease-out ${
+            isLoaded
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-3"
+          }`}
+          style={{
+            transitionDelay: "390ms",
+          }}
+        >
+          <a
+            href="#journey"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-7 sm:py-3.5 rounded-full text-white font-body text-[14px] sm:text-[15px] tracking-normal transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-lg"
+            style={{
+              backgroundColor: "#E8793A",
+              fontWeight: 500,
+              boxShadow: "0 6px 24px rgba(232, 121, 60, 0.28)",
+            }}
+          >
+            <span>Start your journey</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </section>
     </>
   );

@@ -87,7 +87,7 @@ const CARDS_DATA: CareCard[] = [
 // Clean line art icons with dynamic color support (green on light, white/mint on green back face)
 function CardIcon({
   type,
-  color = "#008068",
+  color = "#E8682A",
 }: {
   type: CareCard["iconType"];
   color?: string;
@@ -100,8 +100,7 @@ function CardIcon({
           height="48"
           viewBox="0 0 54 54"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <circle cx="27" cy="14" r="4.5" stroke={color} strokeWidth="1.8" />
           <path
             d="M27 22C22 28 16 32 11 32C11 25 15 20 23 20"
@@ -127,8 +126,7 @@ function CardIcon({
           height="48"
           viewBox="0 0 54 54"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path
             d="M17 18C22 13 32 13 37 18"
             stroke={color}
@@ -157,8 +155,7 @@ function CardIcon({
           height="48"
           viewBox="0 0 54 54"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <circle cx="27" cy="15" r="4.2" stroke={color} strokeWidth="1.8" />
           <path
             d="M27 22C21 28 15 31 10 31C10 23 15 19 22 19"
@@ -184,8 +181,7 @@ function CardIcon({
           height="48"
           viewBox="0 0 54 54"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path
             d="M27 27C25.5 27 24 25.8 24 24.5C24 23 25.5 21.5 27 21.5C29 21.5 30.5 23 30.5 25C30.5 27.5 28.5 29.5 26 29.5C23 29.5 20.5 27 20.5 24C20.5 20 23.8 17 27.5 17C32 17 35.5 20.5 35.5 25C35.5 30 31.5 34 26.5 34C20.5 34 16 29.5 16 23.5C16 16.5 21.5 11 28 11"
             stroke={color}
@@ -202,8 +198,7 @@ function CardIcon({
           height="48"
           viewBox="0 0 54 54"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path
             d="M27 12C27 12 31 19 31 25C31 29 29 31 27 31C25 31 23 29 23 25C23 19 27 12 27 12Z"
             stroke={color}
@@ -238,8 +233,7 @@ function CardIcon({
           height="48"
           viewBox="0 0 54 54"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <circle cx="27" cy="27" r="16" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" />
           <path
             d="M17 27H22L24.5 19L28.5 35L31.5 27H37"
@@ -389,12 +383,11 @@ export default function CareArcFlow() {
     <section
       ref={containerRef}
       id="our-services-arc"
-      className="relative w-full bg-[#fcfcfc] text-[#111111] selection:bg-[#008068] selection:text-white"
+      className="relative w-full bg-white text-[#1F2123] selection:bg-[#E8682A] selection:text-white"
       style={{ height: "400vh" }}
-      aria-label="Care Services Arc Showcase"
-    >
+      aria-label="Care Services Arc Showcase">
       {/* Pinned 100vh Stage with Crisp Editorial Theme matching Specialism Showcase */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between pointer-events-auto bg-[#fcfcfc]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between pointer-events-auto bg-white">
         
         {/* PHASE 1: INTRODUCTION TITLE */}
         <div
@@ -403,24 +396,23 @@ export default function CareArcFlow() {
             opacity: titleOpacity,
             transform: `translateY(${titleTranslateY}px)`,
             visibility: titleOpacity <= 0 ? "hidden" : "visible",
-          }}
-        >
+          }}>
           {/* Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-neutral-200 shadow-xs mb-5 backdrop-blur-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#008068] animate-pulse" />
-            <span className="text-xs sm:text-sm font-medium tracking-wide text-neutral-800">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F8F9FA] border border-[#1F2123]/10 shadow-xs mb-3.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E8682A] animate-pulse" />
+            <span className="text-xs sm:text-sm font-medium tracking-wide text-[#1F2123]/80 font-body">
               Our Services
             </span>
           </div>
 
-          {/* Main Title */}
-          <h2 className="font-sans font-light text-[40px] sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] text-[#111111] tracking-[-0.035em] max-w-5xl leading-[1.04] mb-5">
+          {/* Main Title - Larger, bolder and highly readable */}
+          <h2 className="font-display font-bold tracking-tight text-[#1F2123] text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.25rem] leading-[0.98] mb-4 max-w-5xl mx-auto">
             Thoughtful care, chosen for{" "}
-            <span className="text-[#008068] font-normal">you.</span>
+            <span className="text-[#E8682A] font-normal">you.</span>
           </h2>
 
-          {/* Subtitle */}
-          <p className="text-neutral-600 text-sm sm:text-base md:text-lg font-normal max-w-xl leading-relaxed mx-auto">
+          {/* Subtitle - Steady calibrated readable paragraph */}
+          <p className="text-[#1F2123]/80 font-body text-base sm:text-lg md:text-xl font-normal max-w-2xl leading-relaxed mx-auto">
             We offer a carefully selected range of aesthetic and wellness treatments
             focused on natural results and long-term skin health.
           </p>
@@ -429,8 +421,7 @@ export default function CareArcFlow() {
         {/* PHASE 2: CONTINUOUS SEMI-CIRCULAR ARC CAROUSEL WITH 3D HOVER REVEAL */}
         <div
           className="relative z-10 w-full flex-1 flex items-center justify-center pointer-events-none select-none"
-          style={{ perspective: "1500px" }}
-        >
+          style={{ perspective: "1500px" }}>
           {/* Arc Center Anchor */}
           <div className="relative w-0 h-0 flex items-center justify-center">
             {CARDS_DATA.map((card, idx) => {
@@ -451,7 +442,7 @@ export default function CareArcFlow() {
               const opacity = Math.max(0, 1 - Math.pow(normalizedDist, 3) * 1.5);
 
               // Skip rendering cards far outside screen
-              if (Math.abs(cardX) > 1350) return null;
+              if (Math.abs(cardX)> 1350) return null;
 
               const isFlipped = hoveredCardId === card.id;
 
@@ -479,8 +470,7 @@ export default function CareArcFlow() {
                     willChange: "transform, opacity",
                     zIndex: isFlipped ? 150 : Math.round(100 - distFromCenter / 10),
                   }}
-                  aria-label={`${card.title.replace("\n", " ")} card`}
-                >
+                  aria-label={`${card.title.replace("\n", " ")} card`}>
                   {/* Card Container with 3D Flip Mechanics */}
                   <div
                     className={`relative w-full h-full rounded-[30px] sm:rounded-[36px] transition-transform duration-700 ease-out [transform-style:preserve-3d] ${
@@ -489,10 +479,9 @@ export default function CareArcFlow() {
                       isCenter
                         ? "shadow-[0_24px_55px_-12px_rgba(0,0,0,0.18),0_4px_20px_rgba(0,0,0,0.06)]"
                         : "shadow-[0_16px_40px_-10px_rgba(0,0,0,0.12),0_2px_12px_rgba(0,0,0,0.04)]"
-                    }`}
-                  >
+                    }`}>
                     {/* FRONT FACE: Full Expanded Premium Photography Image */}
-                    <div className="absolute inset-0 w-full h-full rounded-[30px] sm:rounded-[36px] overflow-hidden [backface-visibility:hidden] bg-neutral-100 border border-neutral-200/80">
+                    <div className="absolute inset-0 w-full h-full rounded-[30px] sm:rounded-[36px] overflow-hidden [backface-visibility:hidden] bg-white/5 border border-white/10">
                       <Image
                         src={card.image}
                         alt={card.alt}
@@ -503,21 +492,23 @@ export default function CareArcFlow() {
                       />
 
                       {/* Gentle Cinematic Gradient Scrim */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10 flex flex-col justify-between p-7 sm:p-9 pointer-events-none">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 flex flex-col justify-between p-7 sm:p-9 pointer-events-none">
                         {/* Top Category Badge */}
                         <div className="self-start">
                           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-medium tracking-wide shadow-sm">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#E8682A]" />
                             {card.badge}
                           </span>
                         </div>
 
                         {/* Bottom Title & Hover Hint */}
                         <div>
-                          <h3 className="font-sans text-2xl sm:text-[2rem] text-white font-light leading-[1.16] tracking-tight whitespace-pre-line drop-shadow-sm mb-2">
+                          <h3
+                            className="font-display font-medium text-white !text-white tracking-tight leading-snug drop-shadow-md mb-2 whitespace-pre-line"
+                            style={{ color: "#FFFFFF", fontSize: "clamp(1.25rem, 1.8vw, 1.55rem)" }}>
                             {card.title}
                           </h3>
-                          <div className="flex items-center gap-1.5 text-emerald-300 text-xs sm:text-[0.82rem] font-medium tracking-wide">
+                          <div className="flex items-center gap-1.5 text-[#E8682A] text-xs sm:text-[0.82rem] font-medium tracking-wide">
                             <span>Hover to reveal pathway</span>
                             <MoveRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                           </div>
@@ -525,46 +516,42 @@ export default function CareArcFlow() {
                       </div>
                     </div>
 
-                    {/* BACK FACE: Rich Emerald Green Surface with Complete Content */}
+                    {/* BACK FACE: Brand Orange Surface with Bold White Justified Typography */}
                     <div
-                      className="absolute inset-0 w-full h-full rounded-[30px] sm:rounded-[36px] p-7 sm:p-9 flex flex-col justify-between items-center text-center text-white [transform:rotateY(180deg)] [backface-visibility:hidden] shadow-2xl border border-emerald-400/30"
-                      style={{
-                        background:
-                          "linear-gradient(145deg, #008068 0%, #006B57 55%, #004D3F 100%)",
-                      }}
-                    >
-                      {/* Top: Delicate White Line Icon */}
-                      <div className="pt-2 flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-white/10 border border-white/20 backdrop-blur-xs shadow-inner">
-                          <CardIcon type={card.iconType} color="#ffffff" />
+                      className="absolute inset-0 w-full h-full rounded-[30px] sm:rounded-[36px] p-8 sm:p-10 flex flex-col justify-between items-center text-white [transform:rotateY(180deg)] [backface-visibility:hidden] shadow-2xl bg-[#E8682A] border border-[#E8682A]">
+                      {/* Top: Crisp White Line Icon in translucent container */}
+                      <div className="pt-1 flex flex-col items-center">
+                        <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-white/20 border border-white/30 shadow-inner">
+                          <CardIcon type={card.iconType} color="#FFFFFF" />
                         </div>
                       </div>
 
-                      {/* Middle: Title, Badge & Rich Content */}
-                      <div className="my-auto px-1 sm:px-2 flex flex-col items-center">
-                        <span className="inline-block text-[0.7rem] uppercase tracking-widest text-emerald-200 font-semibold mb-2">
+                      {/* Middle: Badge, Title & Justified Bold White Description (with comfortable breathing room) */}
+                      <div className="my-auto w-full px-2 flex flex-col items-center text-center">
+                        <span className="inline-block text-[0.75rem] uppercase tracking-widest text-white font-bold mb-3 bg-white/20 px-3.5 py-1 rounded-full border border-white/25">
                           {card.badge}
                         </span>
-                        <h3 className="font-sans text-2xl sm:text-[2.1rem] text-white font-light leading-[1.18] tracking-tight whitespace-pre-line mb-3">
+                        <h3
+                          className="font-display text-white !text-white text-xl sm:text-2xl font-bold mb-3 tracking-tight whitespace-pre-line"
+                          style={{ color: "#FFFFFF" }}>
                           {card.title}
                         </h3>
-                        <p className="text-white/90 text-xs sm:text-[0.92rem] font-light leading-relaxed max-w-[270px]">
+                        <p className="text-white font-semibold text-sm sm:text-[0.92rem] leading-relaxed text-justify [text-justify:inter-word] [text-wrap:pretty] px-2 max-w-[290px]">
                           {card.description}
                         </p>
                       </div>
 
-                      {/* Bottom: "Click to learn more" Action */}
+                      {/* Bottom: "Click to learn more" Action in Bold White */}
                       <div
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedCard(card);
                         }}
-                        className="pt-3 w-full border-t border-white/20 flex items-center justify-center gap-1.5 text-white/90 hover:text-white transition-colors cursor-pointer"
-                      >
-                        <span className="text-xs sm:text-[0.85rem] font-medium tracking-wide">
+                        className="pt-3.5 w-full border-t border-white/25 flex items-center justify-center gap-2 text-white font-bold hover:opacity-90 transition-opacity cursor-pointer">
+                        <span className="text-xs sm:text-[0.9rem] tracking-wide">
                           Click to learn more
                         </span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
                   </div>
@@ -574,33 +561,13 @@ export default function CareArcFlow() {
           </div>
         </div>
 
-        {/* BOTTOM CONTROLS */}
+        {/* BOTTOM CONTROLS (Sound button removed here; only preserved in hero) */}
         <footer className="relative z-20 pb-8 sm:pb-10 px-6 sm:px-12 flex items-center justify-between pointer-events-auto bg-transparent">
-          {/* Experience with sound pill */}
-          <button
-            type="button"
-            onClick={() => {
-              const nextState = !isSoundEnabled;
-              setIsSoundEnabled(nextState);
-              if (nextState) playCalmTone(528);
-            }}
-            className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/90 border border-neutral-200/90 text-neutral-800 text-xs sm:text-sm font-medium hover:border-neutral-400 hover:bg-white transition-all shadow-xs group backdrop-blur-sm"
-            title={isSoundEnabled ? "Mute sound" : "Experience with sound"}
-          >
-            <div className="w-5 h-5 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-800 group-hover:bg-[#008068] group-hover:text-white transition-colors">
-              {isSoundEnabled ? (
-                <Volume2 className="w-3 h-3" />
-              ) : (
-                <VolumeX className="w-3 h-3" />
-              )}
-            </div>
-            <span className="text-neutral-700 font-normal">
-              {isSoundEnabled ? "Sound enabled" : "Experience with sound"}
-            </span>
-          </button>
+          {/* Spacer to balance flex-between and keep stepper centered */}
+          <div className="w-24 hidden sm:block" />
 
           {/* Stepper Dots Indicator */}
-          <div className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full bg-white/90 border border-neutral-200/90 shadow-xs backdrop-blur-sm">
+          <div className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 rounded-full bg-white border border-[#1F2123]/15 shadow-xs mx-auto sm:mx-0">
             {CARDS_DATA.map((c, i) => (
               <button
                 key={c.id}
@@ -608,7 +575,7 @@ export default function CareArcFlow() {
                 onClick={() => scrollToCard(i)}
                 className={`transition-all duration-300 rounded-full ${
                   activeCardIndex === i
-                    ? "w-6 h-2 bg-neutral-900"
+                    ? "w-7 h-2 bg-[#E8682A]"
                     : "w-2 h-2 bg-neutral-300 hover:bg-neutral-600"
                 }`}
                 aria-label={`Jump to ${c.title.replace("\n", " ")}`}
@@ -622,18 +589,16 @@ export default function CareArcFlow() {
               type="button"
               onClick={() => scrollToCard(Math.max(0, activeCardIndex - 1))}
               disabled={activeCardIndex === 0}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 border border-neutral-200/90 flex items-center justify-center text-neutral-700 hover:text-neutral-900 hover:border-neutral-400 hover:bg-white disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs backdrop-blur-sm"
-              aria-label="Previous card"
-            >
+              className="w-10 h-10 rounded-full bg-white border border-[#1F2123]/15 flex items-center justify-center text-[#1F2123] font-body hover:text-[#E8682A] hover:border-[#E8682A] disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs"
+              aria-label="Previous card">
               <ArrowLeft className="w-4 h-4" />
             </button>
             <button
               type="button"
               onClick={() => scrollToCard(Math.min(totalCards - 1, activeCardIndex + 1))}
               disabled={activeCardIndex === totalCards - 1}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 border border-neutral-200/90 flex items-center justify-center text-neutral-700 hover:text-neutral-900 hover:border-neutral-400 hover:bg-white disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs backdrop-blur-sm"
-              aria-label="Next card"
-            >
+              className="w-10 h-10 rounded-full bg-white border border-[#1F2123]/15 flex items-center justify-center text-[#1F2123] font-body hover:text-[#E8682A] hover:border-[#E8682A] disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs"
+              aria-label="Next card">
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -646,26 +611,24 @@ export default function CareArcFlow() {
           role="dialog"
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
-          onClick={() => setSelectedCard(null)}
-        >
+          onClick={() => setSelectedCard(null)}>
           <div
-            className="relative w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl border border-neutral-200 text-center animate-in zoom-in-95 duration-200"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-neutral-900 flex items-center justify-center shadow-md">
+            className="relative w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl border border-[#1F2123]/10 text-center animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#E8682A] text-[#1F2123] flex items-center justify-center shadow-md">
               <CardIcon type={selectedCard.iconType} color="#ffffff" />
             </div>
-            <span className="inline-block text-xs font-medium uppercase tracking-wider text-neutral-700 bg-neutral-100 px-3.5 py-1 rounded-full mb-3 border border-neutral-200">
+            <span className="inline-block text-xs font-medium uppercase tracking-wider text-[#1F2123]/80 font-body bg-[#F8F9FA] px-3.5 py-1 rounded-full mb-3 border border-[#1F2123]/10">
               {selectedCard.badge}
             </span>
-            <h3 className="font-sans font-light text-3xl text-[#111111] tracking-tight mb-3 whitespace-pre-line">
+            <h3 className="font-display font-medium text-[#1F2123] tracking-tight mb-3 whitespace-pre-line">
               {selectedCard.title}
             </h3>
-            <p className="text-neutral-600 text-sm leading-relaxed mb-4">
+            <p className="text-[#1F2123]/70 font-body text-sm leading-relaxed mb-4">
               {selectedCard.description}
             </p>
-            <div className="p-4 rounded-2xl bg-neutral-50 text-xs text-neutral-700 font-medium leading-relaxed mb-6 border border-neutral-200/80">
-              <div className="flex items-center justify-center gap-1.5 text-[#008068] font-semibold mb-1">
+            <div className="p-4 rounded-2xl bg-[#F8F9FA] text-xs text-[#1F2123]/80 font-body font-medium leading-relaxed mb-6 border border-[#1F2123]/10">
+              <div className="flex items-center justify-center gap-1.5 text-[#E8682A] font-semibold mb-1">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Pathway Highlights</span>
               </div>
@@ -676,15 +639,13 @@ export default function CareArcFlow() {
               <button
                 type="button"
                 onClick={() => setSelectedCard(null)}
-                className="flex-1 py-3 px-4 rounded-full border border-neutral-200 text-neutral-700 hover:bg-neutral-50 text-sm font-medium transition-colors"
-              >
+                className="flex-1 py-3 px-4 rounded-full border border-[#1F2123]/15 text-[#1F2123]/80 font-body hover:bg-black/5 text-sm font-medium transition-colors">
                 Close
               </button>
               <a
                 href="#consultation"
                 onClick={() => setSelectedCard(null)}
-                className="flex-1 py-3 px-4 rounded-full bg-[#008068] hover:bg-[#006B57] text-white text-sm font-medium transition-colors shadow-sm"
-              >
+                className="flex-1 py-3 px-4 rounded-full bg-[#E8682A] hover:bg-[#D4591F] text-white text-sm font-medium transition-colors shadow-sm">
                 Book Pathway
               </a>
             </div>

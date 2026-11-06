@@ -21,7 +21,7 @@ export default function ExperienceSoundButton({
   // Read saved preference from sessionStorage
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem("althea_sound_pref");
+      const saved = sessionStorage.getItem("mendly_sound_pref");
       if (saved === "true") {
         // We remember user's intent, but browsers require click to play
       }
@@ -122,7 +122,7 @@ export default function ExperienceSoundButton({
         setIsPlaying(false);
         onSoundToggle?.(false);
         try {
-          sessionStorage.setItem("althea_sound_pref", "false");
+          sessionStorage.setItem("mendly_sound_pref", "false");
         } catch {}
       } else {
         // Start audio & fade in over 1.0s
@@ -184,7 +184,7 @@ export default function ExperienceSoundButton({
         setIsPlaying(true);
         onSoundToggle?.(true);
         try {
-          sessionStorage.setItem("althea_sound_pref", "true");
+          sessionStorage.setItem("mendly_sound_pref", "true");
         } catch {}
       }
     } catch (err) {
@@ -217,13 +217,16 @@ export default function ExperienceSoundButton({
 
   return (
     <div className="absolute left-6 md:left-8 bottom-6 md:bottom-8 z-30 flex items-center gap-3.5 select-none pointer-events-auto">
-      {/* 60px Circle Button */}
+      {/* Sound button ring: 1.5px #E8793A border */}
       <button
         type="button"
         onClick={toggleSound}
         aria-pressed={isPlaying}
         aria-label={isPlaying ? "Pause ambient sound" : "Play ambient sound"}
-        className="w-[58px] h-[58px] rounded-full bg-white flex items-center justify-center transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_28px_rgba(235,94,30,0.18),0_2px_8px_rgba(0,0,0,0.06)] hover:scale-[1.04] active:scale-[0.97] cursor-pointer group focus:outline-none focus:ring-2 focus:ring-[#E05D26]/40"
+        className="w-[58px] h-[58px] rounded-full bg-white flex items-center justify-center transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_28px_rgba(232,121,60,0.25)] hover:scale-[1.04] active:scale-[0.97] cursor-pointer group focus:outline-none"
+        style={{
+          border: "1.5px solid #E8793A",
+        }}
       >
         <svg
           width={width}
@@ -234,7 +237,7 @@ export default function ExperienceSoundButton({
           <path
             d={wavePath}
             fill="none"
-            stroke={isPlaying ? "#E05D26" : "#3b3d46"}
+            stroke={isPlaying ? "#E8793A" : "#2B2D36"}
             strokeWidth="1.75"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -243,11 +246,11 @@ export default function ExperienceSoundButton({
         </svg>
       </button>
 
-      {/* Label beside button */}
-      <div className="text-left font-sans text-[14px] leading-tight text-[#767988] font-normal tracking-normal pointer-events-none">
-        <span>Experience</span>
+      {/* Label beside button: Experience is charcoal #2B2D36, with sound is grey */}
+      <div className="text-left font-body text-[14px] leading-tight font-medium tracking-normal pointer-events-none">
+        <span style={{ color: "#2B2D36" }}>Experience</span>
         <br />
-        <span className="text-[#9ea2b0] text-[13px]">with sound</span>
+        <span style={{ color: "rgba(43, 45, 54, 0.5)" }} className="text-[13px]">with sound</span>
       </div>
     </div>
   );

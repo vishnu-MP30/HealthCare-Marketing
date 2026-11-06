@@ -27,8 +27,8 @@ export default function Home() {
         <TreatmentGallery />
         <SpecialismShowcase />
         <FamilyCareAccordion />
-        <ClinicalEditorialStory />
         <SpecialtyDepartments />
+        <ClinicalEditorialStory />
         <HealthReadsSection />
         <RecoveryConnectionSequence />
         <ClinicalJournalSection />

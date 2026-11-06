@@ -1,6 +1,6 @@
 /**
  * Content configuration for the Scroll-Driven Cinematic Hero
- * Unified with the clean LifeCare Hospital visual assets and the 5th Inpatient Care section.
+ * Unified with the clean Mendly Hospital visual assets and the 5th Inpatient Care section.
  */
 
 export interface HeroContent {
@@ -75,9 +75,9 @@ export interface HeroContent {
 }
 
 export const HERO_CONTENT: HeroContent = {
-  hospitalName: "LIFECARE HOSPITAL",
+  hospitalName: "MENDLY HOSPITAL",
   tagline: "ADVANCED MEDICAL CENTER",
-  coordinates: "LIFECARE HOSPITAL / 27.7172° N / 85.3240° E",
+  coordinates: "MENDLY HOSPITAL / 27.7172° N / 85.3240° E",
   emergencyBadge: "24/7 EMERGENCY CARE",
   emergencyFigure: "24/7",
   scrollPrompt: "SCROLL TO ENTER",
@@ -116,7 +116,7 @@ export const HERO_CONTENT: HeroContent = {
       sceneNumber: "04",
       label: "CENTRAL RECEPTION ATRIUM",
       headlineLine1: "WELCOME TO",
-      headlineEm: "LIFECARE.",
+      headlineEm: "MENDLY.",
       description:
         "A sanctuary of modern healing, where world-class clinical expertise meets heartfelt patient support.",
     },

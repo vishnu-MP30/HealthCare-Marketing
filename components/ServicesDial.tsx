@@ -10,31 +10,27 @@ import {
   Activity,
   HeartPulse,
   ShieldCheck,
-  Users,
   ArrowLeft,
   ArrowRight,
 } from "lucide-react";
 import { SERVICES } from "@/content/services";
 
 const N = SERVICES.length;
-const STEP_DEG = 22;
 
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 function calculateLayer(i: number, pos: number) {
-  const d = i - pos; // <0 past, >0 upcoming
-  const e = ease(clamp((Math.abs(d) - 0.3) / 0.4)); // hold until 0.3, gone at 0.7
+  const d = i - pos;
+  const e = ease(clamp((Math.abs(d) - 0.3) / 0.4));
   const s = Math.sign(d);
   return {
-    copyY: s * e * 30, // vh
     copyOp: 1 - clamp(e / 0.6),
     imgScale: 1 - s * 0.03 * e,
-    near: 1 - clamp(Math.abs(d)), // 1 = active, for dial styling
+    near: 1 - clamp(Math.abs(d)),
   };
 }
 
-// Media query subscriptions with useSyncExternalStore
 function subscribeReducedMotion(callback: () => void) {
   if (typeof window === "undefined") return () => {};
   const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -47,60 +43,45 @@ function getReducedMotionSnapshot() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function subscribeMobile(callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-  const mql = window.matchMedia("(max-width: 767px)");
-  mql.addEventListener("change", callback);
-  return () => mql.removeEventListener("change", callback);
-}
-
-function getMobileSnapshot() {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(max-width: 767px)").matches;
-}
-
 const getServerSnapshotFalse = () => false;
 
-// Custom 24/7 Badge Icon helper matching reference image
 function FeatureIcon({ icon }: { icon: string }) {
   switch (icon) {
     case "calendar":
-      return <Calendar className="w-5 h-5" />;
+      return <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
     case "clock24":
       return (
-        <span className="flex items-center justify-center text-[10px] font-bold tracking-tight text-[#008068] border-[1.5px] border-[#008068] rounded-full w-6 h-6 leading-none">
+        <span className="flex items-center justify-center text-[10px] font-bold tracking-tight text-[#E8682A] border-[1.5px] border-[#E8682A] rounded-full w-5 h-5 leading-none">
           24/7
         </span>
       );
     case "stethoscope":
-      return <Stethoscope className="w-5 h-5" />;
+      return <Stethoscope className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
     case "dna":
-      return <Dna className="w-5 h-5" />;
+      return <Dna className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
     case "video":
-      return <Video className="w-5 h-5" />;
+      return <Video className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
     case "activity":
-      return <Activity className="w-5 h-5" />;
+      return <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
     case "heartPulse":
-      return <HeartPulse className="w-5 h-5" />;
+      return <HeartPulse className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
     case "shield":
-      return <ShieldCheck className="w-5 h-5" />;
+      return <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
     default:
-      return <Activity className="w-5 h-5" />;
+      return <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
   }
 }
+
+// Cardinal angles for clock numerals (12 o'clock, 3 o'clock, 6 o'clock, 9 o'clock)
+const STEP_ANGLES = [0, 90, 180, 270];
 
 export default function ServicesDial() {
   const wrapperRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const ringArcRef = useRef<HTMLDivElement>(null);
-  const activeDotRef = useRef<HTMLDivElement>(null);
-  const dialContainerRef = useRef<HTMLDivElement>(null);
+  const primaryHandRef = useRef<HTMLDivElement>(null);
+  const secondHandRef = useRef<HTMLDivElement>(null);
 
   const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const mobileBtnRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   const prefersReducedMotion = useSyncExternalStore(
@@ -109,13 +90,6 @@ export default function ServicesDial() {
     getServerSnapshotFalse
   );
 
-  const isMobile = useSyncExternalStore(
-    subscribeMobile,
-    getMobileSnapshot,
-    getServerSnapshotFalse
-  );
-
-  // Smooth-scroll click handler for dial buttons & stepper arrows
   const handleDialClick = (stepIndex: number) => {
     if (!wrapperRef.current || !stageRef.current) return;
     const wrapRect = wrapperRef.current.getBoundingClientRect();
@@ -143,75 +117,25 @@ export default function ServicesDial() {
     let target = 0;
     let display = 0;
 
-    const updateGeometry = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const mob = w < 768;
-
-      if (mob) return;
-
-      const isTablet = w >= 768 && w <= 1100;
-      // Arc radius & center: positioned so the green disc fills the left edge, and the numbers & beacon sit along the edge
-      const radius = isTablet ? h * 0.7 : h * 0.76;
-      const centerX = isTablet ? -w * 0.22 : -w * 0.24;
-      const centerY = h * 0.5;
-
-      if (ringArcRef.current) {
-        ringArcRef.current.style.left = `${centerX}px`;
-        ringArcRef.current.style.top = `${centerY}px`;
-        ringArcRef.current.style.width = `${radius * 2}px`;
-        ringArcRef.current.style.height = `${radius * 2}px`;
-        ringArcRef.current.style.transform = `translate(-50%, -50%)`;
-      }
-
-      if (ringRef.current) {
-        ringRef.current.style.left = `${centerX}px`;
-        ringRef.current.style.top = `${centerY}px`;
-      }
-
-      if (activeDotRef.current) {
-        activeDotRef.current.style.left = `${centerX + radius}px`;
-        activeDotRef.current.style.top = `${centerY}px`;
-        activeDotRef.current.style.transform = `translate(-50%, -50%)`;
-      }
-
-      buttonRefs.current.forEach((btn, i) => {
-        if (!btn) return;
-        const angle = i * STEP_DEG;
-        btn.style.transform = `rotate(${angle}deg) translateX(${radius + 32}px) translateY(-50%)`;
-      });
-    };
-
     const applyLayers = (pos: number) => {
       const curActive = clamp(Math.round(pos), 0, N - 1);
-      const mob = window.innerWidth < 768;
 
-      if (ringRef.current && !mob) {
-        ringRef.current.style.transform = `rotate(${-pos * STEP_DEG}deg)`;
+      // Smooth clock hands rotation based on scroll position
+      const targetDeg = pos * 90;
+      if (primaryHandRef.current) {
+        primaryHandRef.current.style.transform = `rotate(${targetDeg}deg)`;
+      }
+      if (secondHandRef.current) {
+        secondHandRef.current.style.transform = `rotate(${targetDeg + pos * 180}deg)`;
       }
 
       for (let i = 0; i < N; i++) {
         const l = calculateLayer(i, pos);
-
         const imgEl = imgRefs.current[i];
         if (imgEl) {
           imgEl.style.opacity = String(l.copyOp);
           imgEl.style.transform = `scale(${l.imgScale})`;
           imgEl.style.visibility = l.copyOp > 0.01 ? "visible" : "hidden";
-        }
-
-        const btn = buttonRefs.current[i];
-        if (btn && !mob) {
-          const isNear = l.near > 0.5;
-          btn.style.opacity = String(0.4 + l.near * 0.6);
-          btn.style.fontSize = `${30 + l.near * 14}px`;
-          btn.style.fontWeight = isNear ? "700" : "500";
-          btn.style.color = isNear ? "#008068" : "#94A3B8";
-        }
-
-        const mobBtn = mobileBtnRefs.current[i];
-        if (mobBtn && mob) {
-          mobBtn.style.opacity = String(0.4 + l.near * 0.6);
         }
       }
 
@@ -243,10 +167,6 @@ export default function ServicesDial() {
       const p = clamp(-r.top / run);
       const enter = clamp(1 - r.top / window.innerHeight);
 
-      if (dialContainerRef.current) {
-        dialContainerRef.current.style.opacity = String(clamp(enter));
-      }
-
       target = clamp(p / 0.94) * (N - 1) - (1 - enter);
 
       if (!rafId) {
@@ -254,14 +174,10 @@ export default function ServicesDial() {
       }
     };
 
-    updateGeometry();
     measure();
 
     const onScroll = () => measure();
-    const onResize = () => {
-      updateGeometry();
-      measure();
-    };
+    const onResize = () => measure();
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
@@ -280,240 +196,239 @@ export default function ServicesDial() {
       ref={wrapperRef}
       className="services-runway relative w-full select-none"
       style={{ height: "calc(100svh * 5)" }}
-      aria-label="Women and family healthcare pathways"
-    >
-      {/* Pinned 100vh Stage with Crisp Light Theme matching Specialism Showcase */}
+      aria-label="Women and family healthcare pathways">
+      {/* 2-COLUMN GRID STAGE PINNED 100vh */}
       <div
         ref={stageRef}
-        className="stage sticky top-0 w-full h-[100svh] overflow-hidden bg-[#fcfcfc] flex items-center justify-between"
-      >
+        className="stage sticky top-0 w-full h-[100svh] overflow-hidden bg-white grid grid-cols-1 lg:grid-cols-2">
+        
         {/* ====================================================================
-            LEFT ZONE: HERO GREEN ROTATING DISC DIAL & CENTER POINTS (Reference Mockup)
+            COLUMN 1 (LEFT): LARGE LEFT-ALIGNED CLOCK + MILESTONE STEPPER
+            (Personalized pathways title & center text removed as requested)
             ==================================================================== */}
-        <div className="relative w-full md:w-[48vw] lg:w-[45vw] h-full flex items-center justify-center lg:justify-end pr-4 sm:pr-8 lg:pr-12 pointer-events-none z-20">
-          
-          {/* DIAL INSTRUMENT: Solid Green Disc, Glowing Beacon & Step Numbers */}
-          <div
-            ref={dialContainerRef}
-            className="dial absolute inset-0 pointer-events-none z-10 transition-opacity duration-300"
-            aria-hidden={isMobile}
-          >
-            {/* Large Solid Green Disc on Far Left matching Hero Green */}
-            <div
-              ref={ringArcRef}
-              className="absolute rounded-full bg-gradient-to-br from-[#008068] via-[#006B57] to-[#004D3F] shadow-[0_0_60px_rgba(0,128,104,0.35)] pointer-events-none z-10 border border-emerald-400/25"
-              aria-hidden="true"
-            />
-
-            {/* Glowing Green Active Beacon at Peak of Arc */}
-            <div
-              ref={activeDotRef}
-              className="absolute w-5 h-5 rounded-full pointer-events-none z-30 bg-white ring-4 ring-[#008068]/30 border-2 border-emerald-400 shadow-[0_0_18px_#10b981] transition-all duration-200"
-              aria-hidden="true"
-            />
-
-            {/* Rotating Numbers (01, 02, 03, 04) along Outer Boundary */}
-            <div ref={ringRef} className="absolute w-0 h-0 pointer-events-none z-30">
-              {SERVICES.map((step, i) => (
-                <button
-                  key={step.id}
-                  ref={(el) => {
-                    buttonRefs.current[i] = el;
-                  }}
-                  type="button"
-                  onClick={() => handleDialClick(i)}
-                  aria-label={`Go to ${step.title}`}
-                  aria-current={activeStepIndex === i ? "step" : undefined}
-                  className="absolute left-0 top-0 origin-top-left pointer-events-auto cursor-pointer bg-transparent border-0 select-none px-3 py-1 font-sans transition-all duration-200 hover:!opacity-80 focus-visible:outline-none whitespace-nowrap"
-                >
-                  {step.stepNumber}
-                </button>
-              ))}
-            </div>
-
-            {/* Mobile Step Indicator Pills (< 768px) */}
-            <div
-              className="md:hidden absolute top-4 inset-x-0 flex items-center justify-center z-40 pointer-events-auto px-4"
-              aria-label="Step indicator"
-            >
-              <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200 shadow-md">
-                {SERVICES.map((step, i) => {
-                  const isActive = activeStepIndex === i;
-                  return (
-                    <button
-                      key={step.id}
-                      ref={(el) => {
-                        mobileBtnRefs.current[i] = el;
-                      }}
-                      type="button"
-                      onClick={() => handleDialClick(i)}
-                      aria-label={`Go to ${step.title}`}
-                      className={`flex items-center gap-1.5 text-sm font-sans ${
-                        isActive ? "text-[#008068] font-bold" : "text-neutral-400"
-                      }`}
-                    >
-                      {isActive && (
-                        <span className="w-2 h-2 rounded-full bg-[#008068]" />
-                      )}
-                      <span>{step.stepNumber}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* CENTER-LEFT CONTENT BLOCK (Clearing the arc, aligned with reference image) */}
-          <div className="relative z-20 max-w-[340px] sm:max-w-[370px] pointer-events-auto text-left py-6">
-            {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50/90 border border-emerald-200/60 shadow-2xs mb-4">
-              <span className="w-2 h-2 rounded-full bg-[#008068]" />
-              <span className="text-xs font-semibold text-neutral-800">
-                Women &amp; Family Care
-              </span>
-            </div>
-
-            {/* Main Headline */}
-            <h2 className="font-sans font-light text-3xl sm:text-4xl lg:text-[42px] text-[#111111] leading-[1.08] tracking-[-0.035em] mb-6">
-              Healthcare for<br />
-              <span className="text-[#008068] font-normal">women &amp; families.</span>
-            </h2>
-
-            {/* Three Stacked Key Feature Points with Rounded Icon Badges */}
-            <div className="flex flex-col gap-3 mb-8 max-w-[320px]">
-              <div className="flex items-center gap-3.5 p-1.5 rounded-xl transition-colors hover:bg-emerald-50/40">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-[#008068] shrink-0">
-                  <HeartPulse className="w-5 h-5" />
+        <div className="w-full h-full flex flex-col justify-center items-center lg:items-start pl-6 sm:pl-10 md:pl-14 lg:pl-16 xl:pl-20 pr-6 py-8 bg-white z-10 border-r border-[#1F2123]/10">
+          <div className="flex flex-col items-center lg:items-start">
+            
+            {/* LARGE LIFESTYLE CLOCK TIMEPIECE */}
+            <div className="relative shrink-0 flex items-center justify-center mb-6 sm:mb-8">
+              <div className="relative w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] md:w-[380px] md:h-[380px] lg:w-[410px] lg:h-[410px] xl:w-[450px] xl:h-[450px] rounded-full bg-gradient-to-br from-white via-[#F9FAFB] to-[#ECEFF2] border-2 border-[#1F2123]/15 shadow-[0_20px_50px_rgba(31,33,35,0.08),inset_0_2px_4px_rgba(255,255,255,0.95)] flex items-center justify-center p-3 sm:p-4">
+                
+                {/* Outer Chapter Ring with Minute / Hour Tick Marks */}
+                <div className="absolute inset-2 sm:inset-3 rounded-full border border-[#1F2123]/10 pointer-events-none">
+                  {Array.from({ length: 12 }).map((_, idx) => {
+                    const deg = idx * 30;
+                    const isCardinal = deg % 90 === 0;
+                    return (
+                      <div
+                        key={idx}
+                        className="absolute top-0 left-1/2 -translate-x-1/2 origin-bottom h-1/2 flex flex-col justify-start pointer-events-none"
+                        style={{ transform: `rotate(${deg}deg)` }}>
+                        <div
+                          className={`rounded-full ${
+                            isCardinal
+                              ? "w-1 h-3.5 bg-[#1F2123]/70"
+                              : "w-0.5 h-1.5 bg-[#1F2123]/25"
+                          }`}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
-                <span className="font-sans font-bold text-neutral-900 text-sm sm:text-[15px] tracking-tight">
-                  End-to-end care
-                </span>
-              </div>
 
-              <div className="flex items-center gap-3.5 p-1.5 rounded-xl transition-colors hover:bg-emerald-50/40">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-[#008068] shrink-0">
-                  <Users className="w-5 h-5" />
-                </div>
-                <span className="font-sans font-bold text-neutral-900 text-sm sm:text-[15px] tracking-tight">
-                  Family-focused support
-                </span>
-              </div>
+                {/* Inner Track Ring */}
+                <div className="relative w-full h-full rounded-full border border-dashed border-[#1F2123]/15 flex items-center justify-center bg-white/70 backdrop-blur-[2px]">
+                  
+                  {/* INWARD STEP NUMERALS (01, 02, 03, 04) */}
+                  {SERVICES.map((step, i) => {
+                    const angle = STEP_ANGLES[i];
+                    const isActive = activeStepIndex === i;
+                    const rad = (angle - 90) * (Math.PI / 180);
+                    const radiusPercent = 38;
+                    const x = 50 + radiusPercent * Math.cos(rad);
+                    const y = 50 + radiusPercent * Math.sin(rad);
 
-              <div className="flex items-center gap-3.5 p-1.5 rounded-xl transition-colors hover:bg-emerald-50/40">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-[#008068] shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <span className="font-sans font-bold text-neutral-900 text-sm sm:text-[15px] tracking-tight">
-                  Trusted care team
-                </span>
-              </div>
-            </div>
+                    return (
+                      <button
+                        key={step.id}
+                        type="button"
+                        onClick={() => handleDialClick(i)}
+                        aria-label={`Go to step ${step.stepNumber}: ${step.title}`}
+                        className={`absolute -translate-x-1/2 -translate-y-1/2 z-30 transition-all duration-300 font-body cursor-pointer flex flex-col items-center justify-center rounded-full ${
+                          isActive
+                            ? "text-[#E8682A] font-bold scale-110"
+                            : "text-[#1F2123]/40 font-medium hover:text-[#1F2123] hover:scale-105"
+                        }`}
+                        style={{
+                          left: `${x}%`,
+                          top: `${y}%`,
+                        }}>
+                        <span className="text-sm sm:text-base tracking-wider leading-none">
+                          {step.stepNumber}
+                        </span>
+                        {isActive && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E8682A] mt-1 shadow-[0_0_8px_rgba(232,104,42,0.8)]" />
+                        )}
+                      </button>
+                    );
+                  })}
 
-            {/* Bottom Stepper & Circular Arrow Navigation Row */}
-            <div className="flex items-center gap-4 pt-4 border-t border-neutral-200/70 max-w-[320px]">
-              {/* Step counter */}
-              <div className="text-xs sm:text-sm font-semibold text-neutral-900 font-mono tracking-wider">
-                0{activeStepIndex + 1} <span className="text-neutral-400 font-normal">/ 04</span>
-              </div>
+                  {/* Pinion Jewel */}
+                  <div className="absolute z-20 w-5 h-5 rounded-full bg-[#1F2123] border-2 border-white shadow-md flex items-center justify-center pointer-events-none">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#E8682A]" />
+                  </div>
 
-              {/* 4 Segmented Stepper Bars */}
-              <div className="flex items-center gap-1.5 flex-1">
-                {SERVICES.map((_, idx) => (
+                  {/* Primary Hand */}
                   <div
+                    ref={primaryHandRef}
+                    className="absolute inset-0 pointer-events-none flex items-center justify-center will-change-transform transition-transform duration-100 ease-out z-10">
+                    <div
+                      className="w-1.5 sm:w-2 bg-[#1F2123] rounded-t-full shadow-md"
+                      style={{
+                        height: "36%",
+                        transform: "translateY(-50%)",
+                        transformOrigin: "bottom center",
+                      }}
+                    />
+                  </div>
+
+                  {/* Secondary Needle (Orange Accent Hand) */}
+                  <div
+                    ref={secondHandRef}
+                    className="absolute inset-0 pointer-events-none flex items-center justify-center will-change-transform transition-transform duration-75 ease-out z-15">
+                    <div
+                      className="w-0.5 sm:w-1 bg-[#E8682A] rounded-full shadow-[0_0_6px_rgba(232,104,42,0.5)]"
+                      style={{
+                        height: "44%",
+                        transform: "translateY(-40%)",
+                        transformOrigin: "center 75%",
+                      }}
+                    />
+                    <div
+                      className="absolute w-2 h-2 rounded-full bg-[#E8682A]"
+                      style={{
+                        transform: "translateY(22px)",
+                      }}
+                    />
+                  </div>
+
+                  {/* Brand Dial Label */}
+                  <div className="absolute top-[28%] text-[10px] sm:text-[11px] font-body uppercase tracking-[0.2em] text-[#1F2123]/35 font-semibold pointer-events-none">
+                    Mendly
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* MILESTONE STEPPER ROW ALIGNED WITH CLOCK */}
+            <div className="flex items-center gap-4 sm:gap-5 w-full max-w-[340px] justify-between">
+              <div className="font-body font-bold text-xl sm:text-2xl text-[#1F2123] tracking-wide">
+                <span>0{activeStepIndex + 1}</span>
+                <span className="text-[#1F2123]/40 font-normal text-sm sm:text-base"> / 04</span>
+              </div>
+
+              {/* Progress bars */}
+              <div className="flex items-center gap-2">
+                {SERVICES.map((_, idx) => (
+                  <button
                     key={idx}
-                    className={`h-1 rounded-full transition-all duration-300 ${
-                      activeStepIndex === idx ? "w-6 bg-[#008068]" : "w-3 bg-neutral-200"
+                    type="button"
+                    onClick={() => handleDialClick(idx)}
+                    aria-label={`Jump to milestone ${idx + 1}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      activeStepIndex === idx
+                        ? "w-8 bg-[#E8682A]"
+                        : "w-3 bg-[#1F2123]/15 hover:bg-[#1F2123]/30"
                     }`}
                   />
                 ))}
               </div>
 
-              {/* Prev / Next circular arrow buttons */}
+              {/* Prev / Next buttons */}
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => handleDialClick(Math.max(0, activeStepIndex - 1))}
                   disabled={activeStepIndex === 0}
-                  className="w-8 h-8 rounded-full border border-neutral-300/80 bg-white flex items-center justify-center text-neutral-700 hover:text-[#008068] hover:border-[#008068] disabled:opacity-30 disabled:pointer-events-none transition-all shadow-2xs cursor-pointer"
-                  aria-label="Previous milestone"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5" />
+                  className="w-9 h-9 rounded-full border border-[#1F2123]/15 bg-white flex items-center justify-center text-[#1F2123]/80 hover:text-[#E8682A] hover:border-[#E8682A] disabled:opacity-25 disabled:pointer-events-none transition-all shadow-2xs cursor-pointer"
+                  aria-label="Previous milestone">
+                  <ArrowLeft className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
                   onClick={() => handleDialClick(Math.min(N - 1, activeStepIndex + 1))}
                   disabled={activeStepIndex === N - 1}
-                  className="w-8 h-8 rounded-full bg-[#008068] hover:bg-[#006B57] text-white flex items-center justify-center disabled:opacity-30 disabled:pointer-events-none transition-all shadow-sm cursor-pointer"
-                  aria-label="Next milestone"
-                >
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  className="w-9 h-9 rounded-full bg-[#E8682A] hover:bg-[#D4591F] text-white flex items-center justify-center disabled:opacity-25 disabled:pointer-events-none transition-all shadow-sm cursor-pointer"
+                  aria-label="Next milestone">
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
+
           </div>
         </div>
 
         {/* ====================================================================
-            RIGHT ZONE: ROUNDED PHOTOGRAPH + TITLE + 2 FEATURE CARDS + CTA (Reference Mockup)
+            COLUMN 2 (RIGHT): FULL-BLEED EXPANDED IMAGE (TOP TO BOTTOM)
+            ZERO WHITE BG - TEXTS OVERLAID AT THE BOTTOM IN CRISP WHITE
             ==================================================================== */}
-        <div className="service-visual w-full md:w-[52vw] lg:w-[55vw] h-full pointer-events-auto z-20 flex flex-col justify-center p-6 sm:p-8 lg:p-12 xl:p-14 overflow-hidden">
+        <div className="relative w-full h-full min-h-[100svh] overflow-hidden bg-neutral-900">
           
-          <div className="max-w-[620px] w-full flex flex-col justify-between">
-            {/* TOP: Rounded Expanded Photograph with Floating Milestone Pill */}
-            <div className="relative w-full h-[42vh] sm:h-[46vh] lg:h-[48vh] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-sm border border-neutral-200/80 bg-neutral-100 shrink-0">
-              {SERVICES.map((step, i) => (
-                <div
-                  key={step.id}
-                  ref={(el) => {
-                    imgRefs.current[i] = el;
-                  }}
-                  className="absolute inset-0 w-full h-full will-change-[transform,opacity]"
-                >
-                  <Image
-                    src={step.image}
-                    alt={step.alt}
-                    fill
-                    priority={i === 0}
-                    loading={i <= 1 ? "eager" : "lazy"}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-105"
-                    style={{
-                      objectPosition: step.objectPosition || "center 22%",
-                    }}
-                  />
-                  
-                  {/* Floating Milestone Badge in Top-Left Corner */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-neutral-800 text-xs font-semibold border border-neutral-200/80 shadow-xs">
-                      <span className="w-2 h-2 rounded-full bg-[#008068]" />
-                      <span>Milestone {step.stepNumber}</span>
-                    </span>
-                  </div>
-                </div>
-              ))}
+          {/* Expanded Full-Bleed Images (Layered with Transitions) */}
+          {SERVICES.map((step, i) => (
+            <div
+              key={step.id}
+              ref={(el) => {
+                imgRefs.current[i] = el;
+              }}
+              className="absolute inset-0 w-full h-full will-change-[transform,opacity]">
+              <Image
+                src={step.image}
+                alt={step.alt}
+                fill
+                priority={i === 0}
+                loading={i <= 1 ? "eager" : "lazy"}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out"
+                style={{
+                  objectPosition: step.objectPosition || "center 25%",
+                }}
+              />
             </div>
+          ))}
 
-            {/* DYNAMIC CONTENT CONTAINER (Transitions smoothly on milestone change) */}
+          {/* Floating Milestone Badge in Top-Left Corner */}
+          <div className="absolute top-6 left-6 z-20">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md text-white font-body text-xs font-semibold border border-white/20 shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-[#E8682A]" />
+              <span className="text-white !text-white" style={{ color: "#FFFFFF" }}>Milestone {activeService.stepNumber}</span>
+            </span>
+          </div>
+
+          {/* BOTTOM OVERLAY CONTAINER WITH GRADIENT SCRIM & WHITE TEXT */}
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent p-6 sm:p-8 lg:p-10 xl:p-12 z-20 flex flex-col justify-end">
             <div
               key={activeService.id}
-              className="w-full flex flex-col justify-between pt-5 animate-in fade-in duration-200"
-            >
-              {/* Milestone Title */}
-              <h3 className="font-sans font-bold text-2xl sm:text-3xl lg:text-[32px] text-[#111111] tracking-tight mb-4">
+              className="w-full max-w-xl animate-in fade-in duration-200">
+              
+              {/* Milestone Title in Pure White with Refined Font & Size */}
+              <h2
+                className="font-body font-medium text-xl sm:text-2xl md:text-3xl text-white !text-white tracking-tight leading-tight mb-3 drop-shadow-md"
+                style={{ color: "#FFFFFF" }}>
                 {activeService.title}
-              </h3>
+              </h2>
 
-              {/* TWO HORIZONTAL FEATURE CARDS SIDE BY SIDE (Reference Mockup) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-5">
+              {/* TWO HORIZONTAL FEATURE CARDS: FROSTED GLASS & WHITE TEXT */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
                 {activeService.featureCards.map((card, idx) => (
                   <div
                     key={idx}
-                    className="p-3.5 sm:p-4 rounded-2xl bg-[#f0fdf4] border border-emerald-100/80 flex items-center gap-3.5 shadow-2xs"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200/60 flex items-center justify-center text-[#008068] shrink-0 shadow-2xs">
+                    className="p-3 sm:p-3.5 rounded-xl bg-black/40 backdrop-blur-md border border-white/20 flex items-center gap-3 shadow-lg">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
                       <FeatureIcon icon={card.icon} />
                     </div>
-                    <span className="font-sans font-bold text-neutral-900 text-xs sm:text-sm tracking-tight leading-snug">
+                    <span
+                      className="font-body font-medium text-white !text-white text-xs sm:text-[13px] tracking-tight leading-snug drop-shadow-sm"
+                      style={{ color: "#FFFFFF" }}>
                       {card.title}
                     </span>
                   </div>
@@ -521,14 +436,14 @@ export default function ServicesDial() {
               </div>
 
               {/* BOTTOM ROW: Tags on Left, CTA Button on Right */}
-              <div className="flex items-center justify-between gap-4">
-                {/* Pill Tags */}
+              <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 pt-1">
+                {/* Pill Tags with Frosted Border */}
                 <div className="flex flex-wrap items-center gap-2">
                   {activeService.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3.5 py-1.5 rounded-full text-xs font-medium text-neutral-700 bg-emerald-50/80 border border-emerald-100/60 shadow-2xs"
-                    >
+                      className="px-3 py-1 rounded-full text-xs font-medium text-white/95 !text-white font-body bg-black/40 backdrop-blur-md border border-white/20 shadow-sm"
+                      style={{ color: "#FFFFFF" }}>
                       {tag}
                     </span>
                   ))}
@@ -537,16 +452,17 @@ export default function ServicesDial() {
                 {/* CTA Action Button */}
                 <button
                   type="button"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#008068] hover:bg-[#006B57] text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm shrink-0 cursor-pointer"
-                >
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#E8682A] hover:bg-[#D4591F] text-white text-xs sm:text-sm font-semibold font-body transition-colors shadow-lg shrink-0 cursor-pointer">
                   <span>Book pathway</span>
-                  <span>→</span>
+                  <span aria-hidden="true">→</span>
                 </button>
               </div>
+
             </div>
           </div>
 
         </div>
+
       </div>
     </section>
   );
