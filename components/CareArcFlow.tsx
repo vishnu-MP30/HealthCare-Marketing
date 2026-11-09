@@ -486,29 +486,32 @@ export default function CareArcFlow() {
                         src={card.image}
                         alt={card.alt}
                         fill
-                        sizes="(max-width: 768px) 300px, 400px"
+                        sizes="(max-width: 768px) 100vw, 450px"
                         priority={idx < 3}
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 brightness-[1.04] contrast-[1.02]"
                       />
 
-                      {/* Gentle Cinematic Gradient Scrim */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 flex flex-col justify-between p-7 sm:p-9 pointer-events-none">
+                      {/* Localized Bottom Gradient Only (leaves upper 55% completely clear and bright) */}
+                      <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
+
+                      {/* Content Overlay */}
+                      <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 pointer-events-none">
                         {/* Top Category Badge */}
                         <div className="self-start">
-                          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-medium tracking-wide shadow-sm">
+                          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/25 text-white text-xs font-medium tracking-wide shadow-md">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#E8682A]" />
                             {card.badge}
                           </span>
                         </div>
 
-                        {/* Bottom Title & Hover Hint */}
+                        {/* Bottom Title & Hover Hint with crisp drop shadow */}
                         <div>
                           <h3
-                            className="font-display font-medium text-white !text-white tracking-tight leading-snug drop-shadow-md mb-2 whitespace-pre-line"
-                            style={{ color: "#FFFFFF", fontSize: "clamp(1.25rem, 1.8vw, 1.55rem)" }}>
+                            className="font-display font-semibold text-white !text-white tracking-tight leading-snug drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] mb-2 whitespace-pre-line"
+                            style={{ color: "#FFFFFF", fontSize: "clamp(1.25rem, 1.8vw, 1.6rem)" }}>
                             {card.title}
                           </h3>
-                          <div className="flex items-center gap-1.5 text-[#E8682A] text-xs sm:text-[0.82rem] font-medium tracking-wide">
+                          <div className="flex items-center gap-1.5 text-[#FFA674] text-xs sm:text-[0.85rem] font-semibold tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
                             <span>Hover to reveal pathway</span>
                             <MoveRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                           </div>

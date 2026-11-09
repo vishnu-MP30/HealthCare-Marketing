@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import {
@@ -12,6 +10,7 @@ import {
   ShieldCheck,
   ArrowLeft,
   ArrowRight,
+  ChevronDown,
 } from "lucide-react";
 import { SERVICES } from "@/content/services";
 
@@ -48,40 +47,82 @@ const getServerSnapshotFalse = () => false;
 function FeatureIcon({ icon }: { icon: string }) {
   switch (icon) {
     case "calendar":
-      return <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
+      return <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF6A13]" />;
     case "clock24":
       return (
-        <span className="flex items-center justify-center text-[10px] font-bold tracking-tight text-[#E8682A] border-[1.5px] border-[#E8682A] rounded-full w-5 h-5 leading-none">
+        <span className="flex items-center justify-center text-[10px] font-bold tracking-tight text-[#FF6A13] border-[1.5px] border-[#FF6A13] rounded-full w-5 h-5 leading-none">
           24/7
         </span>
       );
     case "stethoscope":
-      return <Stethoscope className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
+      return <Stethoscope className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF6A13]" />;
     case "dna":
-      return <Dna className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
+      return <Dna className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF6A13]" />;
     case "video":
-      return <Video className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
+      return <Video className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF6A13]" />;
     case "activity":
-      return <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
+      return <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF6A13]" />;
     case "heartPulse":
-      return <HeartPulse className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
+      return <HeartPulse className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF6A13]" />;
     case "shield":
-      return <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
+      return <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF6A13]" />;
     default:
-      return <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8682A]" />;
+      return <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF6A13]" />;
   }
 }
 
-// Cardinal angles for clock numerals (12 o'clock, 3 o'clock, 6 o'clock, 9 o'clock)
-const STEP_ANGLES = [0, 90, 180, 270];
+// 4-STEP DIAL DATA
+interface DialStep {
+  number: string;
+  label: string;
+  image: string;
+  alt: string;
+}
+
+const STEPS: DialStep[] = [
+  {
+    number: "01",
+    label: "FERTILITY",
+    image: "/dial/silhouette-fertility.png",
+    alt: "Fertility care silhouette of mother and child",
+  },
+  {
+    number: "02",
+    label: "MATERNITY",
+    image: "/dial/silhouette-maternity.png",
+    alt: "Maternity and newborn care silhouette",
+  },
+  {
+    number: "03",
+    label: "PEDIATRICS",
+    image: "/dial/silhouette-pediatrics.png",
+    alt: "Pediatric care silhouette of parent and child",
+  },
+  {
+    number: "04",
+    label: "MIDLIFE",
+    image: "/dial/silhouette-midlife.png",
+    alt: "Midlife health and longevity silhouette of couple",
+  },
+];
+
+const DEFAULT_IMAGE = "/dial/silhouette-mother-baby.png";
+
+// Numeral anchor definitions inside SVG 1000x1000 (R = 340)
+const NUMERAL_CONFIGS = [
+  { index: 0, num: "01", x: 500, y: 155, dotX: 500, dotY: 198, label: "01 Fertility" },
+  { index: 1, num: "02", x: 845, y: 500, dotX: 845, dotY: 543, label: "02 Maternity" },
+  { index: 2, num: "03", x: 500, y: 845, dotX: 500, dotY: 888, label: "03 Pediatrics" },
+  { index: 3, num: "04", x: 155, y: 500, dotX: 155, dotY: 543, label: "04 Midlife" },
+];
 
 export default function ServicesDial() {
   const wrapperRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const primaryHandRef = useRef<HTMLDivElement>(null);
-  const secondHandRef = useRef<HTMLDivElement>(null);
-
   const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Continuous smooth progress (0 to 1) for the SVG arc and knob
+  const [smoothProgress, setSmoothProgress] = useState(0);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   const prefersReducedMotion = useSyncExternalStore(
@@ -96,7 +137,8 @@ export default function ServicesDial() {
     const wrapperAbsoluteTop = window.scrollY + wrapRect.top;
     const run = wrapperRef.current.offsetHeight - stageRef.current.offsetHeight;
 
-    const targetP = (stepIndex / (N - 1)) * 0.94;
+    // Center of step range
+    const targetP = (stepIndex / N) + 0.05;
     const targetScrollY = wrapperAbsoluteTop + targetP * run;
 
     const lenis = (window as unknown as { __lenis?: { scrollTo: (target: number, opts?: unknown) => void } }).__lenis;
@@ -111,26 +153,25 @@ export default function ServicesDial() {
   };
 
   useEffect(() => {
-    if (prefersReducedMotion) return;
-
     let rafId = 0;
     let target = 0;
     let display = 0;
 
     const applyLayers = (pos: number) => {
-      const curActive = clamp(Math.round(pos), 0, N - 1);
+      // Step calculation: step 1 from 0, step 2 from 0.25, step 3 from 0.5, step 4 from 0.75
+      let step = 0;
+      if (pos >= 0.75) step = 3;
+      else if (pos >= 0.5) step = 2;
+      else if (pos >= 0.25) step = 1;
+      else step = 0;
 
-      // Smooth clock hands rotation based on scroll position
-      const targetDeg = pos * 90;
-      if (primaryHandRef.current) {
-        primaryHandRef.current.style.transform = `rotate(${targetDeg}deg)`;
-      }
-      if (secondHandRef.current) {
-        secondHandRef.current.style.transform = `rotate(${targetDeg + pos * 180}deg)`;
-      }
+      setActiveStepIndex((prev) => (prev !== step ? step : prev));
+      setSmoothProgress(clamp(pos, 0, 1));
 
+      // Right column crossfade
+      const rightColPos = pos * (N - 1);
       for (let i = 0; i < N; i++) {
-        const l = calculateLayer(i, pos);
+        const l = calculateLayer(i, rightColPos);
         const imgEl = imgRefs.current[i];
         if (imgEl) {
           imgEl.style.opacity = String(l.copyOp);
@@ -138,15 +179,17 @@ export default function ServicesDial() {
           imgEl.style.visibility = l.copyOp > 0.01 ? "visible" : "hidden";
         }
       }
-
-      setActiveStepIndex((prev) => (prev !== curActive ? curActive : prev));
     };
 
     const tick = () => {
-      display += (target - display) * 0.12;
+      if (prefersReducedMotion) {
+        display = target;
+      } else {
+        display += (target - display) * 0.12;
+      }
       applyLayers(display);
 
-      if (Math.abs(target - display) > 0.0005) {
+      if (!prefersReducedMotion && Math.abs(target - display) > 0.0005) {
         rafId = requestAnimationFrame(tick);
       } else {
         display = target;
@@ -164,10 +207,8 @@ export default function ServicesDial() {
       const run = wrap.offsetHeight - stage.offsetHeight;
       if (run <= 0) return;
 
-      const p = clamp(-r.top / run);
-      const enter = clamp(1 - r.top / window.innerHeight);
-
-      target = clamp(p / 0.94) * (N - 1) - (1 - enter);
+      const p = clamp(-r.top / run, 0, 1);
+      target = p;
 
       if (!rafId) {
         rafId = requestAnimationFrame(tick);
@@ -191,135 +232,244 @@ export default function ServicesDial() {
 
   const activeService = SERVICES[activeStepIndex] || SERVICES[0];
 
+  // Knob position computed from smooth progress (starts at 12 o'clock, radius = 450)
+  const knobAngleDeg = smoothProgress * 360;
+  const knobRad = (knobAngleDeg - 90) * (Math.PI / 180);
+  const knobX = 500 + 450 * Math.cos(knobRad);
+  const knobY = 500 + 450 * Math.sin(knobRad);
+
   return (
     <section
       ref={wrapperRef}
       className="services-runway relative w-full select-none"
-      style={{ height: "calc(100svh * 5)" }}
+      style={{ height: "calc(100svh * 4)" }}
       aria-label="Women and family healthcare pathways">
+      
+      {/* Hidden text for screen readers */}
+      <div className="sr-only" aria-live="polite">
+        Current pathway: {STEPS[activeStepIndex]?.number} {STEPS[activeStepIndex]?.label}
+      </div>
+
+      {/* Preload step images */}
+      <div className="hidden" aria-hidden="true">
+        {STEPS.map((s) => (
+          <img key={s.number} src={s.image || DEFAULT_IMAGE} alt="" />
+        ))}
+      </div>
+
       {/* 2-COLUMN GRID STAGE PINNED 100vh */}
       <div
         ref={stageRef}
         className="stage sticky top-0 w-full h-[100svh] overflow-hidden bg-white grid grid-cols-1 lg:grid-cols-2">
         
         {/* ====================================================================
-            COLUMN 1 (LEFT): LARGE LEFT-ALIGNED CLOCK + MILESTONE STEPPER
-            (Personalized pathways title & center text removed as requested)
+            COLUMN 1 (LEFT): EXACT REFERENCE REPLICA CIRCULAR DIAL
             ==================================================================== */}
-        <div className="w-full h-full flex flex-col justify-center items-center lg:items-start pl-6 sm:pl-10 md:pl-14 lg:pl-16 xl:pl-20 pr-6 py-8 bg-white z-10 border-r border-[#1F2123]/10">
-          <div className="flex flex-col items-center lg:items-start">
+        <div className="w-full h-full flex flex-col justify-center items-center lg:items-start pl-6 sm:pl-10 md:pl-14 lg:pl-16 xl:pl-20 pr-6 py-6 sm:py-8 bg-white z-10 border-r border-[#1F2123]/10">
+          <div className="flex flex-col items-center lg:items-start w-full max-w-[540px]">
             
-            {/* LARGE LIFESTYLE CLOCK TIMEPIECE */}
-            <div className="relative shrink-0 flex items-center justify-center mb-6 sm:mb-8">
-              <div className="relative w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] md:w-[380px] md:h-[380px] lg:w-[410px] lg:h-[410px] xl:w-[450px] xl:h-[450px] rounded-full bg-gradient-to-br from-white via-[#F9FAFB] to-[#ECEFF2] border-2 border-[#1F2123]/15 shadow-[0_20px_50px_rgba(31,33,35,0.08),inset_0_2px_4px_rgba(255,255,255,0.95)] flex items-center justify-center p-3 sm:p-4">
-                
-                {/* Outer Chapter Ring with Minute / Hour Tick Marks */}
-                <div className="absolute inset-2 sm:inset-3 rounded-full border border-[#1F2123]/10 pointer-events-none">
-                  {Array.from({ length: 12 }).map((_, idx) => {
-                    const deg = idx * 30;
-                    const isCardinal = deg % 90 === 0;
-                    return (
-                      <div
-                        key={idx}
-                        className="absolute top-0 left-1/2 -translate-x-1/2 origin-bottom h-1/2 flex flex-col justify-start pointer-events-none"
-                        style={{ transform: `rotate(${deg}deg)` }}>
-                        <div
-                          className={`rounded-full ${
-                            isCardinal
-                              ? "w-1 h-3.5 bg-[#1F2123]/70"
-                              : "w-0.5 h-1.5 bg-[#1F2123]/25"
-                          }`}
+            {/* RESPONSIVE DIAL CONTAINER (aspect-ratio 1, max about 640px) */}
+            <div className="relative w-full max-w-[400px] sm:max-w-[460px] md:max-w-[490px] lg:max-w-[510px] xl:max-w-[530px] aspect-square flex items-center justify-center mb-6 sm:mb-8">
+              
+              {/* RESPONSIVE SVG (viewBox 0 0 1000 1000) */}
+              <svg
+                viewBox="0 0 1000 1000"
+                className="w-full h-full overflow-visible select-none pointer-events-auto"
+                aria-hidden="true">
+                <defs>
+                  {/* Outer soft shadow */}
+                  <filter id="dialOuterShadow" x="-15%" y="-15%" width="130%" height="130%">
+                    <feDropShadow dx="0" dy="14" stdDeviation="28" floodColor="#1F2123" floodOpacity="0.06" />
+                  </filter>
+
+                  {/* Arc glow filter */}
+                  <filter id="arcGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#FF6A13" floodOpacity="0.65" />
+                  </filter>
+
+                  {/* Knob halo */}
+                  <filter id="knobHalo" x="-60%" y="-60%" width="220%" height="220%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#FF6A13" floodOpacity="0.85" />
+                    <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#000000" floodOpacity="0.18" />
+                  </filter>
+                </defs>
+
+                {/* 1. Outer track: thin light-grey ring (~1.5px, #E6E6E8) with soft outer shadow */}
+                <circle
+                  cx="500"
+                  cy="500"
+                  r="450"
+                  fill="#FFFFFF"
+                  stroke="#E6E6E8"
+                  strokeWidth="3"
+                  filter="url(#dialOuterShadow)"
+                />
+
+                {/* 2. Dotted ring: thin dotted ring (1px dashed, #C9C9CE) just inside outer track */}
+                <circle
+                  cx="500"
+                  cy="500"
+                  r="422"
+                  fill="none"
+                  stroke="#C9C9CE"
+                  strokeWidth="2.5"
+                  strokeDasharray="6 7"
+                />
+
+                {/* Four small grey dots on dotted ring at 12, 3, 6 and 9 o'clock */}
+                <circle cx="500" cy="78" r="5.5" fill="#A3A3A8" />
+                <circle cx="922" cy="500" r="5.5" fill="#A3A3A8" />
+                <circle cx="500" cy="922" r="5.5" fill="#A3A3A8" />
+                <circle cx="78" cy="500" r="5.5" fill="#A3A3A8" />
+
+                {/* 3. Numbers 01, 02, 03, 04 placed just INSIDE the dotted ring */}
+                {NUMERAL_CONFIGS.map((item) => {
+                  const isActive = activeStepIndex === item.index;
+                  return (
+                    <g
+                      key={item.num}
+                      onClick={() => handleDialClick(item.index)}
+                      className="cursor-pointer transition-all duration-300"
+                      role="button"
+                      aria-label={`Jump to ${item.label}`}>
+                      <text
+                        x={item.x}
+                        y={item.y}
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        fontFamily="var(--font-figtree), system-ui, sans-serif"
+                        fontWeight="800"
+                        fontSize="70"
+                        letterSpacing="-0.03em"
+                        fill={isActive ? "#FF6A13" : "#A3A3A8"}
+                        className="transition-colors duration-300 select-none">
+                        {item.num}
+                      </text>
+
+                      {/* Small orange dot with gentle pulse beneath active number */}
+                      {isActive && (
+                        <circle
+                          cx={item.dotX}
+                          cy={item.dotY}
+                          r="6.5"
+                          fill="#FF6A13"
+                          className="animate-pulse"
                         />
-                      </div>
-                    );
-                  })}
-                </div>
+                      )}
+                    </g>
+                  );
+                })}
 
-                {/* Inner Track Ring */}
-                <div className="relative w-full h-full rounded-full border border-dashed border-[#1F2123]/15 flex items-center justify-center bg-white/70 backdrop-blur-[2px]">
-                  
-                  {/* INWARD STEP NUMERALS (01, 02, 03, 04) */}
-                  {SERVICES.map((step, i) => {
-                    const angle = STEP_ANGLES[i];
-                    const isActive = activeStepIndex === i;
-                    const rad = (angle - 90) * (Math.PI / 180);
-                    const radiusPercent = 38;
-                    const x = 50 + radiusPercent * Math.cos(rad);
-                    const y = 50 + radiusPercent * Math.sin(rad);
+                {/* 4. Progress line: THIN orange stroke sitting on outer ring, starts 12 o'clock, runs clockwise */}
+                <path
+                  d="M 500 50 A 450 450 0 1 1 499.99 50"
+                  fill="none"
+                  stroke="#FF6A13"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  pathLength="1"
+                  strokeDasharray="1"
+                  strokeDashoffset={Math.max(0, 1 - smoothProgress)}
+                  filter="url(#arcGlow)"
+                  className="transition-[stroke-dashoffset] duration-75 ease-out"
+                />
 
-                    return (
-                      <button
-                        key={step.id}
-                        type="button"
-                        onClick={() => handleDialClick(i)}
-                        aria-label={`Go to step ${step.stepNumber}: ${step.title}`}
-                        className={`absolute -translate-x-1/2 -translate-y-1/2 z-30 transition-all duration-300 font-body cursor-pointer flex flex-col items-center justify-center rounded-full ${
-                          isActive
-                            ? "text-[#E8682A] font-bold scale-110"
-                            : "text-[#1F2123]/40 font-medium hover:text-[#1F2123] hover:scale-105"
-                        }`}
-                        style={{
-                          left: `${x}%`,
-                          top: `${y}%`,
-                        }}>
-                        <span className="text-sm sm:text-base tracking-wider leading-none">
-                          {step.stepNumber}
-                        </span>
-                        {isActive && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#E8682A] mt-1 shadow-[0_0_8px_rgba(232,104,42,0.8)]" />
-                        )}
-                      </button>
-                    );
-                  })}
+                {/* White knob (about 20px) with orange halo at leading end */}
+                <g filter="url(#knobHalo)" className="transition-transform duration-75 ease-out">
+                  <circle
+                    cx={knobX}
+                    cy={knobY}
+                    r="18"
+                    fill="#FFFFFF"
+                    stroke="#FF6A13"
+                    strokeWidth="4"
+                  />
+                </g>
+              </svg>
 
-                  {/* Pinion Jewel */}
-                  <div className="absolute z-20 w-5 h-5 rounded-full bg-[#1F2123] border-2 border-white shadow-md flex items-center justify-center pointer-events-none">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#E8682A]" />
-                  </div>
+              {/* Down Arrow button placed right under 03 at the bottom rim */}
+              <button
+                type="button"
+                onClick={() => handleDialClick(Math.min(N - 1, activeStepIndex + 1))}
+                aria-label="Next care milestone"
+                className="absolute bottom-2 left-1/2 -translate-x-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-[#1F2123]/20 shadow-sm hover:shadow-md hover:border-[#FF6A13] text-[#1F2123]/70 hover:text-[#FF6A13] flex items-center justify-center transition-all cursor-pointer z-30">
+                <ChevronDown className="w-4 h-4 stroke-[2.5]" />
+              </button>
 
-                  {/* Primary Hand */}
-                  <div
-                    ref={primaryHandRef}
-                    className="absolute inset-0 pointer-events-none flex items-center justify-center will-change-transform transition-transform duration-100 ease-out z-10">
-                    <div
-                      className="w-1.5 sm:w-2 bg-[#1F2123] rounded-t-full shadow-md"
-                      style={{
-                        height: "36%",
-                        transform: "translateY(-50%)",
-                        transformOrigin: "bottom center",
-                      }}
-                    />
-                  </div>
-
-                  {/* Secondary Needle (Orange Accent Hand) */}
-                  <div
-                    ref={secondHandRef}
-                    className="absolute inset-0 pointer-events-none flex items-center justify-center will-change-transform transition-transform duration-75 ease-out z-15">
-                    <div
-                      className="w-0.5 sm:w-1 bg-[#E8682A] rounded-full shadow-[0_0_6px_rgba(232,104,42,0.5)]"
-                      style={{
-                        height: "44%",
-                        transform: "translateY(-40%)",
-                        transformOrigin: "center 75%",
-                      }}
-                    />
-                    <div
-                      className="absolute w-2 h-2 rounded-full bg-[#E8682A]"
-                      style={{
-                        transform: "translateY(22px)",
-                      }}
-                    />
-                  </div>
-
-                  {/* Brand Dial Label */}
-                  <div className="absolute top-[28%] text-[10px] sm:text-[11px] font-body uppercase tracking-[0.2em] text-[#1F2123]/35 font-semibold pointer-events-none">
-                    Mendly
-                  </div>
-                </div>
+              {/* ==============================================================
+                  CENTRE: GLASS CIRCLE (about 47% of the dial diameter)
+                  ============================================================== */}
+              
+              {/* Soft blurred orange organic blobs peeking out behind glass circle */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "47%",
+                  height: "47%",
+                }}
+                className="pointer-events-none -z-10 flex items-center justify-center">
+                <div className="absolute w-[130%] h-[110%] -left-[25%] bg-gradient-to-r from-[#FF6A13]/40 via-[#FFA674]/25 to-transparent rounded-full blur-2xl transform -rotate-12" />
+                <div className="absolute w-[130%] h-[110%] -right-[25%] bg-gradient-to-l from-[#FF6A13]/40 via-[#FFA674]/25 to-transparent rounded-full blur-2xl transform rotate-12" />
               </div>
+
+              {/* Glass Circle Container (47% diameter) with Lifestyle Circle Image */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "47%",
+                  height: "47%",
+                }}
+                className="rounded-full border-2 border-white/95 shadow-[0_16px_45px_rgba(255,106,19,0.18),0_4px_16px_rgba(0,0,0,0.08),inset_0_2px_6px_rgba(255,255,255,0.95)] overflow-hidden flex flex-col items-center justify-end text-center pointer-events-auto z-20">
+                
+                {/* 1. NEW LIFESTYLE CIRCLE IMAGE - Vivid Doctor & Patient */}
+                <img
+                  src="/dial/lifestyle-doctor-patient.png"
+                  alt="Mendly Doctor with Patient"
+                  className="absolute inset-0 w-full h-full object-cover rounded-full pointer-events-none select-none brightness-[1.02]"
+                />
+
+                {/* 2. SOFT GRADIENT SCIM AT BOTTOM ONLY (NO BOXES) */}
+                <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-white/90 via-white/60 to-transparent rounded-b-full pointer-events-none" />
+
+                {/* 3. UNBOXED TEXT OVERLAID AT BOTTOM */}
+                <div className="relative z-10 flex flex-col items-center justify-end pb-4 sm:pb-5 text-center pointer-events-none select-none">
+                  
+                  {/* "Mendly Health" bold wordmark */}
+                  <span className="font-display font-extrabold text-[14px] sm:text-[16px] md:text-[17px] text-[#111827] tracking-tight leading-none mb-1 drop-shadow-xs">
+                    Mendly Health
+                  </span>
+
+                  {/* Thin orange ECG pulse line */}
+                  <div className="w-10 sm:w-12 h-2.5 sm:h-3 text-[#FF6A13] flex items-center justify-center my-0.5">
+                    <svg
+                      viewBox="0 0 50 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-full h-full drop-shadow-xs">
+                      <path d="M 0 6 L 14 6 L 19 1 L 25 11 L 31 3 L 35 8 L 38 6 L 50 6" />
+                    </svg>
+                  </div>
+
+                  {/* Step label in orange, letter-spaced caps */}
+                  <span className="font-display font-bold text-[10px] sm:text-[11px] md:text-xs text-[#FF6A13] uppercase tracking-[0.24em] leading-none drop-shadow-xs">
+                    {STEPS[activeStepIndex]?.label}
+                  </span>
+                </div>
+
+              </div>
+
             </div>
 
-            {/* MILESTONE STEPPER ROW ALIGNED WITH CLOCK */}
+            {/* MILESTONE STEPPER ROW ALIGNED WITH DIAL */}
             <div className="flex items-center gap-4 sm:gap-5 w-full max-w-[340px] justify-between">
               <div className="font-body font-bold text-xl sm:text-2xl text-[#1F2123] tracking-wide">
                 <span>0{activeStepIndex + 1}</span>
@@ -336,7 +486,7 @@ export default function ServicesDial() {
                     aria-label={`Jump to milestone ${idx + 1}`}
                     className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                       activeStepIndex === idx
-                        ? "w-8 bg-[#E8682A]"
+                        ? "w-8 bg-[#FF6A13]"
                         : "w-3 bg-[#1F2123]/15 hover:bg-[#1F2123]/30"
                     }`}
                   />
@@ -349,7 +499,7 @@ export default function ServicesDial() {
                   type="button"
                   onClick={() => handleDialClick(Math.max(0, activeStepIndex - 1))}
                   disabled={activeStepIndex === 0}
-                  className="w-9 h-9 rounded-full border border-[#1F2123]/15 bg-white flex items-center justify-center text-[#1F2123]/80 hover:text-[#E8682A] hover:border-[#E8682A] disabled:opacity-25 disabled:pointer-events-none transition-all shadow-2xs cursor-pointer"
+                  className="w-9 h-9 rounded-full border border-[#1F2123]/15 bg-white flex items-center justify-center text-[#1F2123]/80 hover:text-[#FF6A13] hover:border-[#FF6A13] disabled:opacity-25 disabled:pointer-events-none transition-all shadow-2xs cursor-pointer"
                   aria-label="Previous milestone">
                   <ArrowLeft className="w-4 h-4" />
                 </button>
@@ -357,7 +507,7 @@ export default function ServicesDial() {
                   type="button"
                   onClick={() => handleDialClick(Math.min(N - 1, activeStepIndex + 1))}
                   disabled={activeStepIndex === N - 1}
-                  className="w-9 h-9 rounded-full bg-[#E8682A] hover:bg-[#D4591F] text-white flex items-center justify-center disabled:opacity-25 disabled:pointer-events-none transition-all shadow-sm cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-[#FF6A13] hover:bg-[#E85907] text-white flex items-center justify-center disabled:opacity-25 disabled:pointer-events-none transition-all shadow-sm cursor-pointer"
                   aria-label="Next milestone">
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -399,7 +549,7 @@ export default function ServicesDial() {
           {/* Floating Milestone Badge in Top-Left Corner */}
           <div className="absolute top-6 left-6 z-20">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md text-white font-body text-xs font-semibold border border-white/20 shadow-lg">
-              <span className="w-2 h-2 rounded-full bg-[#E8682A]" />
+              <span className="w-2 h-2 rounded-full bg-[#FF6A13]" />
               <span className="text-white !text-white" style={{ color: "#FFFFFF" }}>Milestone {activeService.stepNumber}</span>
             </span>
           </div>
@@ -449,12 +599,12 @@ export default function ServicesDial() {
                   ))}
                 </div>
 
-                {/* CTA Action Button */}
+                {/* Optional Right Action CTA */}
                 <button
                   type="button"
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#E8682A] hover:bg-[#D4591F] text-white text-xs sm:text-sm font-semibold font-body transition-colors shadow-lg shrink-0 cursor-pointer">
-                  <span>Book pathway</span>
-                  <span aria-hidden="true">→</span>
+                  onClick={() => handleDialClick(Math.min(N - 1, activeStepIndex + 1))}
+                  className="px-4 py-2 rounded-full bg-[#FF6A13] hover:bg-[#E85907] text-white text-xs font-semibold tracking-wide shadow-md transition-all cursor-pointer shrink-0">
+                  <span>Explore Pathway</span>
                 </button>
               </div>
 

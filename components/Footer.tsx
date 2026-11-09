@@ -295,8 +295,12 @@ export default function Footer() {
           </div>
 
           {/* Copyright & Hospital Details Line (Bottom Aligned like Reference) */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-white/70 pt-4 gap-3">
+          <div className="flex flex-col md:flex-row items-center justify-between text-xs text-white/70 pt-4 gap-3">
             <p>© Mendly 2026. All rights reserved.</p>
+            <div className="flex items-center justify-center gap-1.5 text-xs text-white/90 select-none">
+              <span className="text-white/75 font-normal">Powered by</span>
+              <span className="font-extrabold tracking-[0.2em] text-white">AIRIZZ</span>
+            </div>
             <p className="font-light tracking-wide">
               Advanced Specialist Care • Clinical Excellence • Emergency Services
             </p>

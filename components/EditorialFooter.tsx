@@ -217,9 +217,18 @@ export default function EditorialFooter() {
             BOTTOM LEGAL BAR
             ==================================================================== */}
         <div
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-white/25 text-[11px] font-body tracking-wider"
+          className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/25 text-[11px] font-body tracking-wider"
           style={{ color: "rgba(255, 255, 255, 0.85)" }}>
-          <p>© 2026 Mendly Clinic · Physiotherapy, clinical medicine &amp; rehabilitation</p>
+          <p className="text-center md:text-left">
+            © 2026 Mendly Clinic · Physiotherapy, clinical medicine &amp; rehabilitation
+          </p>
+
+          {/* Centered "Powered by AIRIZZ" */}
+          <div className="flex items-center justify-center gap-1.5 text-[11.5px] sm:text-xs text-white select-none order-first md:order-none my-1 md:my-0">
+            <span className="text-white/80 font-normal tracking-normal">Powered by</span>
+            <span className="font-extrabold tracking-[0.2em] text-white drop-shadow-xs">AIRIZZ</span>
+          </div>
+
           <div className="flex items-center gap-6">
             <Link href="#privacy" className="hover:underline transition-all text-white" style={{ color: "#FFFFFF" }}>
               Privacy

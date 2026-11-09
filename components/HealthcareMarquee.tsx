@@ -23,24 +23,6 @@ export default function HealthcareMarquee() {
       aria-label="Healthcare Specialties Marquee"
       className="relative z-10 w-full overflow-hidden border-y border-[#1F2123]/10 py-6 sm:py-8 lg:py-10 select-none bg-white"
     >
-      {/* Inline Hardware-Accelerated Animation Styles to guarantee 100% active infinite motion */}
-      <style>{`
-        @keyframes marqueeInfiniteMove {
-          0% {
-            transform: translate3d(0, 0, 0);
-          }
-          100% {
-            transform: translate3d(-50%, 0, 0);
-          }
-        }
-        .marquee-moving-track {
-          display: flex !important;
-          width: max-content !important;
-          animation: marqueeInfiniteMove 24s linear infinite !important;
-          will-change: transform;
-        }
-      `}</style>
-
       {/* Subtle edge fades for smooth entrance and exit */}
       <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 md:w-44 bg-gradient-to-r from-white via-white/90 to-transparent pointer-events-none z-10" />
       <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 md:w-44 bg-gradient-to-l from-white via-white/90 to-transparent pointer-events-none z-10" />

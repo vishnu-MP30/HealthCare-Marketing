@@ -224,3 +224,25 @@ button, .btn, nav a {
 .animate-marquee-scroll:hover {
   animation-play-state: paused;
 }
+
+
+/* Dedicated Marquee Moving Track */
+@keyframes marqueeInfiniteMove {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-moving-track {
+  display: flex !important;
+  width: max-content !important;
+  animation: marqueeInfiniteMove 55s linear infinite !important;
+  will-change: transform;
+}
+
+.marquee-moving-track:hover {
+  animation-play-state: paused;
+}

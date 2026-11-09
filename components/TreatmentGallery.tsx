@@ -126,18 +126,20 @@ export default function TreatmentGallery() {
                 src={TREATMENTS[0].image}
                 alt={TREATMENTS[0].alt}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 brightness-[1.04] contrast-[1.02]"
                 style={{ objectPosition: TREATMENTS[0].objectPosition }}
                 priority
               />
-              {/* Bottom Scrim with Title & Subtitle */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
-                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-lg tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
+              {/* Localized Bottom Gradient Only */}
+              <div className="absolute inset-x-0 bottom-0 h-[42%] sm:h-[35%] bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none z-1" />
+              {/* Content Overlay */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
                   {TREATMENTS[0].title}
                 </h3>
                 {TREATMENTS[0].subtitle && (
-                  <p className="font-body font-semibold text-xs sm:text-sm drop-shadow-md leading-relaxed tracking-wide text-white !text-white" style={{ color: "#FFFFFF" }}>
+                  <p className="font-body font-medium text-xs sm:text-sm drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] leading-relaxed tracking-wide text-white/95" style={{ color: "#FFFFFF" }}>
                     {TREATMENTS[0].subtitle}
                   </p>
                 )}
@@ -153,16 +155,19 @@ export default function TreatmentGallery() {
                 src={TREATMENTS[1].image}
                 alt={TREATMENTS[1].alt}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 brightness-[1.04] contrast-[1.02]"
                 style={{ objectPosition: TREATMENTS[1].objectPosition }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
-                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-lg tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
+              {/* Localized Bottom Gradient Only */}
+              <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none z-1" />
+              {/* Content Overlay */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
                   {TREATMENTS[1].title}
                 </h3>
                 {TREATMENTS[1].subtitle && (
-                  <p className="font-body font-semibold text-xs sm:text-sm drop-shadow-md leading-relaxed tracking-wide text-white !text-white" style={{ color: "#FFFFFF" }}>
+                  <p className="font-body font-medium text-xs sm:text-sm drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] leading-relaxed tracking-wide text-white/95" style={{ color: "#FFFFFF" }}>
                     {TREATMENTS[1].subtitle}
                   </p>
                 )}
@@ -175,16 +180,19 @@ export default function TreatmentGallery() {
                 src={TREATMENTS[2].image}
                 alt={TREATMENTS[2].alt}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 brightness-[1.04] contrast-[1.02]"
                 style={{ objectPosition: TREATMENTS[2].objectPosition }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
-                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-lg tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
+              {/* Localized Bottom Gradient Only */}
+              <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none z-1" />
+              {/* Content Overlay */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
                   {TREATMENTS[2].title}
                 </h3>
                 {TREATMENTS[2].subtitle && (
-                  <p className="font-body font-semibold text-xs sm:text-sm drop-shadow-md leading-relaxed tracking-wide text-white !text-white" style={{ color: "#FFFFFF" }}>
+                  <p className="font-body font-medium text-xs sm:text-sm drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] leading-relaxed tracking-wide text-white/95" style={{ color: "#FFFFFF" }}>
                     {TREATMENTS[2].subtitle}
                   </p>
                 )}
@@ -199,16 +207,19 @@ export default function TreatmentGallery() {
                 src={TREATMENTS[3].image}
                 alt={TREATMENTS[3].alt}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 brightness-[1.04] contrast-[1.02]"
                 style={{ objectPosition: TREATMENTS[3].objectPosition }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
-                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-lg tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
+              {/* Localized Bottom Gradient Only */}
+              <div className="absolute inset-x-0 bottom-0 h-[42%] sm:h-[35%] bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none z-1" />
+              {/* Content Overlay */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
                   {TREATMENTS[3].title}
                 </h3>
                 {TREATMENTS[3].subtitle && (
-                  <p className="font-body font-semibold text-xs sm:text-sm drop-shadow-md leading-relaxed tracking-wide text-white !text-white" style={{ color: "#FFFFFF" }}>
+                  <p className="font-body font-medium text-xs sm:text-sm drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] leading-relaxed tracking-wide text-white/95" style={{ color: "#FFFFFF" }}>
                     {TREATMENTS[3].subtitle}
                   </p>
                 )}
@@ -223,16 +234,19 @@ export default function TreatmentGallery() {
                 src={TREATMENTS[4].image}
                 alt={TREATMENTS[4].alt}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 brightness-[1.04] contrast-[1.02]"
                 style={{ objectPosition: TREATMENTS[4].objectPosition }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
-                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-lg tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
+              {/* Localized Bottom Gradient Only */}
+              <div className="absolute inset-x-0 bottom-0 h-[42%] sm:h-[35%] bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none z-1" />
+              {/* Content Overlay */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 z-10 pointer-events-none">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] tracking-tight mb-1 text-white !text-white" style={{ color: "#FFFFFF" }}>
                   {TREATMENTS[4].title}
                 </h3>
                 {TREATMENTS[4].subtitle && (
-                  <p className="font-body font-semibold text-xs sm:text-sm drop-shadow-md leading-relaxed tracking-wide text-white !text-white" style={{ color: "#FFFFFF" }}>
+                  <p className="font-body font-medium text-xs sm:text-sm drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] leading-relaxed tracking-wide text-white/95" style={{ color: "#FFFFFF" }}>
                     {TREATMENTS[4].subtitle}
                   </p>
                 )}
